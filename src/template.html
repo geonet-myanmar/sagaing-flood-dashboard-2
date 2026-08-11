@@ -1,0 +1,1929 @@
+<title>Sagaing Flood Dashboard — August 2026</title>
+<meta name="description" content="Interactive situation dashboard for the August 2026 Mu River basin flooding in Sagaing Region, Myanmar. MIMU boundaries with 52 Facebook source reports." />
+
+<style>
+/* ============================================================ TOKENS ==== */
+:root {
+  color-scheme: light;
+
+  /* planes & surfaces — cool slate neutrals, biased toward the water accent */
+  --plane:        #eef1f4;
+  --surface:      #fbfcfd;
+  --surface-2:    #f2f5f8;
+  --surface-sunk: #e7ecf1;
+
+  /* ink */
+  --ink:          #10151b;
+  --ink-2:        #4d5966;
+  --ink-3:        #77838f;
+  --ink-invert:   #ffffff;
+
+  /* structure */
+  --rule:         #dbe1e8;
+  --rule-strong:  #c2ccd6;
+  --ring:         rgba(16, 21, 27, 0.10);
+
+  /* accent — water */
+  --accent:       #1d6fc4;
+  --accent-soft:  #e4eef9;
+  --accent-ink:   #14528f;
+
+  /* flood-severity ordinal ramp (validated: one hue, monotone L, ΔL>=0.06,
+     light end 2.02:1 vs surface; all-pairs CVD ΔE 14.4, normal ΔE 16.0) */
+  --sev-moderate: #f0a08c;
+  --sev-severe:   #dd5b47;
+  --sev-critical: #a32222;
+  --sev-watch:    #5598e7;   /* river gauge / forecast — a state, not a ramp step */
+  --sev-none:     #d9dee4;
+
+  --sev-moderate-ink: #8a3a24;
+  --sev-severe-ink:   #8f2a19;
+  --sev-critical-ink: #7d1414;
+  --sev-watch-ink:    #17518f;
+
+  /* map */
+  --map-water:    #cfe0f2;
+  --map-water-2:  #a9c8e9;
+  --map-land:     #f4f6f8;
+  --map-context:  #e9edf1;
+  --map-road:     #cbd4dd;
+  --map-halo:     #fbfcfd;
+
+  /* chart chrome */
+  --grid:         #e6eaef;
+  --axis:         #c8d1da;
+
+  --shadow: 0 1px 2px rgba(16,21,27,.05), 0 4px 14px rgba(16,21,27,.05);
+
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --plane:        #0e1116;
+    --surface:      #171b21;
+    --surface-2:    #1d222a;
+    --surface-sunk: #12161c;
+
+    --ink:          #f2f5f8;
+    --ink-2:        #a9b6c4;
+    --ink-3:        #7d8996;
+    --ink-invert:   #0e1116;
+
+    --rule:         #262d36;
+    --rule-strong:  #384250;
+    --ring:         rgba(242, 245, 248, 0.12);
+
+    --accent:       #4b96e8;
+    --accent-soft:  #16283e;
+    --accent-ink:   #8fbcf2;
+
+    /* Dark steps keep the SAME direction as light: critical is the deepest red in
+       both themes, so hue never says the opposite thing in one of them. Validated
+       against #171b21 -- ordinal all-pass (deep end 3.28:1), all-pairs CVD ΔE 15.3,
+       normal-vision ΔE 16.6, and every class clears 3:1 unaided. */
+    --sev-moderate: #f7c6b6;
+    --sev-severe:   #e2836c;
+    --sev-critical: #c43a2c;
+    --sev-watch:    #5598e7;
+    --sev-none:     #232a33;
+
+    --sev-moderate-ink: #f4c1b0;
+    --sev-severe-ink:   #eda08b;
+    --sev-critical-ink: #e88a76;
+    --sev-watch-ink:    #93bff2;
+
+    --map-water:    #1b3450;
+    --map-water-2:  #2a4d70;
+    --map-land:     #1b2028;
+    --map-context:  #14181e;
+    --map-road:     #333c47;
+    --map-halo:     #10141a;
+
+    --grid:         #232a33;
+    --axis:         #333c47;
+
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.3);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --plane:        #0e1116;
+  --surface:      #171b21;
+  --surface-2:    #1d222a;
+  --surface-sunk: #12161c;
+
+  --ink:          #f2f5f8;
+  --ink-2:        #a9b6c4;
+  --ink-3:        #7d8996;
+  --ink-invert:   #0e1116;
+
+  --rule:         #262d36;
+  --rule-strong:  #384250;
+  --ring:         rgba(242, 245, 248, 0.12);
+
+  --accent:       #4b96e8;
+  --accent-soft:  #16283e;
+  --accent-ink:   #8fbcf2;
+
+  --sev-moderate: #f7c6b6;
+  --sev-severe:   #e2836c;
+  --sev-critical: #c43a2c;
+  --sev-watch:    #5598e7;
+  --sev-none:     #232a33;
+
+  --sev-moderate-ink: #f4c1b0;
+  --sev-severe-ink:   #eda08b;
+  --sev-critical-ink: #e88a76;
+  --sev-watch-ink:    #93bff2;
+
+  --map-water:    #1b3450;
+  --map-water-2:  #2a4d70;
+  --map-land:     #1b2028;
+  --map-context:  #14181e;
+  --map-road:     #333c47;
+  --map-halo:     #10141a;
+
+  --grid:         #232a33;
+  --axis:         #333c47;
+
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.3);
+}
+
+/* ============================================================ BASE ====== */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--plane);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; font-weight: 620; letter-spacing: -0.011em; }
+p { margin: 0; }
+a { color: var(--accent); text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent); text-underline-offset: 2px; }
+a:hover { text-decoration-color: currentColor; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+/* ============================================================ SHELL ===== */
+.shell { display: grid; grid-template-columns: 232px minmax(0, 1fr); min-height: 100vh; }
+
+.rail {
+  position: sticky; top: 0; align-self: start; height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--rule);
+  padding: 22px 18px;
+  display: flex; flex-direction: column; gap: 20px;
+  overflow-y: auto;
+}
+.rail-id { display: flex; flex-direction: column; gap: 7px; }
+.rail-mark {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.rail-mark .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--sev-critical); flex: none; }
+.rail-title { font-size: 17px; line-height: 1.2; letter-spacing: -0.02em; }
+.rail-sub { font-size: 11.5px; color: var(--ink-3); line-height: 1.4; }
+
+.rail-nav { display: flex; flex-direction: column; gap: 1px; }
+.rail-nav a {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 6px 9px; border-radius: 5px;
+  font-size: 13px; color: var(--ink-2); text-decoration: none;
+  border-left: 2px solid transparent;
+}
+.rail-nav a:hover { background: var(--surface-2); color: var(--ink); }
+.rail-nav a.on { background: var(--accent-soft); color: var(--accent-ink); border-left-color: var(--accent); font-weight: 560; }
+
+.rail-foot { margin-top: auto; display: flex; flex-direction: column; gap: 10px; }
+.themebtn {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  width: 100%; padding: 7px 10px; cursor: pointer;
+  background: var(--surface-2); color: var(--ink-2);
+  border: 1px solid var(--rule); border-radius: 6px;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase;
+}
+.themebtn:hover { border-color: var(--rule-strong); color: var(--ink); }
+
+.main { min-width: 0; padding: 0 0 72px; }
+
+/* ============================================================ PANELS ==== */
+.wrap { max-width: 1380px; margin: 0 auto; padding: 0 26px; }
+
+.masthead { padding: 34px 0 26px; border-bottom: 1px solid var(--rule); margin-bottom: 26px; }
+.mast-top { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; justify-content: space-between; }
+.mast-h { font-size: clamp(26px, 3.4vw, 38px); line-height: 1.08; letter-spacing: -0.028em; max-width: 20ch; }
+.mast-meta { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+.mast-meta div { display: flex; flex-direction: column; gap: 2px; }
+.mast-meta .v { font-family: var(--mono); font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.mast-lede { margin-top: 16px; max-width: 74ch; color: var(--ink-2); font-size: 15.5px; }
+
+.notice {
+  margin-top: 18px; padding: 11px 14px;
+  background: var(--surface); border: 1px solid var(--rule);
+  border-left: 3px solid var(--sev-severe); border-radius: 5px;
+  font-size: 13px; color: var(--ink-2); max-width: 96ch;
+}
+.notice b { color: var(--ink); font-weight: 600; }
+
+section { scroll-margin-top: 18px; padding: 30px 0; }
+section + section { border-top: 1px solid var(--rule); }
+.sec-head { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; justify-content: space-between; margin-bottom: 4px; }
+.sec-h { font-size: 20px; letter-spacing: -0.018em; }
+.sec-note { color: var(--ink-2); font-size: 13.5px; max-width: 84ch; margin-top: 6px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 8px; box-shadow: var(--shadow);
+}
+.card-h { padding: 13px 16px 11px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline; justify-content: space-between; }
+.card-t { font-size: 14px; font-weight: 600; }
+.card-b { padding: 16px; }
+
+/* ============================================================ KPI ======= */
+.hero-row { display: grid; grid-template-columns: minmax(280px, 1.15fr) minmax(0, 2fr); gap: 16px; align-items: stretch; }
+.hero {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+  box-shadow: var(--shadow); padding: 20px; display: flex; flex-direction: column; gap: 4px;
+}
+.hero-v { font-size: clamp(42px, 5.6vw, 58px); line-height: 1; font-weight: 640; letter-spacing: -0.035em; }
+.hero-l { font-size: 14px; color: var(--ink); font-weight: 560; }
+.hero-src { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+.hero-range { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--rule); font-size: 12.5px; color: var(--ink-2); }
+
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 760px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 13px 14px; display: flex; flex-direction: column; gap: 3px; box-shadow: var(--shadow);
+}
+.tile-l { font-size: 12px; color: var(--ink-2); }
+.tile-v { font-size: 25px; font-weight: 620; letter-spacing: -0.024em; line-height: 1.1; }
+.tile-s { font-size: 11.5px; color: var(--ink-3); font-family: var(--mono); }
+
+/* ============================================================ CHIPS ===== */
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 7px; border-radius: 4px;
+  font-size: 11px; font-weight: 550; line-height: 1.5;
+  border: 1px solid var(--ring); background: var(--surface-2); color: var(--ink-2);
+  white-space: nowrap;
+}
+.chip .sw { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+.chip.sev-critical { background: color-mix(in srgb, var(--sev-critical) 14%, var(--surface)); color: var(--sev-critical-ink); border-color: color-mix(in srgb, var(--sev-critical) 34%, transparent); }
+.chip.sev-severe   { background: color-mix(in srgb, var(--sev-severe) 14%, var(--surface));   color: var(--sev-severe-ink);   border-color: color-mix(in srgb, var(--sev-severe) 34%, transparent); }
+.chip.sev-moderate { background: color-mix(in srgb, var(--sev-moderate) 18%, var(--surface)); color: var(--sev-moderate-ink); border-color: color-mix(in srgb, var(--sev-moderate) 40%, transparent); }
+.chip.sev-watch    { background: color-mix(in srgb, var(--sev-watch) 14%, var(--surface));    color: var(--sev-watch-ink);    border-color: color-mix(in srgb, var(--sev-watch) 34%, transparent); }
+.chip.sev-none     { background: var(--surface-2); color: var(--ink-3); }
+
+/* ============================================================ MAP ======= */
+.mapwrap { display: grid; grid-template-columns: minmax(0, 1fr) 292px; gap: 0; }
+@media (max-width: 1080px) { .mapwrap { grid-template-columns: 1fr; } }
+
+.mapstage { position: relative; background: var(--map-context); border-radius: 0 0 0 8px; overflow: hidden; min-height: 620px; }
+#map-canvas { display: block; width: 100%; height: 100%; position: absolute; inset: 0; cursor: grab; touch-action: none; }
+#map-canvas.drag { cursor: grabbing; }
+
+.map-tools { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 8px; z-index: 3; }
+.toolgroup { display: flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow); }
+.toolgroup button {
+  border: 0; background: transparent; color: var(--ink-2); cursor: pointer;
+  padding: 6px 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase;
+}
+.toolgroup button + button { border-left: 1px solid var(--rule); }
+.toolgroup button:hover { background: var(--surface-2); color: var(--ink); }
+.toolgroup button.on { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; }
+
+.zoomgroup { flex-direction: column; width: 32px; }
+.zoomgroup button { padding: 5px 0; font-size: 14px; line-height: 1; }
+.zoomgroup button + button { border-left: 0; border-top: 1px solid var(--rule); }
+
+.map-cred {
+  position: absolute; right: 10px; bottom: 8px; z-index: 3;
+  font-family: var(--mono); font-size: 9.5px; color: var(--ink-3);
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  padding: 3px 7px; border-radius: 4px; border: 1px solid var(--rule);
+}
+.map-scale {
+  position: absolute; left: 12px; bottom: 8px; z-index: 3;
+  font-family: var(--mono); font-size: 9.5px; color: var(--ink-2);
+  display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
+}
+.map-scale .bar { height: 4px; border: 1px solid var(--ink-2); border-top: 0; }
+
+#tip {
+  position: absolute; z-index: 6; pointer-events: none; opacity: 0;
+  transform: translate(-50%, -100%); transition: opacity .1s;
+  background: var(--surface); border: 1px solid var(--rule-strong);
+  border-radius: 6px; box-shadow: var(--shadow); padding: 9px 11px;
+  min-width: 168px; max-width: 268px;
+}
+#tip.on { opacity: 1; }
+.tip-t { font-size: 13px; font-weight: 620; display: flex; align-items: center; gap: 7px; }
+.tip-s { font-size: 11px; color: var(--ink-3); margin-top: 1px; }
+.tip-rows { margin-top: 7px; display: flex; flex-direction: column; gap: 3px; }
+.tip-rows div { display: flex; justify-content: space-between; gap: 14px; font-size: 11.5px; color: var(--ink-2); }
+.tip-rows b { font-family: var(--mono); color: var(--ink); font-weight: 550; }
+.tip-hint { margin-top: 7px; padding-top: 6px; border-top: 1px solid var(--rule); font-size: 10.5px; color: var(--ink-3); }
+
+.mapside { border-left: 1px solid var(--rule); padding: 14px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; max-height: 700px; }
+@media (max-width: 1080px) { .mapside { border-left: 0; border-top: 1px solid var(--rule); max-height: none; } }
+
+.legend-h { font-size: 12px; font-weight: 620; margin-bottom: 7px; }
+.legend { display: flex; flex-direction: column; gap: 2px; }
+.legend button {
+  display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+  padding: 5px 7px; border-radius: 5px; border: 1px solid transparent;
+  background: transparent; color: var(--ink-2); cursor: pointer; font-size: 12px; font-family: var(--sans);
+}
+.legend button:hover { background: var(--surface-2); }
+.legend button.off { opacity: .38; }
+.legend button.solo { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+.legend .sw { width: 13px; height: 13px; border-radius: 3px; border: 1px solid var(--ring); flex: none; }
+.legend .lb { flex: 1; }
+.legend .ct { font-family: var(--mono); font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+.layers { display: flex; flex-direction: column; gap: 1px; }
+.layers label { display: flex; align-items: center; gap: 8px; padding: 4px 7px; border-radius: 5px; font-size: 12px; color: var(--ink-2); cursor: pointer; }
+.layers label:hover { background: var(--surface-2); }
+.layers input { accent-color: var(--accent); margin: 0; }
+
+.detail { border-top: 1px solid var(--rule); padding-top: 13px; }
+.detail-empty { font-size: 12px; color: var(--ink-3); }
+.detail-t { font-size: 15px; font-weight: 620; letter-spacing: -0.014em; }
+.detail-s { font-size: 11.5px; color: var(--ink-3); font-family: var(--mono); margin-top: 1px; }
+.detail-basis { font-size: 12.5px; color: var(--ink-2); margin-top: 9px; }
+.detail-rows { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+.detail-rows > div { display: flex; justify-content: space-between; gap: 12px; font-size: 12px; border-bottom: 1px dotted var(--rule); padding-bottom: 4px; }
+.detail-rows span { color: var(--ink-3); }
+.detail-rows b { font-family: var(--mono); font-weight: 550; text-align: right; }
+.linkbtn { margin-top: 11px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 5px; border: 1px solid var(--rule); background: var(--surface-2); color: var(--ink); font-size: 12px; cursor: pointer; font-family: var(--sans); }
+.linkbtn:hover { border-color: var(--accent); color: var(--accent-ink); }
+
+/* ============================================================ TABLES ==== */
+.tablewrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { text-align: left; padding: 7px 11px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th {
+  position: sticky; top: 0; background: var(--surface); z-index: 1;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-3); font-weight: 500; white-space: nowrap; border-bottom: 1px solid var(--rule-strong);
+}
+thead th.sortable { cursor: pointer; user-select: none; }
+thead th.sortable:hover { color: var(--ink); }
+thead th .ar { opacity: .45; }
+td.n, th.n { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+tbody tr:hover { background: var(--surface-2); }
+tbody tr.sel { background: var(--accent-soft); }
+.tsname { font-weight: 600; color: var(--ink); }
+.tsalias { color: var(--ink-3); font-weight: 400; }
+.mmr { font-size: 12px; color: var(--ink-2); }
+.minibar { height: 5px; border-radius: 2px; background: var(--accent); display: block; min-width: 2px; }
+.minibar-track { background: var(--surface-sunk); border-radius: 2px; width: 62px; display: inline-block; vertical-align: middle; }
+
+/* ============================================================ CHARTS ==== */
+.chartgrid { display: grid; gap: 16px; }
+.g2 { grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+.chart { width: 100%; display: block; overflow: visible; }
+.chart text { font-family: var(--sans); }
+.ax { font-family: var(--mono); font-size: 10px; fill: var(--ink-3); font-variant-numeric: tabular-nums; }
+.lbl { font-size: 11.5px; fill: var(--ink-2); }
+.val { font-family: var(--mono); font-size: 11px; fill: var(--ink); font-variant-numeric: tabular-nums; font-weight: 550; }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.axisline { stroke: var(--axis); stroke-width: 1; }
+
+.tabtoggle {
+  display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  background: transparent; border: 1px solid var(--rule); border-radius: 5px;
+  padding: 3px 9px; color: var(--ink-2);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+}
+.tabtoggle:hover { border-color: var(--rule-strong); color: var(--ink); }
+.tabview { display: none; margin-top: 12px; border-top: 1px solid var(--rule); }
+.tabview.on { display: block; }
+
+.legend-inline { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; padding-top: 11px; border-top: 1px solid var(--rule); }
+.legend-inline span { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ink-2); }
+.legend-inline .k { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+
+/* ============================================================ TIMELINE == */
+.tl { display: flex; flex-direction: column; }
+.tl-row { display: grid; grid-template-columns: 104px 1fr; gap: 18px; padding: 14px 0; border-top: 1px solid var(--rule); }
+.tl-row:first-child { border-top: 0; }
+.tl-date { display: flex; flex-direction: column; gap: 3px; }
+.tl-d { font-family: var(--mono); font-size: 12.5px; font-weight: 600; color: var(--ink); }
+.tl-w { font-family: var(--mono); font-size: 10px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .05em; }
+.tl-body { display: flex; flex-direction: column; gap: 6px; }
+.tl-t { font-size: 14.5px; font-weight: 610; letter-spacing: -0.012em; }
+.tl-x { font-size: 13.5px; color: var(--ink-2); max-width: 82ch; }
+.tl-src { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 3px; }
+.pref {
+  font-family: var(--mono); font-size: 10px; padding: 1px 5px; border-radius: 3px;
+  background: var(--surface-2); border: 1px solid var(--rule); color: var(--ink-2); cursor: pointer;
+}
+.pref:hover { border-color: var(--accent); color: var(--accent-ink); }
+.tl-phase { width: 3px; border-radius: 2px; }
+
+/* ============================================================ CHAIN ===== */
+.chain { display: flex; flex-direction: column; gap: 0; counter-reset: step; }
+.chain-step { display: grid; grid-template-columns: 30px 1fr; gap: 14px; padding: 12px 0; position: relative; }
+.chain-step + .chain-step { border-top: 1px solid var(--rule); }
+.chain-n {
+  width: 27px; height: 27px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+  background: var(--surface-2); border: 1px solid var(--rule-strong); color: var(--ink-2);
+}
+.chain-step[data-kind="dam"] .chain-n { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-ink); }
+.chain-step[data-kind="breach"] .chain-n,
+.chain-step[data-kind="wave"] .chain-n { background: color-mix(in srgb, var(--sev-severe) 16%, var(--surface)); border-color: var(--sev-severe); color: var(--sev-severe-ink); }
+.chain-t { font-size: 14px; font-weight: 600; }
+.chain-x { font-size: 13.5px; color: var(--ink-2); margin-top: 3px; max-width: 80ch; }
+.chain-s { margin-top: 5px; display: flex; flex-wrap: wrap; gap: 5px; }
+
+.path { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-top: 4px; }
+.path-node {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 9px; border-radius: 5px; font-size: 12px; font-weight: 550;
+  border: 1px solid var(--ring); background: var(--surface-2); cursor: pointer;
+}
+.path-node:hover { border-color: var(--accent); }
+.path-node .sw { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+.path-arrow { color: var(--ink-3); font-size: 12px; }
+
+/* ============================================================ SOURCES === */
+.filters { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; margin-bottom: 14px; }
+.filters select, .filters input {
+  font-family: var(--sans); font-size: 12.5px; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 6px;
+  padding: 6px 9px; min-width: 132px;
+}
+.filters input { min-width: 210px; }
+.filters select:hover, .filters input:hover { border-color: var(--rule-strong); }
+.filters .count { font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); margin-left: auto; }
+.clearbtn { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--rule); background: var(--surface-2); color: var(--ink-2); cursor: pointer; }
+.clearbtn:hover { border-color: var(--accent); color: var(--accent-ink); }
+
+.posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
+.post {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 8px;
+  padding: 13px 15px; display: flex; flex-direction: column; gap: 7px; box-shadow: var(--shadow);
+}
+.post-h { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.post-page { font-size: 13.5px; font-weight: 620; letter-spacing: -0.01em; }
+.post-dt { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.post-meta { display: flex; flex-wrap: wrap; gap: 5px; }
+.post-x { font-size: 13px; color: var(--ink-2); }
+.post-n { font-size: 12px; color: var(--ink-3); border-left: 2px solid var(--rule); padding-left: 9px; }
+.post-f { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-top: 2px; padding-top: 8px; border-top: 1px solid var(--rule); }
+.post-depth { font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
+.post-a { font-size: 12px; font-weight: 550; white-space: nowrap; }
+.empty { padding: 34px; text-align: center; color: var(--ink-3); font-size: 13.5px; }
+
+/* ============================================================ MISC ====== */
+.cols2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 16px; }
+.deflist { display: flex; flex-direction: column; gap: 11px; }
+.deflist > div { display: flex; flex-direction: column; gap: 3px; }
+.deflist dt, .deft { font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 7px; }
+.deflist dd, .defx { margin: 0; font-size: 13px; color: var(--ink-2); }
+.defs { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); margin-top: 2px; }
+
+.agri { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.agri > div { background: var(--surface-2); border: 1px solid var(--rule); border-radius: 7px; padding: 12px 13px; }
+.agri .v { font-size: 19px; font-weight: 620; letter-spacing: -0.02em; }
+.agri .l { font-size: 12px; color: var(--ink-2); margin-top: 3px; }
+.agri .s { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); margin-top: 5px; }
+
+.unloc { display: flex; flex-direction: column; gap: 8px; }
+.unloc > div { font-size: 12.5px; color: var(--ink-2); }
+.unloc b { color: var(--ink); font-weight: 600; }
+
+footer { padding: 26px 0 0; border-top: 1px solid var(--rule); margin-top: 8px; color: var(--ink-3); font-size: 12.5px; }
+footer p + p { margin-top: 8px; }
+footer .src-list { font-family: var(--mono); font-size: 11px; line-height: 1.7; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; }
+  .rail { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--rule); flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 16px; }
+  .rail-nav { flex-direction: row; flex-wrap: wrap; gap: 2px; }
+  .rail-foot { margin-top: 0; margin-left: auto; }
+  .rail-sub { display: none; }
+  .hero-row { grid-template-columns: 1fr; }
+  .wrap { padding: 0 16px; }
+}
+
+@media (max-width: 560px) {
+  .tl-row { grid-template-columns: 1fr; gap: 8px; }
+  .tl-date { flex-direction: row; align-items: baseline; gap: 8px; }
+  .tl-phase { display: none; }
+  .mast-meta { gap: 6px 14px; }
+}
+</style>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="rail-id">
+      <div class="rail-mark"><span class="dot"></span> Situation dashboard</div>
+      <h1 class="rail-title">Sagaing Flood</h1>
+      <div class="rail-sub">Mu River basin<br />Sagaing Region, Myanmar<br />August 2026</div>
+    </div>
+
+    <div class="rail-nav" id="nav">
+      <a href="#overview">Overview</a>
+      <a href="#map">Map</a>
+      <a href="#townships">Townships</a>
+      <a href="#chronology">Chronology</a>
+      <a href="#mechanism">Mechanism</a>
+      <a href="#disagree">Contested figures</a>
+      <a href="#impacts">Impacts</a>
+      <a href="#response">Needs &amp; access</a>
+      <a href="#sources">Sources</a>
+      <a href="#method">Method</a>
+    </div>
+
+    <div class="rail-foot">
+      <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">
+        <span id="themelabel">Auto</span><span aria-hidden="true">◐</span>
+      </button>
+      <div class="rail-sub">Boundaries &amp; settlements:<br />MIMU v9.4 / v9.7</div>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="wrap">
+
+      <!-- =========================================== MASTHEAD -->
+      <header class="masthead">
+        <div class="mast-top">
+          <h2 class="mast-h">Flooding in the Mu River basin, Sagaing Region</h2>
+          <div class="mast-meta">
+            <div><span class="eyebrow">Collection</span><span class="v" id="m-window"></span></div>
+            <div><span class="eyebrow">Posts</span><span class="v" id="m-posts"></span></div>
+            <div><span class="eyebrow">Platform</span><span class="v">Facebook</span></div>
+            <div><span class="eyebrow">Languages</span><span class="v" id="m-lang"></span></div>
+          </div>
+        </div>
+        <p class="mast-lede">
+          Between 5 and 11 August 2026 the Mu River flooded a chain of townships across central Sagaing after
+          releases from Thapanseik Dam met two weeks of monsoon rain. This dashboard places 52 preserved Facebook
+          reports onto MIMU administrative geography, keeps every claim attached to the account that made it, and
+          shows where the sources contradict each other rather than averaging them away.
+        </p>
+        <div class="notice">
+          <b>Read this as source-level reporting, not a verified situation report.</b>
+          Nothing here is independently confirmed. Death tolls in this collection range from 7 to 20 depending on the
+          outlet, the date and the geographic scope being counted. A township shown without reports was not covered by
+          any post in this collection &mdash; that is not evidence it was unaffected.
+        </div>
+      </header>
+
+      <!-- =========================================== OVERVIEW -->
+      <section id="overview">
+        <div class="sec-head">
+          <h3 class="sec-h">Overview</h3>
+          <span class="eyebrow">Headline claims, each attributed</span>
+        </div>
+        <p class="sec-note">
+          Sources count different areas over different windows, so these figures are not additive and not
+          directly comparable. Each tile names the outlet and the date it applies to.
+        </p>
+
+        <div class="hero-row" style="margin-top:16px">
+          <div class="hero">
+            <span class="eyebrow">People affected &mdash; Sagaing Region</span>
+            <div class="hero-v" id="h-affected"></div>
+            <div class="hero-l" id="h-affected-l"></div>
+            <div class="hero-src" id="h-affected-src"></div>
+            <div class="hero-range" id="h-affected-range"></div>
+          </div>
+          <div class="tiles" id="tiles"></div>
+        </div>
+      </section>
+
+      <!-- =========================================== MAP -->
+      <section id="map">
+        <div class="sec-head">
+          <h3 class="sec-h">Where the flooding was reported</h3>
+          <span class="eyebrow">MIMU v9.4 boundaries &middot; 37 townships &middot; 24 assessed</span>
+        </div>
+        <p class="sec-note">
+          Townships are shaded by what the posts describe, not by a modelled flood extent. Hover for a summary,
+          click to pin a township and filter the source panel to it. Point markers are placed only where a MIMU
+          record matches inside the township the post actually names.
+        </p>
+
+        <div class="card" style="margin-top:14px; overflow:hidden">
+          <div class="mapwrap">
+            <div class="mapstage">
+              <canvas id="map-canvas"></canvas>
+              <div class="map-tools">
+                <div class="toolgroup">
+                  <button type="button" data-view="region">Region</button>
+                  <button type="button" data-view="mu" class="on">Mu basin</button>
+                  <button type="button" data-view="chindwin">Chindwin</button>
+                </div>
+                <div class="toolgroup zoomgroup">
+                  <button type="button" id="zin" aria-label="Zoom in">+</button>
+                  <button type="button" id="zout" aria-label="Zoom out">&minus;</button>
+                </div>
+              </div>
+              <div class="map-scale"><span id="scale-l"></span><div class="bar" id="scale-b"></div></div>
+              <div class="map-cred">MIMU v9.4 / v9.7 &middot; EPSG:3857</div>
+              <div id="tip"></div>
+            </div>
+
+            <aside class="mapside">
+              <div>
+                <div class="legend-h">Reported flood severity</div>
+                <div class="legend" id="legend"></div>
+              </div>
+              <div>
+                <div class="legend-h">Layers</div>
+                <div class="layers" id="layers"></div>
+              </div>
+              <div class="detail" id="detail"><div class="detail-empty">Click a township for its evidence base, or a marker for the incident behind it.</div></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================== TOWNSHIPS -->
+      <section id="townships">
+        <div class="sec-head">
+          <h3 class="sec-h">Township assessment</h3>
+          <span class="eyebrow">The map, as a table</span>
+        </div>
+        <p class="sec-note">
+          Every township covered by at least one post, with the figures reported for it and the evidence the
+          severity class rests on. Sort by any column; click a row to select it on the map.
+        </p>
+        <div class="card" style="margin-top:14px">
+          <div class="tablewrap"><table id="ts-table"></table></div>
+        </div>
+      </section>
+
+      <!-- =========================================== CHRONOLOGY -->
+      <section id="chronology">
+        <div class="sec-head">
+          <h3 class="sec-h">Chronology</h3>
+          <span class="eyebrow">5&ndash;11 August 2026</span>
+        </div>
+        <p class="sec-note">
+          Reporting volume peaked on 9&ndash;10 August, three to four days after the release. Click a post
+          reference to open it in the source panel.
+        </p>
+
+        <div class="chartgrid" style="margin-top:14px">
+          <div class="card">
+            <div class="card-h">
+              <span class="card-t">Posts collected per day</span>
+              <button class="tabtoggle" type="button" data-tab="tab-day">Table</button>
+            </div>
+            <div class="card-b">
+              <svg class="chart" id="c-day" role="img" aria-label="Column chart of posts collected per day, 5 to 11 August 2026"></svg>
+              <div class="tabview" id="tab-day"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <div class="card-b"><div class="tl" id="timeline"></div></div>
+        </div>
+      </section>
+
+      <!-- =========================================== MECHANISM -->
+      <section id="mechanism">
+        <div class="sec-head">
+          <h3 class="sec-h">How the flood was produced</h3>
+          <span class="eyebrow">Causal chain as reported</span>
+        </div>
+        <p class="sec-note">
+          The sequence below is reconstructed from the posts and is numbered because the order is the claim:
+          each step is asserted to have caused the next. The strongest single account is AI Info Team's flood-wave
+          analysis of 8 August, corroborated in parts by Khit Thit Media, Mandalay Free Press and two Thai outlets.
+        </p>
+
+        <div class="cols2" style="margin-top:14px">
+          <div class="card">
+            <div class="card-h"><span class="card-t">Causal chain</span></div>
+            <div class="card-b"><div class="chain" id="chain"></div></div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div class="card">
+              <div class="card-h"><span class="card-t">Downstream path of the flood wave</span></div>
+              <div class="card-b">
+                <p class="defx">Order in which the wave is reported to have reached each township, from the dam to the Ayeyarwady confluence. Colour is the severity class on the map.</p>
+                <div class="path" id="path"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-h"><span class="card-t">Named places that could not be located</span></div>
+              <div class="card-b">
+                <p class="defx" style="margin-bottom:10px">Village names repeat across Myanmar, so a name is only plotted when a MIMU record matches inside the township the post names. These did not.</p>
+                <div class="unloc" id="unloc"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================== DISAGREEMENT -->
+      <section id="disagree">
+        <div class="sec-head">
+          <h3 class="sec-h">Where the sources disagree</h3>
+          <span class="eyebrow">11 death-toll claims &middot; 8 affected-population claims</span>
+        </div>
+        <p class="sec-note">
+          Each row is one outlet's figure on one date for one area. The spread is driven as much by scope
+          &mdash; one township, all of Sagaing, or four regions &mdash; as by disagreement about the facts,
+          which is exactly why a single headline number would mislead.
+        </p>
+
+        <div class="chartgrid g2" style="margin-top:14px">
+          <div class="card">
+            <div class="card-h">
+              <span class="card-t">Reported deaths, by source</span>
+              <button class="tabtoggle" type="button" data-tab="tab-deaths">Table</button>
+            </div>
+            <div class="card-b">
+              <svg class="chart" id="c-deaths" role="img" aria-label="Dot plot of reported death tolls by source"></svg>
+              <div class="legend-inline" id="l-deaths"></div>
+              <div class="tabview" id="tab-deaths"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h">
+              <span class="card-t">Reported people affected, by source</span>
+              <button class="tabtoggle" type="button" data-tab="tab-aff">Table</button>
+            </div>
+            <div class="card-b">
+              <svg class="chart" id="c-aff" role="img" aria-label="Dot plot of reported affected population by source"></svg>
+              <div class="legend-inline" id="l-aff"></div>
+              <div class="tabview" id="tab-aff"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================== IMPACTS -->
+      <section id="impacts">
+        <div class="sec-head">
+          <h3 class="sec-h">Impacts</h3>
+          <span class="eyebrow">Villages, farmland, livestock</span>
+        </div>
+
+        <div class="chartgrid g2" style="margin-top:14px">
+          <div class="card">
+            <div class="card-h">
+              <span class="card-t">Villages reported flooded, by area</span>
+              <button class="tabtoggle" type="button" data-tab="tab-vil">Table</button>
+            </div>
+            <div class="card-b">
+              <svg class="chart" id="c-vil" role="img" aria-label="Bar chart of villages reported flooded by township"></svg>
+              <p class="defs" style="margin-top:10px">Counts come from different outlets on different dates and overlap where a source reports a cluster of townships. Not additive.</p>
+              <div class="tabview" id="tab-vil"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h">
+              <span class="card-t">Reports by source type</span>
+              <button class="tabtoggle" type="button" data-tab="tab-type">Table</button>
+            </div>
+            <div class="card-b">
+              <svg class="chart" id="c-type" role="img" aria-label="Bar chart of posts by source type"></svg>
+              <div class="tabview" id="tab-type"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <div class="card-h"><span class="card-t">Agriculture and livestock</span></div>
+          <div class="card-b"><div class="agri" id="agri"></div></div>
+        </div>
+      </section>
+
+      <!-- =========================================== RESPONSE -->
+      <section id="response">
+        <div class="sec-head">
+          <h3 class="sec-h">Needs and what is blocking them</h3>
+          <span class="eyebrow">As stated in the posts</span>
+        </div>
+        <div class="cols2" style="margin-top:14px">
+          <div class="card">
+            <div class="card-h"><span class="card-t">Requested</span></div>
+            <div class="card-b"><div class="deflist" id="needs"></div></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><span class="card-t">Constraints on response</span></div>
+            <div class="card-b"><div class="deflist" id="constraints"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================== SOURCES -->
+      <section id="sources">
+        <div class="sec-head">
+          <h3 class="sec-h">Source reports</h3>
+          <span class="eyebrow">52 posts, preserved as collected</span>
+        </div>
+        <p class="sec-note">
+          Summaries are faithful condensations of the transcriptions in the raw dataset. Every card links to the
+          original post. Filters apply to this panel only.
+        </p>
+
+        <div class="filters" style="margin-top:14px">
+          <input type="search" id="f-q" placeholder="Search text, page, place…" aria-label="Search source reports" />
+          <select id="f-ts" aria-label="Filter by township"></select>
+          <select id="f-type" aria-label="Filter by source type"></select>
+          <select id="f-theme" aria-label="Filter by theme"></select>
+          <select id="f-day" aria-label="Filter by date"></select>
+          <button class="clearbtn" type="button" id="f-clear">Clear</button>
+          <span class="count" id="f-count"></span>
+        </div>
+        <div class="posts" id="posts"></div>
+      </section>
+
+      <!-- =========================================== METHOD -->
+      <section id="method">
+        <div class="sec-head">
+          <h3 class="sec-h">Method, data and limits</h3>
+          <span class="eyebrow">Provenance</span>
+        </div>
+
+        <div class="cols2" style="margin-top:14px">
+          <div class="card">
+            <div class="card-h"><span class="card-t">GIS layers, all from MIMU</span></div>
+            <div class="card-b">
+              <div class="deflist">
+                <div><div class="deft">Township, district and region boundaries</div><div class="defx">MIMU v9.4, 1:250,000. 37 Sagaing townships. P-codes carried through so every join is by code, not by name.</div></div>
+                <div><div class="deft">Village points</div><div class="defx">MIMU PCode v9.7. 5,725 points in Sagaing; the 2,477 falling in townships with reported flooding are drawn.</div></div>
+                <div><div class="deft">Town points</div><div class="defx">MIMU v9.4, 50 towns in Sagaing, used for labels and for the DMH gauge-station locations.</div></div>
+                <div><div class="deft">Hydrography</div><div class="defx">MIMU river network (water-surface polygons, from which the Mu, Chindwin and Ayeyarwady are named) plus the 250k centreline network. Reservoirs from Lakes and Dams in Myanmar; Thapanzeik dam from Hydropower Dam Locations.</div></div>
+                <div><div class="deft">Roads, bridges, hospitals</div><div class="defx">MIMU Road Network 2022 (main and secondary only), Bridges &gt;180 ft, and Public Hospitals 2020, each clipped to Sagaing.</div></div>
+              </div>
+              <p class="defs" style="margin-top:12px">
+                Retrieved from the MIMU GeoNode GeoServer WFS in EPSG:4326, clipped to Sagaing, simplified to
+                roughly 65 m for boundaries and 110 m for hydrography, and rounded to 4 decimal places.
+              </p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-h"><span class="card-t">How severity was assigned</span></div>
+            <div class="card-b">
+              <div class="deflist">
+                <div><div class="deft"><span class="chip sev-critical"><span class="sw" style="background:var(--sev-critical)"></span>Critical</span></div><div class="defx">Deaths reported in the township, or near-township-wide inundation with villages counted in the dozens.</div></div>
+                <div><div class="deft"><span class="chip sev-severe"><span class="sw" style="background:var(--sev-severe)"></span>Severe</span></div><div class="defx">Widespread inundation and mass displacement reported, without a township-specific death toll.</div></div>
+                <div><div class="deft"><span class="chip sev-moderate"><span class="sw" style="background:var(--sev-moderate)"></span>Moderate</span></div><div class="defx">Flooding reported but localised, or the township appears in affected-area lists without detail.</div></div>
+                <div><div class="deft"><span class="chip sev-watch"><span class="sw" style="background:var(--sev-watch)"></span>River watch</span></div><div class="defx">A gauge at or above danger level, or inside the forecast corridor, with no inundation reported. A different state, not a lower grade of flooding &mdash; which is why it sits off the severity ramp.</div></div>
+                <div><div class="deft"><span class="chip sev-none"><span class="sw" style="background:var(--sev-none)"></span>No reports</span></div><div class="defx">No post in this collection covered the township. Absence of evidence only.</div></div>
+              </div>
+              <p class="defs" style="margin-top:12px">
+                Classes were assigned from the reported content of the posts, and every township's evidence
+                basis and supporting post numbers are shown in the table and the map panel.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:16px">
+          <div class="card-h"><span class="card-t">Known limits</span></div>
+          <div class="card-b">
+            <div class="deflist" style="max-width:92ch">
+              <div><div class="deft">Coverage follows attention, not impact</div><div class="defx">Shwebo appears in 19 posts and Ayadaw in 4. That gap measures where cameras and connectivity were, not where the water was deepest. Townships in the north of the region are barely represented.</div></div>
+              <div><div class="deft">Figures are not additive</div><div class="defx">Village and population counts come from different outlets on different dates covering overlapping areas. Summing them would double-count heavily.</div></div>
+              <div><div class="deft">Severity is editorial</div><div class="defx">The five classes are a reading of the reports, not a measurement. A satellite-derived flood extent would give a different and more defensible map.</div></div>
+              <div><div class="deft">Nothing is verified</div><div class="defx">Several posts carry political framing and some make contested allegations about the dam release. They are preserved as claims attributed to their authors, and comments disputing them are noted where the raw dataset recorded them.</div></div>
+              <div><div class="deft">The window closes mid-event</div><div class="defx">Collection stopped on 11 August while the Chindwin was still rising and a 150&ndash;245 mm forecast covered the following week. Wetlet was still rising at the cut-off.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <footer>
+          <p>
+            <b style="color:var(--ink)">Sagaing Flood Dashboard.</b>
+            Built from <span class="num">52</span> Facebook posts collected 15 July &ndash; 11 August 2026, joined to
+            Myanmar Information Management Unit geography. All claims belong to the accounts that published them.
+          </p>
+          <p class="src-list" id="foot-src"></p>
+        </footer>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script type="application/json" id="d-flood">/*__FLOOD__*/</script>
+<script type="application/json" id="d-geo">/*__GEO__*/</script>
+
+<script>
+"use strict";
+
+const FLOOD = JSON.parse(document.getElementById("d-flood").textContent);
+const GEO   = JSON.parse(document.getElementById("d-geo").textContent);
+
+const $  = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = n => n == null ? "—" : n.toLocaleString("en-US");
+
+const SEV_ORDER  = ["critical", "severe", "moderate", "watch", "none"];
+const SEV_LABEL  = { critical: "Critical", severe: "Severe", moderate: "Moderate", watch: "River watch", none: "No reports" };
+const SEV_RANK   = { critical: 4, severe: 3, moderate: 2, watch: 1, none: 0 };
+const TS  = new Map(FLOOD.townships.map(t => [t.name, t]));
+const PST = new Map(FLOOD.posts.map(p => [p.id, p]));
+
+/* live theme tokens — the canvas reads the same custom properties as the CSS */
+let TOK = {};
+function readTokens() {
+  const cs = getComputedStyle(document.documentElement);
+  const g = n => cs.getPropertyValue(n).trim();
+  TOK = {
+    surface: g("--surface"), plane: g("--plane"), ink: g("--ink"), ink2: g("--ink-2"), ink3: g("--ink-3"),
+    rule: g("--rule"), ruleStrong: g("--rule-strong"), accent: g("--accent"),
+    land: g("--map-land"), context: g("--map-context"), water: g("--map-water"), water2: g("--map-water-2"),
+    road: g("--map-road"), halo: g("--map-halo"),
+    sev: {
+      critical: g("--sev-critical"), severe: g("--sev-severe"), moderate: g("--sev-moderate"),
+      watch: g("--sev-watch"), none: g("--sev-none")
+    }
+  };
+}
+
+/* ======================================================== THEME ========= */
+(function theme() {
+  const btn = $("#themebtn"), lab = $("#themelabel");
+  const modes = ["auto", "light", "dark"];
+  let i = 0;
+  const apply = () => {
+    const m = modes[i];
+    if (m === "auto") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", m);
+    lab.textContent = m[0].toUpperCase() + m.slice(1);
+    readTokens();
+    if (window.__redraw) window.__redraw();
+    if (window.__recharts) window.__recharts();
+  };
+  btn.addEventListener("click", () => { i = (i + 1) % modes.length; apply(); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (modes[i] === "auto") { readTokens(); window.__redraw && window.__redraw(); window.__recharts && window.__recharts(); }
+  });
+  readTokens();
+})();
+
+/* ======================================================== MASTHEAD ====== */
+(function masthead() {
+  const m = FLOOD.meta;
+  const d = s => new Date(s + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  $("#m-window").textContent = d(m.collection_period[0]) + " – " + d(m.collection_period[1]) + " 2026";
+  $("#m-posts").textContent = m.posts_preserved + " of " + m.posts_reviewed;
+  $("#m-lang").textContent = m.languages.join(" · ");
+})();
+
+/* ======================================================== OVERVIEW ====== */
+(function overview() {
+  const aff = FLOOD.figures.affected.find(f => f.v === 223761);
+  $("#h-affected").textContent = fmt(aff.v);
+  $("#h-affected-l").textContent = "51,028 households across 10 townships";
+  $("#h-affected-src").textContent = aff.src + ", as of 9 August · " + aff.scope.replace(" (51,028 households)", "");
+  const lo = FLOOD.figures.affected[0], hi = FLOOD.figures.affected[FLOOD.figures.affected.length - 1];
+  $("#h-affected-range").innerHTML =
+    "Across all 8 claims in this collection the reported figure runs from <b class='num'>" + fmt(lo.v) +
+    "</b> (" + esc(lo.src) + ", Depayin only) to <b class='num'>" + fmt(hi.v) +
+    "</b> (" + esc(hi.src) + ", four regions). The spread is mostly scope.";
+
+  const deaths = FLOOD.figures.deaths.map(f => f.v);
+  const sevCount = k => FLOOD.townships.filter(t => t.severity === k).length;
+  const floodTs = sevCount("critical") + sevCount("severe") + sevCount("moderate");
+
+  const tiles = [
+    { l: "Reported deaths", v: Math.min(...deaths) + "–" + Math.max(...deaths), s: FLOOD.figures.deaths.length + " claims, 7–11 Aug" },
+    { l: "Townships with reported flooding", v: floodTs, s: "of 37 in Sagaing" },
+    { l: "Under river watch", v: sevCount("watch"), s: "gauge or forecast only" },
+    { l: "Villages submerged", v: "~200", s: "Mandalay Free Press, 10 Aug" },
+    { l: "Cropland damaged", v: "44,370", s: "acres min · DVB, 4 regions" },
+    { l: "Source accounts", v: new Set(FLOOD.posts.map(p => p.page)).size, s: "across " + Object.keys(FLOOD.stats.by_type).length + " source types" }
+  ];
+  $("#tiles").innerHTML = tiles.map(t =>
+    `<div class="tile"><span class="tile-l">${esc(t.l)}</span><span class="tile-v">${esc(t.v)}</span><span class="tile-s">${esc(t.s)}</span></div>`).join("");
+})();
+
+/* ======================================================== MAP =========== */
+const MAP = (function () {
+  const cv = $("#map-canvas"), stage = cv.parentElement, tip = $("#tip");
+  const ctx = cv.getContext("2d");
+
+  const R = 6378137;
+  const mx = lon => lon * Math.PI / 180 * R;
+  const my = lat => Math.log(Math.tan(Math.PI / 4 + Math.max(-85, Math.min(85, lat)) * Math.PI / 360)) * R;
+  const inv = y => (2 * Math.atan(Math.exp(y / R)) - Math.PI / 2) * 180 / Math.PI;
+
+  let W = 0, H = 0, dpr = 1;
+  const view = { cx: 0, cy: 0, k: 1 };
+  const layers = { villages: false, towns: true, roads: true, districts: false, incidents: true, hospitals: false };
+  let solo = null, hover = null, pinned = null, hoverInc = null;
+
+  const px = (lon, lat) => [(mx(lon) - view.cx) * view.k + W / 2, (view.cy - my(lat)) * view.k + H / 2];
+
+  function bboxOf(feats) {
+    let a = Infinity, b = Infinity, c = -Infinity, d = -Infinity;
+    const walk = co => {
+      if (typeof co[0] === "number") { a = Math.min(a, co[0]); b = Math.min(b, co[1]); c = Math.max(c, co[0]); d = Math.max(d, co[1]); }
+      else co.forEach(walk);
+    };
+    feats.forEach(f => walk(f.geometry.coordinates));
+    return [a, b, c, d];
+  }
+  function fit(bb, pad) {
+    pad = pad == null ? 26 : pad;
+    const x0 = mx(bb[0]), x1 = mx(bb[2]), y0 = my(bb[1]), y1 = my(bb[3]);
+    view.cx = (x0 + x1) / 2; view.cy = (y0 + y1) / 2;
+    view.k = Math.min((W - pad * 2) / Math.max(1, x1 - x0), (H - pad * 2) / Math.max(1, y1 - y0));
+    draw();
+  }
+
+  const VIEWS = {
+    region: () => bboxOf(GEO.townships.features),
+    mu: () => bboxOf(GEO.townships.features.filter(f => ["Kyunhla","Kanbalu","Taze","Ye-U","Khin-U","Tabayin","Shwebo","Wetlet","Myinmu","Sagaing","Ayadaw","Kawlin"].includes(f.properties.TS))),
+    chindwin: () => bboxOf(GEO.townships.features.filter(f => ["Homalin","Paungbyin","Mawlaik","Kalewa","Mingin","Monywa","Kani","Budalin"].includes(f.properties.TS)))
+  };
+
+  function resize() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = stage.clientWidth; H = stage.clientHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    cv.style.width = W + "px"; cv.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function path(g) {
+    ctx.beginPath();
+    const ring = r => {
+      for (let i = 0; i < r.length; i++) {
+        const p = px(r[i][0], r[i][1]);
+        if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]);
+      }
+      ctx.closePath();
+    };
+    if (g.type === "Polygon") g.coordinates.forEach(ring);
+    else if (g.type === "MultiPolygon") g.coordinates.forEach(p => p.forEach(ring));
+  }
+  function line(g) {
+    ctx.beginPath();
+    const seg = r => {
+      for (let i = 0; i < r.length; i++) {
+        const p = px(r[i][0], r[i][1]);
+        if (i === 0) ctx.moveTo(p[0], p[1]); else ctx.lineTo(p[0], p[1]);
+      }
+    };
+    if (g.type === "LineString") seg(g.coordinates);
+    else if (g.type === "MultiLineString") g.coordinates.forEach(seg);
+  }
+
+  const sevOf = n => (TS.get(n) || {}).severity || "none";
+  const dim = s => solo && s !== solo;
+
+  function draw() {
+    if (!W) return;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = TOK.context; ctx.fillRect(0, 0, W, H);
+
+    // neighbouring regions, recessive
+    ctx.fillStyle = TOK.plane; ctx.strokeStyle = TOK.rule; ctx.lineWidth = 1;
+    GEO.context.features.forEach(f => { path(f.geometry); ctx.fill(); ctx.stroke(); });
+
+    // township fills
+    GEO.townships.features.forEach(f => {
+      const s = sevOf(f.properties.TS);
+      ctx.globalAlpha = dim(s) ? 0.2 : 1;
+      ctx.fillStyle = TOK.sev[s] || TOK.sev.none;
+      path(f.geometry); ctx.fill();
+      ctx.globalAlpha = 1;
+    });
+
+    // hydrography
+    ctx.fillStyle = TOK.water;
+    GEO.rivers.features.forEach(f => { if (!f.properties.major) { path(f.geometry); ctx.fill(); } });
+    ctx.fillStyle = TOK.water2;
+    GEO.rivers.features.forEach(f => { if (f.properties.major) { path(f.geometry); ctx.fill(); } });
+    ctx.strokeStyle = TOK.water2; ctx.lineWidth = 1.4;
+    GEO.riverLines.features.forEach(f => { line(f.geometry); ctx.stroke(); });
+
+    // reservoirs
+    GEO.reservoirs.features.forEach(f => {
+      ctx.fillStyle = f.properties.key ? TOK.accent : TOK.water2;
+      path(f.geometry); ctx.fill();
+    });
+
+    if (layers.roads && view.k > 2.2e-5) {
+      ctx.strokeStyle = TOK.road; ctx.lineWidth = 1; ctx.lineCap = "round";
+      GEO.roads.features.forEach(f => { line(f.geometry); ctx.stroke(); });
+    }
+
+    // township borders. Line weight is a second, non-colour channel for rank:
+    // the ordinal ramp has to invert between light and dark to keep contrast,
+    // so hue direction alone must not be what says "this one is worst".
+    ctx.strokeStyle = TOK.rule; ctx.lineWidth = 1;
+    GEO.townships.features.forEach(f => { path(f.geometry); ctx.stroke(); });
+    ctx.strokeStyle = TOK.ink; ctx.lineJoin = "round";
+    GEO.townships.features.forEach(f => {
+      const s = sevOf(f.properties.TS);
+      const w = s === "critical" ? 2.2 : s === "severe" ? 1.3 : 0;
+      if (!w || dim(s)) return;
+      ctx.globalAlpha = s === "critical" ? 0.6 : 0.32;
+      ctx.lineWidth = w;
+      path(f.geometry); ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+
+    if (layers.districts) {
+      ctx.strokeStyle = TOK.ruleStrong; ctx.lineWidth = 1.6;
+      GEO.districts.features.forEach(f => { path(f.geometry); ctx.stroke(); });
+    }
+
+    if (layers.villages && view.k > 1.6e-5) {
+      GEO.villages.features.forEach(f => {
+        const s = f.properties.sev;
+        if (dim(s)) return;
+        const p = px(f.geometry.coordinates[0], f.geometry.coordinates[1]);
+        if (p[0] < -6 || p[0] > W + 6 || p[1] < -6 || p[1] > H + 6) return;
+        ctx.fillStyle = TOK.ink3; ctx.globalAlpha = .5;
+        ctx.fillRect(p[0] - .9, p[1] - .9, 1.8, 1.8);
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    if (layers.hospitals) {
+      GEO.hospitals.features.forEach(f => {
+        const p = px(f.geometry.coordinates[0], f.geometry.coordinates[1]);
+        ctx.fillStyle = TOK.surface; ctx.strokeStyle = TOK.ink2; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.arc(p[0], p[1], 3.2, 0, 6.284); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = TOK.ink2; ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.moveTo(p[0] - 1.8, p[1]); ctx.lineTo(p[0] + 1.8, p[1]);
+        ctx.moveTo(p[0], p[1] - 1.8); ctx.lineTo(p[0], p[1] + 1.8); ctx.stroke();
+      });
+    }
+
+    // selection outline
+    const selName = pinned || hover;
+    if (selName) {
+      const f = GEO.townships.features.find(x => x.properties.TS === selName);
+      if (f) {
+        ctx.strokeStyle = pinned === selName ? TOK.ink : TOK.accent;
+        ctx.lineWidth = pinned === selName ? 2.4 : 1.8;
+        path(f.geometry); ctx.stroke();
+      }
+    }
+
+    if (layers.towns) drawTowns();
+    if (layers.incidents) drawIncidents();
+    drawLabels();
+    drawScale();
+  }
+
+  function drawTowns() {
+    const pts = GEO.towns.features.filter(f => {
+      const lv = f.properties.Level;
+      return lv === "State/Region Capital" || lv === "District Capital" ||
+             (view.k > 3e-5 && lv === "Main Town");
+    });
+    pts.forEach(f => {
+      const p = px(f.geometry.coordinates[0], f.geometry.coordinates[1]);
+      if (p[0] < 0 || p[0] > W || p[1] < 0 || p[1] > H) return;
+      const cap = f.properties.Level !== "Main Town";
+      ctx.fillStyle = TOK.surface; ctx.strokeStyle = TOK.ink; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.arc(p[0], p[1], cap ? 3.6 : 2.6, 0, 6.284); ctx.fill(); ctx.stroke();
+    });
+  }
+
+  const INC_COLOR = { dam: () => TOK.accent, fatality: () => TOK.sev.critical, breach: () => TOK.sev.severe,
+                      infrastructure: () => TOK.ink2, gauge: () => TOK.sev.watch, gauge_watch: () => TOK.sev.watch };
+
+  function drawIncidents() {
+    FLOOD.incidents.forEach(inc => {
+      const p = px(inc.lon, inc.lat);
+      inc._p = p;
+      if (p[0] < -20 || p[0] > W + 20 || p[1] < -20 || p[1] > H + 20) return;
+      const c = (INC_COLOR[inc.kind] || (() => TOK.ink2))();
+      const on = hoverInc === inc.id;
+      const r = inc.kind === "dam" ? 7 : 5.5;
+      ctx.strokeStyle = TOK.halo; ctx.lineWidth = 2.5;
+      ctx.fillStyle = c;
+      if (inc.kind === "dam") {
+        ctx.beginPath();
+        ctx.moveTo(p[0], p[1] - r); ctx.lineTo(p[0] + r, p[1]); ctx.lineTo(p[0], p[1] + r); ctx.lineTo(p[0] - r, p[1]);
+        ctx.closePath(); ctx.stroke(); ctx.fill();
+      } else if (inc.kind === "gauge" || inc.kind === "gauge_watch") {
+        ctx.beginPath(); ctx.rect(p[0] - r + 1, p[1] - r + 1, (r - 1) * 2, (r - 1) * 2);
+        ctx.stroke(); ctx.fill();
+        if (inc.kind === "gauge_watch") { ctx.fillStyle = TOK.halo; ctx.fillRect(p[0] - 1.6, p[1] - 1.6, 3.2, 3.2); }
+      } else {
+        ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, 6.284); ctx.stroke(); ctx.fill();
+      }
+      if (on) { ctx.strokeStyle = TOK.ink; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(p[0], p[1], r + 4, 0, 6.284); ctx.stroke(); }
+    });
+  }
+
+  function drawLabels() {
+    const boxes = [];
+    const fits = (x, y, w, h) => {
+      for (const b of boxes) if (x < b[2] && x + w > b[0] && y < b[3] && y + h > b[1]) return false;
+      boxes.push([x, y, x + w, y + h]); return true;
+    };
+    const feats = GEO.townships.features
+      .filter(f => TS.has(f.properties.TS))
+      .sort((a, b) => SEV_RANK[sevOf(b.properties.TS)] - SEV_RANK[sevOf(a.properties.TS)]);
+
+    ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    feats.forEach(f => {
+      const pr = f.properties, s = sevOf(pr.TS);
+      if (dim(s)) return;
+      const p = px(pr.lx, pr.ly);
+      if (p[0] < 24 || p[0] > W - 24 || p[1] < 12 || p[1] > H - 12) return;
+      const txt = pr.alias ? pr.TS + " (" + pr.alias + ")" : pr.TS;
+      const size = SEV_RANK[s] >= 3 ? 12 : 11;
+      ctx.font = (SEV_RANK[s] >= 3 ? "620 " : "500 ") + size + "px " + getComputedStyle(document.body).fontFamily;
+      const w = ctx.measureText(txt).width;
+      if (!fits(p[0] - w / 2 - 3, p[1] - 8, w + 6, 16)) return;
+      ctx.strokeStyle = TOK.halo; ctx.lineWidth = 3; ctx.lineJoin = "round";
+      ctx.strokeText(txt, p[0], p[1]);
+      ctx.fillStyle = SEV_RANK[s] >= 3 ? TOK.ink : TOK.ink2;
+      ctx.fillText(txt, p[0], p[1]);
+    });
+
+    // major river labels
+    ctx.font = "italic 500 11px " + getComputedStyle(document.body).fontFamily;
+    const named = new Map();          // one label per river name — the biggest ring wins
+    GEO.rivers.features.filter(f => f.properties.nm).forEach(f => {
+      const co = f.geometry.type === "MultiPolygon" ? f.geometry.coordinates[0][0] : f.geometry.coordinates[0];
+      const prev = named.get(f.properties.nm);
+      if (!prev || co.length > prev.length) named.set(f.properties.nm, co);
+    });
+    named.forEach((co, nm) => {
+      const f = { properties: { nm } };
+      const mid = co[Math.floor(co.length / 2)];
+      const p = px(mid[0], mid[1]);
+      if (p[0] < 40 || p[0] > W - 40 || p[1] < 16 || p[1] > H - 16) return;
+      const w = ctx.measureText(f.properties.nm).width;
+      if (!fits(p[0] - w / 2 - 3, p[1] - 7, w + 6, 14)) return;
+      ctx.strokeStyle = TOK.halo; ctx.lineWidth = 3;
+      ctx.strokeText(f.properties.nm, p[0], p[1]);
+      ctx.fillStyle = TOK.water2; ctx.fillText(f.properties.nm, p[0], p[1]);
+    });
+    ctx.textAlign = "start"; ctx.textBaseline = "alphabetic";
+  }
+
+  function drawScale() {
+    const targets = [200, 100, 50, 25, 10, 5];
+    const mPerPx = 1 / view.k * Math.cos(inv(view.cy) * Math.PI / 180);
+    let km = targets.find(t => (t * 1000) / mPerPx < 140) || 5;
+    const wpx = (km * 1000) / mPerPx;
+    $("#scale-l").textContent = km + " km";
+    $("#scale-b").style.width = Math.round(wpx) + "px";
+  }
+
+  /* ---- hit testing ---- */
+  function ringHas(r, x, y) {
+    let inside = false;
+    for (let i = 0, j = r.length - 1; i < r.length; j = i++) {
+      const xi = r[i][0], yi = r[i][1], xj = r[j][0], yj = r[j][1];
+      if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) inside = !inside;
+    }
+    return inside;
+  }
+  const polyHas = (p, x, y) => { if (!ringHas(p[0], x, y)) return false; for (let k = 1; k < p.length; k++) if (ringHas(p[k], x, y)) return false; return true; };
+  function geomHas(g, x, y) {
+    if (g.type === "Polygon") return polyHas(g.coordinates, x, y);
+    if (g.type === "MultiPolygon") return g.coordinates.some(p => polyHas(p, x, y));
+    return false;
+  }
+  function at(sx, sy) {
+    const lon = (view.cx + (sx - W / 2) / view.k) / R * 180 / Math.PI;
+    const lat = inv(view.cy - (sy - H / 2) / view.k);
+    for (const f of GEO.townships.features) if (geomHas(f.geometry, lon, lat)) return f.properties.TS;
+    return null;
+  }
+  function incAt(sx, sy) {
+    let best = null, bd = 13 * 13;
+    FLOOD.incidents.forEach(i => {
+      if (!i._p) return;
+      const d = (i._p[0] - sx) ** 2 + (i._p[1] - sy) ** 2;
+      if (d < bd) { bd = d; best = i; }
+    });
+    return best;
+  }
+
+  /* ---- tooltip ---- */
+  function showTip(sx, sy, html) {
+    tip.innerHTML = html;
+    tip.classList.add("on");
+    const r = tip.getBoundingClientRect();
+    let x = sx, y = sy - 14;
+    x = Math.max(r.width / 2 + 6, Math.min(W - r.width / 2 - 6, x));
+    if (y - r.height < 4) y = sy + r.height + 22;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  const hideTip = () => tip.classList.remove("on");
+
+  function tipTs(name) {
+    const t = TS.get(name);
+    const f = GEO.townships.features.find(x => x.properties.TS === name);
+    const pr = f ? f.properties : {};
+    if (!t) return `<div class="tip-t">${esc(name)}</div><div class="tip-s">${esc(pr.DT || "")} District</div>
+      <div class="tip-rows"><div><span>Reports in collection</span><b>none</b></div></div>
+      <div class="tip-hint">Not covered by this collection</div>`;
+    const rows = [];
+    if (t.deaths) rows.push(["Deaths reported", t.deaths]);
+    if (t.villages) rows.push(["Villages", t.villages]);
+    if (t.people) rows.push(["People", t.people]);
+    rows.push(["Posts", t.posts.length]);
+    return `<div class="tip-t"><span class="chip sev-${t.severity}"><span class="sw" style="background:var(--sev-${t.severity})"></span>${SEV_LABEL[t.severity]}</span>${esc(name)}</div>
+      <div class="tip-s">${esc(pr.DT || "")} District · ${esc(t.river || "")}</div>
+      <div class="tip-rows">${rows.map(r => `<div><span>${esc(r[0])}</span><b>${esc(r[1])}</b></div>`).join("")}</div>
+      <div class="tip-hint">Click to pin and filter sources</div>`;
+  }
+  function tipInc(i) {
+    return `<div class="tip-t">${esc(i.name)}</div><div class="tip-s">${esc(i.place)}</div>
+      <div class="tip-rows"><div><span>${esc(i.head)}</span></div></div>
+      <div class="tip-hint">Click for detail${i.approx ? " · location approximate" : ""}</div>`;
+  }
+
+  /* ---- side panel ---- */
+  function renderDetail(name) {
+    const el = $("#detail");
+    if (!name) { el.innerHTML = `<div class="detail-empty">Click a township for its evidence base, or a marker for the incident behind it.</div>`; return; }
+    const t = TS.get(name);
+    const f = GEO.townships.features.find(x => x.properties.TS === name);
+    const pr = f ? f.properties : {};
+    if (!t) {
+      el.innerHTML = `<div class="detail-t">${esc(name)}</div>
+        <div class="detail-s">${esc(pr.TS_PCODE || "")} · ${esc(pr.DT || "")} District</div>
+        <p class="detail-basis">No post in this collection reported on this township. That is an absence of coverage, not evidence it was unaffected.</p>`;
+      return;
+    }
+    const rows = [["Severity", SEV_LABEL[t.severity]], ["District", pr.DT], ["River system", t.river],
+      ["Deaths reported", t.deaths || "none reported"], ["Villages", t.villages || "—"],
+      ["People", t.people || "—"], ["Posts", t.posts.length], ["Area", pr.area_km2 ? fmt(pr.area_km2) + " km²" : "—"],
+      ["P-code", pr.TS_PCODE]];
+    el.innerHTML = `
+      <div class="detail-t">${esc(name)}${t.alias ? ` <span class="tsalias">(${esc(t.alias)})</span>` : ""}</div>
+      <div class="detail-s">${esc(pr.TS_MMR || "")}</div>
+      <div style="margin-top:8px"><span class="chip sev-${t.severity}"><span class="sw" style="background:var(--sev-${t.severity})"></span>${SEV_LABEL[t.severity]}</span></div>
+      <p class="detail-basis">${esc(t.basis)}</p>
+      ${t.deaths_note ? `<p class="detail-basis" style="font-size:12px;color:var(--ink-3)">${esc(t.deaths_note)}</p>` : ""}
+      <div class="detail-rows">${rows.filter(r => r[1] != null && r[1] !== "").map(r =>
+        `<div><span>${esc(r[0])}</span><b>${esc(r[1])}</b></div>`).join("")}</div>
+      <button class="linkbtn" type="button" data-jump="${esc(name)}">Show ${t.posts.length} source reports →</button>`;
+    const b = $("[data-jump]", el);
+    if (b) b.addEventListener("click", () => {
+      $("#f-ts").value = name;
+      window.__renderPosts();
+      $("#sources").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+  function renderIncDetail(i) {
+    $("#detail").innerHTML = `
+      <div class="detail-t">${esc(i.name)}</div>
+      <div class="detail-s">${esc(i.place)} · ${i.lat.toFixed(4)}°N ${i.lon.toFixed(4)}°E</div>
+      <p class="detail-basis" style="font-weight:600;color:var(--ink)">${esc(i.head)}</p>
+      <p class="detail-basis">${esc(i.text)}</p>
+      <p class="defs">Position: ${esc(i.src)}</p>
+      <div class="tl-src" style="margin-top:9px">${i.posts.map(n => `<button class="pref" data-post="${n}">#${String(n).padStart(3, "0")}</button>`).join("")}</div>`;
+    wirePostRefs($("#detail"));
+  }
+
+  /* ---- events ---- */
+  let drag = null;
+  cv.addEventListener("pointerdown", e => {
+    cv.setPointerCapture(e.pointerId);
+    drag = { x: e.offsetX, y: e.offsetY, cx: view.cx, cy: view.cy, moved: false };
+    cv.classList.add("drag");
+  });
+  cv.addEventListener("pointermove", e => {
+    if (drag) {
+      const dx = e.offsetX - drag.x, dy = e.offsetY - drag.y;
+      if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
+      view.cx = drag.cx - dx / view.k; view.cy = drag.cy + dy / view.k;
+      hideTip(); draw();
+      return;
+    }
+    const i = incAt(e.offsetX, e.offsetY);
+    if (i) {
+      if (hoverInc !== i.id) { hoverInc = i.id; hover = null; draw(); }
+      showTip(e.offsetX, e.offsetY, tipInc(i));
+      cv.style.cursor = "pointer";
+      return;
+    }
+    if (hoverInc) { hoverInc = null; draw(); }
+    cv.style.cursor = "";
+    const n = at(e.offsetX, e.offsetY);
+    if (n !== hover) { hover = n; draw(); }
+    if (n) showTip(e.offsetX, e.offsetY, tipTs(n)); else hideTip();
+  });
+  const endDrag = () => { if (drag) { drag = null; cv.classList.remove("drag"); } };
+  cv.addEventListener("pointerup", e => {
+    const wasMoved = drag && drag.moved;
+    endDrag();
+    if (wasMoved) return;
+    const i = incAt(e.offsetX, e.offsetY);
+    if (i) { renderIncDetail(i); return; }
+    const n = at(e.offsetX, e.offsetY);
+    pinned = (pinned === n) ? null : n;
+    renderDetail(pinned);
+    syncTable();
+    draw();
+  });
+  cv.addEventListener("pointercancel", endDrag);
+  cv.addEventListener("pointerleave", () => { endDrag(); hover = null; hoverInc = null; hideTip(); draw(); });
+
+  cv.addEventListener("wheel", e => {
+    e.preventDefault();
+    const f = Math.exp(-e.deltaY * 0.0016);
+    const wx = view.cx + (e.offsetX - W / 2) / view.k;
+    const wy = view.cy - (e.offsetY - H / 2) / view.k;
+    view.k = Math.max(4e-6, Math.min(2e-3, view.k * f));
+    view.cx = wx - (e.offsetX - W / 2) / view.k;
+    view.cy = wy + (e.offsetY - H / 2) / view.k;
+    hideTip(); draw();
+  }, { passive: false });
+
+  const zoomBy = f => { view.k = Math.max(4e-6, Math.min(2e-3, view.k * f)); draw(); };
+  $("#zin").addEventListener("click", () => zoomBy(1.45));
+  $("#zout").addEventListener("click", () => zoomBy(1 / 1.45));
+  $$(".toolgroup [data-view]").forEach(b => b.addEventListener("click", () => {
+    $$(".toolgroup [data-view]").forEach(x => x.classList.toggle("on", x === b));
+    fit(VIEWS[b.dataset.view]());
+  }));
+
+  /* ---- legend & layers ---- */
+  function renderLegend() {
+    const counts = {};
+    GEO.townships.features.forEach(f => { const s = sevOf(f.properties.TS); counts[s] = (counts[s] || 0) + 1; });
+    const outline = { critical: "2px solid var(--ink)", severe: "1px solid color-mix(in srgb, var(--ink) 45%, transparent)" };
+    $("#legend").innerHTML = SEV_ORDER.map(s =>
+      `<button type="button" data-sev="${s}" class="${solo && solo !== s ? "off" : ""}${solo === s ? " solo" : ""}">
+        <span class="sw" style="background:var(--sev-${s});${outline[s] ? "border:" + outline[s] : ""}"></span>
+        <span class="lb">${SEV_LABEL[s]}</span><span class="ct">${counts[s] || 0}</span></button>`).join("") +
+      `<p class="defs" style="margin:7px 3px 0; line-height:1.45">Critical and severe townships also carry a heavier outline, so rank reads without relying on colour. Click a class to isolate it.</p>`;
+    $$("#legend button").forEach(b => b.addEventListener("click", () => {
+      solo = solo === b.dataset.sev ? null : b.dataset.sev;
+      renderLegend(); draw(); syncTable();
+    }));
+  }
+  function renderLayers() {
+    const items = [["towns", "Towns"], ["villages", "Villages (zoom in)"], ["incidents", "Reported incidents"],
+                   ["roads", "Main roads"], ["districts", "District boundaries"], ["hospitals", "Public hospitals"]];
+    $("#layers").innerHTML = items.map(([k, l]) =>
+      `<label><input type="checkbox" data-layer="${k}"${layers[k] ? " checked" : ""} /> ${l}</label>`).join("");
+    $$("#layers input").forEach(c => c.addEventListener("change", () => { layers[c.dataset.layer] = c.checked; draw(); }));
+  }
+
+  function syncTable() {
+    $$("#ts-table tbody tr").forEach(tr => tr.classList.toggle("sel", tr.dataset.ts === pinned));
+  }
+
+  window.__redraw = draw;
+  window.__selectTs = n => {
+    pinned = n; renderDetail(n); syncTable();
+    const f = GEO.townships.features.find(x => x.properties.TS === n);
+    if (f) fit(bboxOf([f]), 90);
+    else draw();
+  };
+  window.__mapSolo = s => { solo = s; renderLegend(); draw(); };
+
+  new ResizeObserver(() => { const k = view.k; resize(); if (!k) fit(VIEWS.mu()); else draw(); }).observe(stage);
+  resize(); renderLegend(); renderLayers(); fit(VIEWS.mu());
+  return { fit, VIEWS };
+})();
+
+/* ======================================================== TOWNSHIP TABLE  */
+(function tsTable() {
+  const rows = FLOOD.townships.map(t => {
+    const f = GEO.townships.features.find(x => x.properties.TS === t.name);
+    const pr = f ? f.properties : {};
+    return { ...t, dt: pr.DT || "", mmr: pr.TS_MMR || "", pcode: pr.TS_PCODE || "" };
+  });
+  const maxM = Math.max(...rows.map(r => r.mentions));
+  let sort = { k: "sev", dir: -1 };
+
+  const COLS = [
+    { k: "name",  l: "Township", s: true },
+    { k: "dt",    l: "District", s: true },
+    { k: "sev",   l: "Severity", s: true },
+    { k: "deaths", l: "Deaths reported", s: false },
+    { k: "villages", l: "Villages", s: false },
+    { k: "people", l: "People", s: false },
+    { k: "mentions", l: "Posts", s: true, n: true },
+    { k: "basis", l: "Evidence basis", s: false }
+  ];
+
+  function render() {
+    const t = $("#ts-table");
+    const dir = sort.dir;
+    const val = r => sort.k === "sev" ? SEV_RANK[r.severity] : sort.k === "name" ? r.name : sort.k === "dt" ? r.dt : r.mentions;
+    const sorted = rows.slice().sort((a, b) => {
+      const x = val(a), y = val(b);
+      if (x === y) return SEV_RANK[b.severity] - SEV_RANK[a.severity] || a.name.localeCompare(b.name);
+      return (typeof x === "string" ? x.localeCompare(y) : x - y) * dir;
+    });
+    t.innerHTML = `<thead><tr>${COLS.map(c =>
+      `<th class="${c.n ? "n " : ""}${c.s ? "sortable" : ""}"${c.s ? ` data-k="${c.k}"` : ""}>${c.l}${sort.k === c.k ? ` <span class="ar">${dir > 0 ? "▲" : "▼"}</span>` : ""}</th>`).join("")}</tr></thead>
+      <tbody>${sorted.map(r => `<tr data-ts="${esc(r.name)}">
+        <td><span class="tsname">${esc(r.name)}</span>${r.alias ? ` <span class="tsalias">(${esc(r.alias)})</span>` : ""}<br /><span class="mmr">${esc(r.mmr)}</span></td>
+        <td>${esc(r.dt)}<br /><span class="defs">${esc(r.pcode)}</span></td>
+        <td><span class="chip sev-${r.severity}"><span class="sw" style="background:var(--sev-${r.severity})"></span>${SEV_LABEL[r.severity]}</span></td>
+        <td>${esc(r.deaths || "—")}</td>
+        <td>${esc(r.villages || "—")}</td>
+        <td>${esc(r.people || "—")}</td>
+        <td class="n">${r.mentions}<br /><span class="minibar-track"><span class="minibar" style="width:${Math.round(r.mentions / maxM * 100)}%"></span></span></td>
+        <td style="max-width:36ch">${esc(r.basis)}</td></tr>`).join("")}</tbody>`;
+
+    $$("#ts-table th.sortable").forEach(th => th.addEventListener("click", () => {
+      const k = th.dataset.k;
+      sort = { k, dir: sort.k === k ? -sort.dir : (k === "name" || k === "dt" ? 1 : -1) };
+      render();
+    }));
+    $$("#ts-table tbody tr").forEach(tr => tr.addEventListener("click", () => window.__selectTs(tr.dataset.ts)));
+  }
+  render();
+})();
+
+/* ======================================================== CHARTS ======== */
+const CHARTS = [];
+function chart(fn) { CHARTS.push(fn); fn(); }
+window.__recharts = () => CHARTS.forEach(f => f());
+let __rt; addEventListener("resize", () => { clearTimeout(__rt); __rt = setTimeout(() => window.__recharts(), 180); });
+
+/* Draw at the container's real pixel width so the viewBox maps 1:1 and type
+   never scales with the card. Returns the svg and the width to lay out in. */
+function svgEl(id, h, minW) {
+  const s = $(id);
+  const w = Math.max(minW || 460, Math.round(s.parentElement.clientWidth) || 700);
+  s.setAttribute("viewBox", `0 0 ${w} ${h}`);
+  s.setAttribute("width", "100%");
+  s.setAttribute("height", h);
+  s.innerHTML = "";
+  return { s, W: w };
+}
+const SVGNS = "http://www.w3.org/2000/svg";
+function n(tag, attrs, txt) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (txt != null) e.textContent = txt;
+  return e;
+}
+function tableView(id, head, rows) {
+  $(id).innerHTML = `<div class="tablewrap"><table><thead><tr>${head.map(h =>
+    `<th${/^\d|^[~<>]/.test(String(h)) ? "" : ""}>${esc(h)}</th>`).join("")}</tr></thead>
+    <tbody>${rows.map(r => `<tr>${r.map((c, i) =>
+      `<td${i > 0 && typeof c === "number" ? ' class="n"' : ""}>${esc(typeof c === "number" ? fmt(c) : c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+$$(".tabtoggle").forEach(b => b.addEventListener("click", () => {
+  const v = $("#" + b.dataset.tab);
+  const on = v.classList.toggle("on");
+  b.textContent = on ? "Chart" : "Table";
+}));
+
+/* -- posts per day (column) -- */
+chart(function () {
+  const data = Object.entries(FLOOD.stats.by_day).map(([d, v]) => ({ d, v }));
+  const H = 220, L = 34, Rr = 12, T = 18, B = 42;
+  const { s, W } = svgEl("#c-day", H);
+  const max = Math.max(...data.map(d => d.v));
+  const top = Math.ceil(max / 5) * 5;
+  const bw = Math.min(24, (W - L - Rr) / data.length - 18);
+  const x = i => L + (i + .5) * ((W - L - Rr) / data.length);
+  const y = v => H - B - (v / top) * (H - B - T);
+
+  [0, top / 2, top].forEach(v => {
+    s.appendChild(n("line", { x1: L, x2: W - Rr, y1: y(v), y2: y(v), class: v === 0 ? "axisline" : "gridline" }));
+    s.appendChild(n("text", { x: L - 7, y: y(v) + 3.5, class: "ax", "text-anchor": "end" }, String(v)));
+  });
+  data.forEach((d, i) => {
+    const h = Math.max(2, y(0) - y(d.v));
+    const g = n("g", {});
+    g.appendChild(n("rect", { x: x(i) - bw / 2, y: y(d.v), width: bw, height: h, rx: 4, ry: 4, fill: "var(--accent)" }));
+    g.appendChild(n("rect", { x: x(i) - bw / 2, y: y(d.v) + h - 4, width: bw, height: 4, fill: "var(--accent)" }));
+    g.appendChild(n("title", {}, `${d.d}: ${d.v} posts`));
+    s.appendChild(g);
+    s.appendChild(n("text", { x: x(i), y: y(d.v) - 7, class: "val", "text-anchor": "middle" }, String(d.v)));
+    const dt = new Date(d.d + "T00:00:00");
+    s.appendChild(n("text", { x: x(i), y: H - B + 16, class: "ax", "text-anchor": "middle" },
+      dt.toLocaleDateString("en-GB", { day: "numeric", month: "short" })));
+    s.appendChild(n("text", { x: x(i), y: H - B + 29, class: "ax", "text-anchor": "middle", opacity: .7 },
+      dt.toLocaleDateString("en-GB", { weekday: "short" })));
+  });
+  tableView("#tab-day", ["Date", "Posts"], data.map(d => [d.d, d.v]));
+});
+
+/* -- reported deaths by source (lollipop) -- */
+chart(function () {
+  const data = FLOOD.figures.deaths.slice().sort((a, b) => a.v - b.v || a.src.localeCompare(b.src));
+  const rowH = 26, L = 200, Rr = 52, T = 8, B = 34;
+  const H = T + data.length * rowH + B;
+  const { s, W } = svgEl("#c-deaths", H);
+  const top = 22;
+  const x = v => L + (v / top) * (W - L - Rr);
+  const y = i => T + i * rowH + rowH / 2;
+
+  [0, 5, 10, 15, 20].forEach(v => {
+    s.appendChild(n("line", { x1: x(v), x2: x(v), y1: T, y2: H - B + 4, class: v === 0 ? "axisline" : "gridline" }));
+    s.appendChild(n("text", { x: x(v), y: H - B + 20, class: "ax", "text-anchor": "middle" }, String(v)));
+  });
+  s.appendChild(n("text", { x: (L + W - Rr) / 2, y: H - 4, class: "ax", "text-anchor": "middle" }, "deaths reported"));
+
+  data.forEach((d, i) => {
+    const sag = !/nationwide|4 regions/i.test(d.scope);
+    s.appendChild(n("line", { x1: x(0), x2: x(d.v), y1: y(i), y2: y(i), stroke: "var(--accent)", "stroke-width": 2, opacity: .3 }));
+    const g = n("g", {});
+    g.appendChild(n("circle", { cx: x(d.v), cy: y(i), r: 5.5, fill: sag ? "var(--accent)" : "var(--surface)", stroke: sag ? "var(--surface)" : "var(--accent)", "stroke-width": 2 }));
+    g.appendChild(n("title", {}, `${d.src} — ${d.label}, as of ${d.asof}. Scope: ${d.scope}`));
+    s.appendChild(g);
+    s.appendChild(n("text", { x: L - 10, y: y(i) + 3.5, class: "lbl", "text-anchor": "end" }, d.src));
+    // compact direct label — the qualifiers live in the tooltip and table view
+    s.appendChild(n("text", { x: x(d.v) + 11, y: y(i) + 3.5, class: "val" }, (d.label.match(/^~?\d+/) || [d.label])[0]));
+  });
+  $("#l-deaths").innerHTML =
+    `<span><span class="k" style="background:var(--accent)"></span>Sagaing Region or one township</span>
+     <span><span class="k" style="background:var(--surface);box-shadow:inset 0 0 0 2px var(--accent)"></span>Wider scope (nationwide or four regions)</span>`;
+  tableView("#tab-deaths", ["Source", "Reported", "As of", "Scope"], data.map(d => [d.src, d.label, d.asof, d.scope]));
+});
+
+/* -- affected population by source (lollipop) -- */
+chart(function () {
+  const data = FLOOD.figures.affected.slice().sort((a, b) => a.v - b.v);
+  const rowH = 26, L = 200, Rr = 72, T = 8, B = 34;
+  const H = T + data.length * rowH + B;
+  const { s, W } = svgEl("#c-aff", H);
+  const top = 450000;
+  const x = v => L + (v / top) * (W - L - Rr);
+  const y = i => T + i * rowH + rowH / 2;
+
+  [0, 100000, 200000, 300000, 400000].forEach(v => {
+    s.appendChild(n("line", { x1: x(v), x2: x(v), y1: T, y2: H - B + 4, class: v === 0 ? "axisline" : "gridline" }));
+    s.appendChild(n("text", { x: x(v), y: H - B + 20, class: "ax", "text-anchor": "middle" }, v ? (v / 1000) + "k" : "0"));
+  });
+  s.appendChild(n("text", { x: (L + W - Rr) / 2, y: H - 4, class: "ax", "text-anchor": "middle" }, "people reported affected"));
+
+  data.forEach((d, i) => {
+    const sag = !/nationwide|4 regions|Mandalay/i.test(d.scope);
+    s.appendChild(n("line", { x1: x(0), x2: x(d.v), y1: y(i), y2: y(i), stroke: "var(--accent)", "stroke-width": 2, opacity: .3 }));
+    const g = n("g", {});
+    g.appendChild(n("circle", { cx: x(d.v), cy: y(i), r: 5.5, fill: sag ? "var(--accent)" : "var(--surface)", stroke: sag ? "var(--surface)" : "var(--accent)", "stroke-width": 2 }));
+    g.appendChild(n("title", {}, `${d.src} — ${d.label}, as of ${d.asof}. Scope: ${d.scope}`));
+    s.appendChild(g);
+    s.appendChild(n("text", { x: L - 10, y: y(i) + 3.5, class: "lbl", "text-anchor": "end" }, d.src));
+    s.appendChild(n("text", { x: x(d.v) + 11, y: y(i) + 3.5, class: "val" }, d.label));
+  });
+  $("#l-aff").innerHTML =
+    `<span><span class="k" style="background:var(--accent)"></span>Sagaing Region or one township</span>
+     <span><span class="k" style="background:var(--surface);box-shadow:inset 0 0 0 2px var(--accent)"></span>Wider scope (multi-region)</span>`;
+  tableView("#tab-aff", ["Source", "Reported", "As of", "Scope"], data.map(d => [d.src, d.label, d.asof, d.scope]));
+});
+
+/* -- villages by area (bars) -- */
+chart(function () {
+  const data = FLOOD.figures.villages.slice().sort((a, b) => b.v - a.v);
+  const rowH = 34, L = 190, Rr = 54, T = 8, B = 30;
+  const H = T + data.length * rowH + B;
+  const { s, W } = svgEl("#c-vil", H);
+  const top = 220;
+  const x = v => L + (v / top) * (W - L - Rr);
+  const y = i => T + i * rowH;
+
+  [0, 50, 100, 150, 200].forEach(v => {
+    s.appendChild(n("line", { x1: x(v), x2: x(v), y1: T, y2: H - B + 4, class: v === 0 ? "axisline" : "gridline" }));
+    s.appendChild(n("text", { x: x(v), y: H - B + 19, class: "ax", "text-anchor": "middle" }, String(v)));
+  });
+
+  data.forEach((d, i) => {
+    const bh = 16, yy = y(i) + (rowH - bh) / 2 - 4;
+    const w = Math.max(3, x(d.v) - x(0));
+    const g = n("g", {});
+    g.appendChild(n("rect", { x: x(0), y: yy, width: w, height: bh, rx: 4, ry: 4, fill: "var(--accent)" }));
+    g.appendChild(n("rect", { x: x(0), y: yy, width: Math.min(4, w), height: bh, fill: "var(--accent)" }));
+    g.appendChild(n("title", {}, `${d.where}: ${d.label} (${d.src})`));
+    s.appendChild(g);
+    const sev = (TS.get(d.where) || {}).severity, LM = 4;
+    if (sev) s.appendChild(n("rect", { x: LM, y: yy + 3, width: 9, height: 9, rx: 2, fill: `var(--sev-${sev})`,
+      stroke: sev === "critical" ? "var(--ink)" : "none", "stroke-width": sev === "critical" ? 1.4 : 0 }));
+    s.appendChild(n("text", { x: LM + (sev ? 15 : 0), y: yy + 11.5, class: "lbl" }, d.where));
+    s.appendChild(n("text", { x: LM, y: yy + 24, class: "ax", opacity: .85 }, d.src));
+    s.appendChild(n("text", { x: x(d.v) + 9, y: yy + 12, class: "val" }, d.label.replace(" villages", "").replace(" at risk", "")));
+  });
+  tableView("#tab-vil", ["Area", "Villages", "Source"], data.map(d => [d.where, d.label, d.src]));
+});
+
+/* -- source types (bars) -- */
+chart(function () {
+  const data = Object.entries(FLOOD.stats.by_type).map(([k, v]) => ({ k, v })).sort((a, b) => b.v - a.v);
+  const rowH = 26, L = 176, Rr = 40, T = 8, B = 26;
+  const H = T + data.length * rowH + B;
+  const { s, W } = svgEl("#c-type", H);
+  const top = Math.max(...data.map(d => d.v));
+  const x = v => L + (v / top) * (W - L - Rr);
+  const y = i => T + i * rowH;
+
+  s.appendChild(n("line", { x1: x(0), x2: x(0), y1: T, y2: H - B + 4, class: "axisline" }));
+  [0, Math.round(top / 2), top].forEach(v => {
+    if (v) s.appendChild(n("line", { x1: x(v), x2: x(v), y1: T, y2: H - B + 4, class: "gridline" }));
+    s.appendChild(n("text", { x: x(v), y: H - B + 18, class: "ax", "text-anchor": "middle" }, String(v)));
+  });
+  data.forEach((d, i) => {
+    const bh = 14, yy = y(i) + (rowH - bh) / 2;
+    const w = Math.max(3, x(d.v) - x(0));
+    const g = n("g", {});
+    g.appendChild(n("rect", { x: x(0), y: yy, width: w, height: bh, rx: 4, ry: 4, fill: "var(--accent)" }));
+    g.appendChild(n("rect", { x: x(0), y: yy, width: Math.min(4, w), height: bh, fill: "var(--accent)" }));
+    g.appendChild(n("title", {}, `${d.k}: ${d.v} posts`));
+    s.appendChild(g);
+    s.appendChild(n("text", { x: L - 10, y: yy + 11, class: "lbl", "text-anchor": "end" }, d.k));
+    s.appendChild(n("text", { x: x(d.v) + 9, y: yy + 11, class: "val" }, String(d.v)));
+  });
+  tableView("#tab-type", ["Source type", "Posts"], data.map(d => [d.k, d.v]));
+});
+
+/* ======================================================== TIMELINE ====== */
+function wirePostRefs(root) {
+  $$("[data-post]", root).forEach(b => b.addEventListener("click", () => {
+    const id = +b.dataset.post;
+    $("#f-clear").click();
+    $("#f-q").value = "#" + String(id).padStart(3, "0");
+    window.__renderPosts();
+    $("#sources").scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
+}
+(function timeline() {
+  const PH = { rain: "var(--sev-watch)", dam: "var(--accent)", surge: "var(--sev-severe)",
+               peak: "var(--sev-critical)", assess: "var(--sev-moderate)", response: "var(--accent)" };
+  $("#timeline").innerHTML = FLOOD.timeline.map(t => {
+    const d = new Date(t.date + "T00:00:00");
+    return `<div class="tl-row">
+      <div class="tl-date">
+        <span class="tl-d">${t.label || d.toLocaleDateString("en-GB", { day: "numeric", month: "short" })}</span>
+        <span class="tl-w">${t.label ? "2026" : d.toLocaleDateString("en-GB", { weekday: "long" })}</span>
+        <span class="tl-phase" style="background:${PH[t.phase] || "var(--rule)"}; height:22px; margin-top:5px"></span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-t">${esc(t.title)}</div>
+        <p class="tl-x">${esc(t.text)}</p>
+        <div class="tl-src">${t.posts.map(p => `<button class="pref" data-post="${p}">#${String(p).padStart(3, "0")}</button>`).join("")}</div>
+      </div></div>`;
+  }).join("");
+  wirePostRefs($("#timeline"));
+})();
+
+/* ======================================================== MECHANISM ===== */
+(function mechanism() {
+  $("#chain").innerHTML = FLOOD.causal_chain.map(c =>
+    `<div class="chain-step" data-kind="${esc(c.kind)}">
+      <div class="chain-n">${c.step}</div>
+      <div><div class="chain-t">${esc(c.title)}</div><p class="chain-x">${esc(c.text)}</p>
+      <div class="chain-s">${c.sources.map(s => `<span class="chip">${esc(s)}</span>`).join("")}</div></div>
+    </div>`).join("");
+
+  const order = ["Kyunhla", "Kanbalu", "Taze", "Ye-U", "Khin-U", "Tabayin", "Shwebo", "Wetlet", "Myinmu", "Sagaing"];
+  $("#path").innerHTML = order.map((nm, i) => {
+    const t = TS.get(nm) || {};
+    return (i ? `<span class="path-arrow">→</span>` : "") +
+      `<button class="path-node" type="button" data-go="${esc(nm)}">
+        <span class="sw" style="background:var(--sev-${t.severity || "none"})"></span>${esc(nm)}${t.alias ? " (" + esc(t.alias) + ")" : ""}</button>`;
+  }).join("");
+  $$("#path [data-go]").forEach(b => b.addEventListener("click", () => {
+    window.__selectTs(b.dataset.go);
+    $("#map").scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
+
+  $("#unloc").innerHTML = FLOOD.unlocated.map(u =>
+    `<div><b>${esc(u.name)}</b> — ${esc(u.place)}. ${esc(u.why)}.
+      ${u.posts.map(p => `<button class="pref" data-post="${p}">#${String(p).padStart(3, "0")}</button>`).join("")}</div>`).join("");
+  wirePostRefs($("#unloc"));
+})();
+
+/* ======================================================== IMPACTS ======= */
+(function impacts() {
+  $("#agri").innerHTML = FLOOD.agriculture.map(a =>
+    `<div><div class="v">${esc(a.label)}</div><div class="l">${esc(a.detail)}</div>
+      <div class="s">${esc(a.src)} · ${esc(a.asof)}</div></div>`).join("");
+
+  $("#needs").innerHTML = FLOOD.needs.map(x =>
+    `<div><div class="deft">${esc(x.need)}</div><div class="defx">${esc(x.detail)}</div>
+      <div class="defs">${esc(x.src)}</div></div>`).join("");
+
+  $("#constraints").innerHTML = FLOOD.constraints.map(x =>
+    `<div><div class="deft">${esc(x.title)}</div><div class="defx">${esc(x.text)}</div>
+      <div class="tl-src" style="margin-top:5px">${x.posts.map(p => `<button class="pref" data-post="${p}">#${String(p).padStart(3, "0")}</button>`).join("")}</div></div>`).join("");
+  wirePostRefs($("#constraints"));
+})();
+
+/* ======================================================== SOURCES ======= */
+(function sources() {
+  const TYPE = FLOOD.source_type_label;
+  const THEMES = Object.keys(FLOOD.stats.themes);
+
+  const opt = (el, items, all) => {
+    $(el).innerHTML = `<option value="">${all}</option>` +
+      items.map(i => `<option value="${esc(i[0])}">${esc(i[1])}</option>`).join("");
+  };
+  opt("#f-ts", FLOOD.townships.slice().sort((a, b) => a.name.localeCompare(b.name))
+      .map(t => [t.name, t.name + (t.alias ? " (" + t.alias + ")" : "") + " · " + t.posts.length]), "All townships");
+  opt("#f-type", Object.entries(TYPE).map(([k, v]) => [k, v + " · " + FLOOD.posts.filter(p => p.st === k).length]), "All source types");
+  opt("#f-theme", THEMES.map(t => [t, t[0].toUpperCase() + t.slice(1) + " · " + FLOOD.stats.themes[t]]), "All themes");
+  opt("#f-day", Object.entries(FLOOD.stats.by_day).map(([d, v]) =>
+      [d, new Date(d + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "short" }) + " · " + v]), "All dates");
+
+  function render() {
+    const q = $("#f-q").value.trim().toLowerCase();
+    const ts = $("#f-ts").value, ty = $("#f-type").value, th = $("#f-theme").value, dy = $("#f-day").value;
+    const list = FLOOD.posts.filter(p => {
+      if (ts && !p.ts.includes(ts)) return false;
+      if (ty && p.st !== ty) return false;
+      if (th && !p.th.includes(th)) return false;
+      if (dy && p.dt.slice(0, 10) !== dy) return false;
+      if (q) {
+        const hay = ("#" + String(p.id).padStart(3, "0") + " " + p.page + " " + p.txt + " " + (p.note || "") +
+                     " " + p.ts.join(" ") + " " + p.depth + " " + p.th.join(" ")).toLowerCase();
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    }).sort((a, b) => b.dt.localeCompare(a.dt));
+
+    $("#f-count").textContent = list.length + " of " + FLOOD.posts.length + " reports";
+    $("#posts").innerHTML = list.length ? list.map(p => {
+      const d = new Date(p.dt);
+      return `<article class="post">
+        <div class="post-h">
+          <span class="post-page">${esc(p.page)}</span>
+          <span class="post-dt">#${String(p.id).padStart(3, "0")} · ${d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" })} ${p.dt.slice(11, 16)}</span>
+        </div>
+        <div class="post-meta">
+          <span class="chip">${esc(TYPE[p.st])}</span>
+          ${p.fol ? `<span class="chip">${p.fol >= 1e6 ? (p.fol / 1e6).toFixed(p.fol >= 1e7 ? 0 : 1) + "M" : p.fol >= 1000 ? Math.round(p.fol / 1000) + "K" : p.fol} followers</span>` : ""}
+          <span class="chip">${esc(p.lang)}</span>
+          ${p.ts.map(t => { const s = (TS.get(t) || {}).severity || "none";
+            return `<button class="chip sev-${s}" data-go="${esc(t)}" style="cursor:pointer"><span class="sw" style="background:var(--sev-${s})"></span>${esc(t)}</button>`; }).join("")}
+        </div>
+        <p class="post-x">${esc(p.txt)}</p>
+        ${p.note ? `<p class="post-n">${esc(p.note)}</p>` : ""}
+        <div class="post-f">
+          <span class="post-depth">${p.depth && p.depth !== "Not stated" ? "Water: " + esc(p.depth) : esc(p.media || "")}</span>
+          <a class="post-a" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">Open post ↗</a>
+        </div>
+      </article>`;
+    }).join("") : `<div class="empty">No reports match these filters.</div>`;
+
+    $$("#posts [data-go]").forEach(b => b.addEventListener("click", () => {
+      window.__selectTs(b.dataset.go);
+      $("#map").scrollIntoView({ behavior: "smooth", block: "start" });
+    }));
+  }
+  window.__renderPosts = render;
+  ["#f-q", "#f-ts", "#f-type", "#f-theme", "#f-day"].forEach(s =>
+    $(s).addEventListener("input", render));
+  $("#f-clear").addEventListener("click", () => {
+    $("#f-q").value = ""; $("#f-ts").value = ""; $("#f-type").value = ""; $("#f-theme").value = ""; $("#f-day").value = "";
+    render();
+  });
+  render();
+})();
+
+/* ======================================================== FOOTER / NAV == */
+(function footer() {
+  const pages = Array.from(new Set(FLOOD.posts.map(p => p.page))).sort((a, b) => a.localeCompare(b));
+  $("#foot-src").innerHTML = "Accounts represented: " + pages.map(esc).join(" · ");
+})();
+
+(function nav() {
+  const links = $$("#nav a");
+  const secs = links.map(a => $(a.getAttribute("href")));
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const i = secs.indexOf(e.target);
+      links.forEach((l, j) => l.classList.toggle("on", j === i));
+    });
+  }, { rootMargin: "-15% 0px -75% 0px" });
+  secs.forEach(s => s && io.observe(s));
+})();
+</script>

@@ -1,0 +1,1402 @@
+# Sagaing Region, Myanmar - Extensive Flooding Raw Facebook Dataset
+## August 2026 Collection
+
+### Metadata
+- **Collection Period**: 2026-07-15 to 2026-08-11 (search executed 2026-08-11 Asia/Bangkok)
+- **Collection Date**: 2026-08-11
+- **Geographic Scope**: Sagaing Region, Myanmar - all townships: Shwebo, Wetlet, Khin-U, Kanbalu, Taze (Tantse), Ye-U, Depayin (Tabayin), Khin-U, Wetlet, Kyunhla, Kawlin, Wuntho, Pinlebu, Katha, Banmauk, Indaw, Tigyaing, Monywa, Budalin, Chaung-U, Myinmu, Ayadaw, Yinmabin, Kani, Pale, Salingyi, Kale, Kalewa, Mawlaik, Mingin, Tamu, Homalin, Paungbyin, Sagaing Township
+- **Search Scope**: Publicly accessible Facebook posts via Meta content search + web context. Languages: Myanmar (my), English (en), Thai (th) where reporting Myanmar. Keywords: စစ်ကိုင်းတိုင်း ရေကြီး, စစ်ကိုင်းရေဘေး, မုံရွာ ရေကြီး, ရွှေဘို ရေကြီး, မူးမြစ် ရေကြီး, ချင်းတွင်းမြစ် ရေကြီး, ကန့်ဘလူ ရေကြီး, တန့်ဆည် ရေကြီး, ရေဦး ရေကြီး, ကောလင်း ရေကြီး, Sagaing flood, Monywa flood, Shwebo flood, Mu River flood, Chindwin River flood, Thapanseik Dam release, Sagaing flood relief/rescue.
+- **Platform Filter**: facebook
+- **Ranking Intents Used**: recency, engagement, informational
+- **Total Unique Posts Preserved in this File**: 52 (from >90 reviewed)
+- **Fields Extracted Per Post**: Post date/time, Page/account name, Post URL, Original post text/faithful transcription (summary where verbatim not retrievable), Language, Township, District, Village/ward/locality, Coordinates, Date/time of reported flooding, Flood description, Water depth/level, Affected people/households, Evacuations/displacement, Deaths/injuries/missing, Houses/buildings, Roads/bridges/infrastructure, Farmland/crops, Schools/hospitals/religious sites, Rescue/relief activities, Requests for assistance, Photos/videos mentioned, Source type, Other factual info
+
+- **Disclaimer**: Raw source-level data preserved as reported. Claims are those of original posters. No independent verification applied. Duplicate events from different sources kept separately for cross-verification.
+
+---
+
+### RECORD 001
+- **Post date and time**: 2026-08-10 05:28:26 +07
+- **Page/account name**: Ye Min
+- **Post URL**: https://www.facebook.com/ye.min.54738/posts/pfbid0xPgjmZpN2CXFc7qSN7HSCpmM3pNbKJu5gwpkBggiZq9KdBwbiCJknv8AVgCKYTfml
+- **Original text/transcription**: (Myanmar) Burmese caption dated 10/8/2026 states there are no donors in flooded Dry Zone, asks viewers to see who is actually helping, claims real Burmese people suffering, accuses domestic celebrities of only going to convenient publicity spots, describes helpless children. Photos show rescue in Shwebo/Wetlet.
+- **Language**: my
+- **Township**: Shwebo, Wetlet
+- **District**: Shwebo District
+- **Village/ward**: Not specified, Dry Zone villages
+- **Coordinates**: None explicit
+- **Event date/time**: August 2026, ongoing
+- **Flood description**: Knee-to-waist deep muddy water, 15 people pulling civilians, herding cattle with ropes, villagers evacuating with baskets/sacks/bundled clothes on heads, child carried
+- **Water depth**: Knee to waist deep
+- **Affected people**: Not quantified, but multiple families shown
+- **Evacuations**: Yes, villagers evacuating with belongings
+- **Deaths/injuries/missing**: Not stated in this post
+- **Houses/buildings**: Submerged, trees submerged
+- **Roads/bridges**: Not specified
+- **Farmland/crops**: Farmland flooded
+- **Schools/hospitals**: Not specified
+- **Rescue/relief**: People in camouflage uniforms with red patches, man in black rain vest with Burmese text coordinating with ropes and tire float, soldier assisting older man
+- **Requests**: Implicit request for donors to help Dry Zone
+- **Photos/videos**: 5 documentary photographs in carousel, photojournalistic daytime
+- **Source type**: Individual (5K followers, verified)
+- **Other**: Comments include request "ရွာမှာ အကူအညီ လိုအပ်ပါတယ်ဗျ ဝက်လက်နယ်ကပါ" - needs aid in Wetlet
+
+### RECORD 002
+- **Post date and time**: 2026-08-08 22:31:35 +07
+- **Page/account name**: ပကဖ၊ ရွှေဘိုမြို့နယ်၊ NUG (Shwebo Township People's Defense Force, NUG Ministry of Defense)
+- **Post URL**: https://www.facebook.com/permalink.php?story_fbid=pfbid0UJbf38o9h7Ag8VqTJD9iY2Bkk9T8Rzs5vjBq4GADJpwiuPa3RwzJG5gtrixkZFUWl&id=100077330481508
+- **Original text**: (Myanmar) NUG MOD Shwebo Township PDF providing emergency assistance to relocate people to safety, urges residents to be cautious of flood hazards, health risks, poisonous animals
+- **Language**: my
+- **Township**: Shwebo
+- **District**: Shwebo District
+- **Village**: Western Shwebo Township, Mu River near
+- **Coordinates**: Mu River vicinity
+- **Event date/time**: 2026-08-08
+- **Flood description**: Villages inundated by muddy brown water waist to chest depth near Mu River
+- **Water depth**: Waist to chest depth
+- **Affected people**: Not quantified
+- **Evacuations**: PDF members supporting civilians, forming human chains, carrying belongings in sacks/backpacks, guiding zebu cattle
+- **Deaths/injuries/missing**: None stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not detailed
+- **Rescue/relief**: Official documentation of PDF disaster response, aid distribution with plastic bags of supplies, visual overlays red flag white star and red shield PDF emblem
+- **Requests**: Caution to residents
+- **Photos/videos**: Photo-documentary series, multiple slides uniformed PDF in camouflage and boonie hats
+- **Source type**: Rescue organization / armed group (NUG PDF), 14K followers
+- **Other**: Comments dispute framing, allege weapon threats and confiscation - preserved as claim
+
+### RECORD 003
+- **Post date and time**: 2026-08-10 22:48:40 +07
+- **Page/account name**: Khin Hnin Kyi Thar
+- **Post URL**: https://www.facebook.com/khin.kyithar/posts/pfbid02wTqx1fUQk6td4hWaSyu3iHMm2e2cKoJLpPUNxVjjXUX87TeYN4Cb4i3fQiheea1xl
+- **Original text**: (Myanmar) Names currently flood-affected townships: Depayin, Shwebo, Khin-U, Taze, Ye-U, Wetlet, Ayadaw, Kanbalu, Kawlin. Roughly 2,000 households per township affected and need help, initial accessible report, water levels may rise or fall locally. Directly addresses Burmese abroad urging help.
+- **Language**: my
+- **Township**: Depayin, Shwebo, Khin-U, Taze, Ye-U, Wetlet, Ayadaw, Kanbalu, Kawlin
+- **District**: Shwebo District, Kanbalu District, Kawlin District
+- **Village**: Not specified, multiple
+- **Coordinates**: None
+- **Event date/time**: 2026-08-10, ongoing
+- **Flood description**: Extensive floodwater, chest-deep at dusk, ox cart loaded with relief supplies sacks, flooded rice paddies
+- **Water depth**: Chest-deep
+- **Affected people**: ~2,000 households per township (approx 18,000 households total across 9 townships) - reported as estimate
+- **Evacuations**: Implied need, people wading with bags
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not quantified
+- **Roads/bridges**: Not quantified
+- **Farmland/crops**: Green rice paddies flooded
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Ox cart relief supplies (yellow/blue/white/red sacks), appeal for diaspora aid
+- **Requests**: Urgent help, message if will assist together
+- **Photos/videos**: 2 on-location photos: ox cart with oxen, 5 people wading chest-deep
+- **Source type**: Individual media personality (780K followers, verified)
+- **Other**: Comment from Kawlin: "တို့ကောလင်းမြို့လေး မိုးကဒီနေ့မတိတ်တာတဲ့ ရေကတော့အောက်ရေထောက်နေလို့မကျသေးဘူးတဲ့" - rain not stopped, water backed up not receded
+
+### RECORD 004
+- **Post date and time**: 2026-08-09 18:20:03 +07
+- **Page/account name**: DVB TV News
+- **Post URL**: https://www.facebook.com/DVBTVNews/posts/pfbid0zEVa9mwwy3rVbssbFECNoNLHDDryuK8XG1LmNJ3tu1tomn6zvkuYCUWdwF2VYbx1l
+- **Original text**: (Myanmar) Continuous rain and dam releases flooded Shwebo, Depayin, Tantse (Taze), Khin-U, Ye-U, Kanbalu, Wetlet, Indaw, Kawlin, nationwide ~250,000 affected and at least 10 dead per NUG
+- **Language**: my
+- **Township**: Shwebo, Depayin, Taze, Khin-U, Ye-U, Kanbalu, Wetlet, Indaw, Kawlin
+- **District**: Shwebo, Kanbalu, Kawlin
+- **Village**: Mu River western Shwebo
+- **Coordinates**: Mu River
+- **Event date/time**: 2026-08-09, dam release + continuous rain
+- **Flood description**: Murky brown floodwater covering rural areas near Mu River, waist-deep, white truck loaded with sacks, cattle herded
+- **Water depth**: Waist-deep
+- **Affected people**: ~250,000 nationwide per NUG (in caption)
+- **Evacuations**: PDF assisting elderly with walking sticks, woman in camouflage guiding civilian in pink poncho, holding ropes
+- **Deaths/injuries/missing**: At least 10 dead per NUG
+- **Houses/buildings**: Not quantified
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Farmland inundated
+- **Schools/hospitals**: Not detailed
+- **Rescue/relief**: Shwebo Township PDF emergency assistance
+- **Requests**: Not explicit
+- **Photos/videos**: 10-slide carousel photojournalistic, PDF emblems
+- **Source type**: Media organization (22M followers, verified)
+- **Other**: Cause cited as continuous rain + dam releases
+
+### RECORD 005
+- **Post date and time**: 2026-08-09 14:46:46 +07
+- **Page/account name**: People's Spring
+- **Post URL**: https://www.facebook.com/reel/1071749255294388/
+- **Original text**: (Myanmar) More than 200,000 people affected by floods in Sagaing, Mandalay, Ayeyarwady. Ground footage urban flooding knee-height, silver SUV, rescuer red vest. Rural: fast-moving muddy water surrounds stilt houses, submerges trees, concrete bridge.
+- **Language**: my
+- **Township**: Sagaing (general), plus Mandalay/Ayeyarwady regions
+- **District**: Not specified
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-09, date stamp 9.8.2026 in video
+- **Flood description**: Muddy brown water knee-height urban, fast-moving rural surrounding stilt houses, submerges trees, rushing along road/riverbank
+- **Water depth**: Knee-height urban
+- **Affected people**: >200,000 affected (Sagaing+Mandalay+Ayeyarwady combined)
+- **Evacuations**: People wading, displaced along elevated roadway with dog
+- **Deaths/injuries/missing**: Not stated in this post
+- **Houses/buildings**: Stilt houses partially submerged
+- **Roads/bridges**: Concrete bridge with water flowing beneath, street flooded
+- **Farmland/crops**: Vegetation submerged
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Myanmar Rescue Madaya footage credited, rescuer in red vest
+- **Requests**: Informational
+- **Photos/videos**: Video: ground urban flood, studio presenter Htet Htet, aerial inundation
+- **Source type**: Media (2.3M followers, verified)
+- **Other**: Attribution to Myanmar Rescue Madaya
+
+### RECORD 006
+- **Post date and time**: 2026-08-10 13:19:46 +07
+- **Page/account name**: BBC Burmese
+- **Post URL**: https://www.facebook.com/BBCnewsBurmese/posts/pfbid0PMpA6dnHK75jcfWVCGZZVqzPLFRCxFbKbCEZK8TaHen2vuiXwHnbzSaq5TEZZsajl
+- **Original text**: (Myanmar) While Mu River gradually receding in Shwebo and Khin-U townships, continues to rise in Wetlet Township south where roads/bridges damaged per revolutionary forces, because flooded villages are conflict-affected areas relief operations face greater challenges.
+- **Language**: my
+- **Township**: Shwebo, Khin-U, Wetlet
+- **District**: Shwebo District
+- **Village**: Mu River villages
+- **Coordinates**: Mu River
+- **Event date/time**: 2026-08-09/10, Mu River status
+- **Flood description**: Village almost entirely surrounded by brown floodwater, farmland stretching horizon, only narrow grass strips visible, aerial views
+- **Water depth**: Not quantified, but houses partially submerged
+- **Affected people**: Not quantified in this caption
+- **Evacuations**: Displaced families sheltering under makeshift tarps beside rural road, people sitting on ground, white cattle resting nearby
+- **Deaths/injuries/missing**: Not stated here
+- **Houses/buildings**: Houses submerged
+- **Roads/bridges**: Roads and bridges damaged in Wetlet per revolutionary forces
+- **Farmland/crops**: Vast farmland inundated
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Notes challenges due to conflict
+- **Requests**: Not explicit
+- **Photos/videos**: 4-image carousel: aerial village surrounded, flooded farmland, displaced families under tarps
+- **Source type**: Media (27M followers, verified)
+- **Other**: Links to Aug 7 live broadcast, BBC NEWS မြန်မာ logo
+
+### RECORD 007
+- **Post date and time**: 2026-08-10 16:08:31 +07
+- **Page/account name**: The Irrawaddy - English Edition
+- **Post URL**: https://www.facebook.com/theirrawaddy/posts/pfbid0Uh6XL7upn25u5axUkEeNfJ3aHYyNoRwoFT4eKavtzj4sCMYxNorv7ZZRPwpu9vjel
+- **Original text**: Flooding affects over 400,000 in four regions. Estimated 414,843 people affected in 15 townships across Sagaing, Mandalay, Magwe and Irrawaddy regions per NUG, at least 16 deaths, 61 injuries, two missing, damage to houses, over 18,000 hectares farmland, and bridges. NUG formed Joint Emergency Response Committee in Sagaing, regime media reported Min Aung Hlaing visiting Lemyethna, DMH warned six rivers breached danger urging evacuations in Myinmu, Monywa, Hpa-an, Madauk, Myitnge.
+- **Language**: en
+- **Township**: 15 townships across 4 regions including Sagaing (specific not listed in caption snippet but includes Myinmu, Monywa)
+- **District**: Various
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-10 report, event ongoing
+- **Flood description**: Aerial submerged village brown floodwater surrounding houses blue/brown roofs, ground level displaced residents including women children standing muddy bank with belongings, vast inundated landscapes only treetops/rooftops visible
+- **Water depth**: Not quantified, rooftops visible
+- **Affected people**: 414,843 affected (4 regions), per NUG
+- **Evacuations**: Displaced residents standing muddy bank with piles belongings, child crouching distress
+- **Deaths/injuries/missing**: At least 16 deaths, 61 injuries, 2 missing (4 regions)
+- **Houses/buildings**: Damage to houses, 18,000 hectares farmland, bridges damaged
+- **Roads/bridges**: Bridges damaged
+- **Farmland/crops**: Over 18,000 hectares farmland damaged
+- **Schools/hospitals**: Not specified
+- **Rescue/relief**: NUG Joint Emergency Response Committee formed in Sagaing
+- **Requests**: Evacuations urged by DMH for Myinmu, Monywa, etc.
+- **Photos/videos**: 4-image carousel: aerial submerged village text overlay "Flooding affects over 400,000", ground displaced families, aerial vast inundation red-roofed building
+- **Source type**: Media (6.5M followers, verified)
+- **Other**: #WhatsHappeningInMyanmar, six rivers breached danger
+
+### RECORD 008
+- **Post date and time**: 2026-08-11 12:21:31 +07
+- **Page/account name**: Mizzima - Myanmar News - English Edition
+- **Post URL**: https://www.facebook.com/reel/2213167536143812/
+- **Original text**: Over 1,700 IDPs from 500 households in Shwebo Township urgently need emergency aid amid widespread flooding caused by heavy rainfall.
+- **Language**: en
+- **Township**: Shwebo
+- **District**: Shwebo District
+- **Village**: Not specified rural road, palm trees
+- **Coordinates**: None
+- **Event date/time**: 2026-08-11
+- **Flood description**: Wide flooded rural road, men/women/children wading knee-thigh deep murky brown water carrying cardboard boxes/bundles on heads, bamboo fence lapping water, vast expanse water to horizon, small wooden boat rowed across submerged landscape, houses yellow roofs underwater
+- **Water depth**: Knee to thigh
+- **Affected people**: 1,700 IDPs, 500 households (Shwebo Township) per caption
+- **Evacuations**: Yes, long line evacuating, carrying possessions
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Houses with yellow roofs underwater, woven bamboo fence submerged
+- **Roads/bridges**: Rural road flooded
+- **Farmland/crops**: Submerged landscape, vegetation poking out
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Need emergency aid stated, boat carrying people
+- **Requests**: Urgently need emergency aid
+- **Photos/videos**: Video, MizzimaTV watermark, ambient water sounds, voice calling "Babi! Babi!"
+- **Source type**: Media (2.6M followers, verified)
+- **Other**: IDP specific count
+
+### RECORD 009
+- **Post date and time**: 2026-08-08 00:18:20 +07
+- **Page/account name**: AI Info Team
+- **Post URL**: https://www.facebook.com/permalink.php?story_fbid=pfbid02ciYiWCQvNjUzRw1v6QnF4DReooMGNv7xHEJkGMm3Ybsrez8ent2F4NZUe8Pzptysl&id=61574564039005
+- **Original text**: (Myanmar) Sagaing flood is not ordinary monsoon flooding but downstream-moving "Flood Wave" along Mu River basin. Four causes: continuous upstream rain in Kachin, Indaw, Kawlin, northern Kanbalu; high inflow to Thaphanseik Dam leading to releases; Kabo Dam gates opened; Mu River embankment breaches at Thayethauk, Daunggyi, Bogyone. Water path Kachin/Indaw through dams to Kanbalu, Taze, Ye-U, Khin-U, Depayin, Shwebo, Wetlet, Sagaing. Red zones Kanbalu (embankment breach), Taze (12+ villages, bridge damage), Ye-U (town flooded), Depayin (17+ villages, 10,000+ people, 6 deaths). Orange watch Khin-U, Shwebo, Inma (Sagaing), Sagaing city.
+- **Language**: my
+- **Township**: Kanbalu, Taze, Ye-U, Khin-U, Depayin, Shwebo, Wetlet, Sagaing, Indaw, Kawlin, Kachin
+- **District**: Kanbalu, Shwebo, Sagaing
+- **Village**: Thayethauk, Daunggyi, Bogyone embankment breach points
+- **Coordinates**: Map image with colored polygons, place names English+Burmese: Kanbalu, Taze, Ye-U, Shwebo, Monywa, Pale, Pakokku, Old Bagan, Madaya, Kyaukse, Wundwin. Red squares around Shwebo and eastern Mandalay, orange circle west Mandalay.
+- **Event date/time**: 2026-08-07 posted, flood wave ongoing, warning next 24-48 hours
+- **Flood description**: Flood Wave downstream-moving along Mu River, collapsed embankments, bridge damage, town flooded
+- **Water depth**: Not quantified, but villages affected
+- **Affected people**: Depayin 10,000+ people, Taze 12+ villages, Kanbalu embankment breach worst
+- **Evacuations**: Displacement camps flooded
+- **Deaths/injuries/missing**: Depayin 6 deaths per this post
+- **Houses/buildings**: Not quantified
+- **Roads/bridges**: Damaged bridges in Taze, broken embankments at 3 locations
+- **Farmland/crops**: Crop losses
+- **Schools/hospitals**: Not specified
+- **Rescue/relief**: Communication difficulties noted, water scarcity, post-flood disease risk
+- **Requests**: Warning continued rain
+- **Photos/videos**: Satellite-style risk map with red/orange/green circles, annotated
+- **Source type**: Community info group (140K followers)
+- **Other**: Detailed causal chain: upstream rain + Thaphanseik + Kabo + embankment breaches
+
+### RECORD 010
+- **Post date and time**: 2026-08-07 16:07:34 +07
+- **Page/account name**: Soe Min
+- **Post URL**: https://www.facebook.com/smttzznn/posts/pfbid0FPdjTXuTRC3nzw39yTzDrRiy9D8gKUG7cYT5DBm7iJqeLZDRym8PzQPEAnjeFjG2l
+- **Original text**: Magyitaw village and Htankone village are flooded in Kantbalu Township, Sagaing Division, dated 2026-08-07. Villages flooded and cows dying.
+- **Language**: my
+- **Township**: Kanbalu (Kantbalu)
+- **District**: Kanbalu District
+- **Village**: Magyitaw village, Htankone village, Htankone model village bridge
+- **Coordinates**: None explicit
+- **Event date/time**: 2026-08-07
+- **Flood description**: Vast grey floodwaters covering farmland only treetops visible, two light-colored cows standing chest-deep muddy brown water stranded under tree, submerged rural road and low bridge completely covered fast-moving muddy water, houses and utility poles background
+- **Water depth**: Chest-deep for cows, bridge submerged
+- **Affected people**: Not quantified
+- **Evacuations**: Not stated
+- **Deaths/injuries/missing**: Cows dying reported
+- **Houses/buildings**: Houses background
+- **Roads/bridges**: Htankone model village bridge submerged, rural road submerged
+- **Farmland/crops**: Farmland covered
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not stated
+- **Requests**: Implicit distress (mournful wailing audio, crying emojis)
+- **Photos/videos**: 2 video clips, mournful wailing audio, red/white Burmese overlays
+- **Source type**: Individual (2.3K followers)
+- **Other**: Citizen documentation
+
+### RECORD 011
+- **Post date and time**: 2026-08-10 21:42:03 +07
+- **Page/account name**: Shin Ē
+- **Post URL**: https://www.facebook.com/reel/2749854932065599/
+- **Original text**: Anyar region of Shwebo and Wetlet is flooded, donors absent, questions who is actually helping, accuses domestic celebrities only visiting convenient locations for publicity while ordinary Burmese including children helpless.
+- **Language**: my
+- **Township**: Shwebo, Wetlet
+- **District**: Shwebo District
+- **Village**: Anyar region
+- **Coordinates**: None
+- **Event date/time**: 2026-08-10
+- **Flood description**: Vast expanse muddy floodwater covering farmland, palm trunks rising from water overcast sky, men on narrow wooden raft poling, small motorized boat crossing flooded plain, local residents on slightly elevated bank watching
+- **Water depth**: Extensive inundation, treetops visible
+- **Affected people**: Not quantified
+- **Evacuations**: Not detailed
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Farmland flooded
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Questions aid presence
+- **Requests**: Implicit request for help
+- **Photos/videos**: Video, white Burmese text overlay throughout
+- **Source type**: Individual (830 followers)
+- **Other**: Same narrative as Ye Min post about celebrity absence
+
+### RECORD 012
+- **Post date and time**: 2026-08-07 19:06:48 +07
+- **Page/account name**: ပကဖ အသံ (Pa Ka Fa Voice)
+- **Post URL**: https://www.facebook.com/reel/1968356747161297/
+- **Original text**: On August 7, 2026, due to water being released from Hthanseik Dam in Kanbalu Township, Mu River has risen causing flooding in five townships, Shwebo District Main News Agency issuing warning to parents and citizens in Shwebo District.
+- **Language**: my
+- **Township**: Kanbalu plus five townships in Shwebo District (implied Shwebo, Wetlet, Khin-U, Depayin, Taze?)
+- **District**: Shwebo District, Kanbalu District
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-07, dam release
+- **Flood description**: Mu River risen due to dam release
+- **Water depth**: Not quantified
+- **Affected people**: Not quantified
+- **Evacuations**: Warning to evacuate
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not detailed
+- **Rescue/relief**: Public safety message via walkie-talkie
+- **Requests**: Warning
+- **Photos/videos**: Video: close-up left hand gripping black handheld two-way radio with red textured accents, long antenna, logo watermark red shield white star Burmese text "ပကဖ အသံ", audio flood warning announcement
+- **Source type**: Community news agency (74K followers)
+- **Other**: Official warning channel
+
+### RECORD 013
+- **Post date and time**: 2026-08-09 19:48:00 +07
+- **Page/account name**: Chindwin News Agency
+- **Post URL**: https://www.facebook.com/reel/1673625773734472/
+- **Original text**: Flooding occurred Friday, August 7, 2026 in Kyunhla township, Sagaing Division, after junta regime allegedly released water from dam without prior warning to nearby villages. Eight people killed and several remain missing, disaster worsened by monsoon rains.
+- **Language**: en
+- **Township**: Kyunhla
+- **District**: Kanbalu District
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-07 Friday
+- **Flood description**: Vast expanse churning muddy brown water overcast sky, grassy eroded riverbank foreground, local residents men women in casual clothing and traditional hats standing edge looking at water
+- **Water depth**: Not quantified but extensive
+- **Affected people**: Not quantified
+- **Evacuations**: Not detailed
+- **Deaths/injuries/missing**: 8 killed, several missing per caption
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not detailed
+- **Rescue/relief**: Not stated
+- **Requests**: Not stated
+- **Photos/videos**: Video, red Burmese text overlay with sad-face and praying-hands emojis, mournful female vocal lament
+- **Source type**: Media (180K followers)
+- **Other**: Political accusation: dam release without warning
+
+### RECORD 014
+- **Post date and time**: 2026-08-09 10:55:46 +07
+- **Page/account name**: နွေဦး မောင် (BaKunn)
+- **Post URL**: https://www.facebook.com/reel/1327814689132224/
+- **Original text**: YAUNG NI (LIVE) comparing flood to threat to survival, calls for help for flood victims in Shwebo-Wetlet-Mu riverbank area.
+- **Language**: my
+- **Township**: Shwebo, Wetlet
+- **District**: Shwebo District
+- **Village**: Mu riverbank area
+- **Coordinates**: None
+- **Event date/time**: 2026-08-09 live
+- **Flood description**: Murky floodwaters, houses partially submerged water reaching walls/roofs, residents standing on rooftops, water buffalo on small dry patch surrounded by water
+- **Water depth**: Water reaching walls/roofs
+- **Affected people**: Not quantified
+- **Evacuations**: Boat navigating
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Houses partially submerged
+- **Roads/bridges**: Not stated
+- **Farmland/crops**: Not stated
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Selfie live from wooden boat, man with long dark hair tied back, glasses, tattoos, orange life vest, boat loaded with relief supplies bottled water packs, sacks rice, cardboard boxes marked medical symbols, another boat with people in life vests
+- **Requests**: Calls for help
+- **Photos/videos**: Video live stream, overcast, urgent humanitarian
+- **Source type**: Individual / rescue volunteer (1K followers)
+- **Other**: Grassroots relief
+
+### RECORD 015
+- **Post date and time**: 2026-08-11 12:22:03 +07
+- **Page/account name**: เชียงใหม่ที่คุณไม่เคยเห็น (Chiang Mai You Never Seen)
+- **Post URL**: https://www.facebook.com/unseencnx/posts/pfbid02u8s7DC5ozbC7G9M7MjjKyEAXC8P6XVQuEjyH88AA5Py1gRNTkodv24zoUfetcpAl
+- **Original text**: (Thai) Flood resulted from mistaken dam release on Mu River in Sagaing Region on August 5, 2026, after heavy rain, killing at least 20 people, submerging more than 200 villages across eight townships, displacing tens of thousands in area recovering from prior major earthquake. News report on disaster management failure.
+- **Language**: th
+- **Township**: Eight townships across Sagaing (unspecified but Mu River basin)
+- **District**: Not specified
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-05 dam release, reported Aug 10
+- **Flood description**: People wading deep murky water at dusk, aerial village almost completely encircled by brown floodwater rooftops/trees emerging
+- **Water depth**: Deep, chest-deep, rooftops emerging
+- **Affected people**: >200 villages submerged, tens of thousands displaced
+- **Evacuations**: Yes, wading with bags on head supporting others
+- **Deaths/injuries/missing**: At least 20 dead per Thai caption
+- **Houses/buildings**: Rooftops poking above water
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated, area recovering from earthquake
+- **Rescue/relief**: Not detailed
+- **Requests**: Condolences, informational
+- **Photos/videos**: 2-part composite image: people wading at dusk + aerial village, Myanmar flag overlay
+- **Source type**: Media Thailand (700K followers)
+- **Other**: Links flood to earthquake recovery context
+
+### RECORD 016
+- **Post date and time**: 2026-08-09 18:24:30 +07
+- **Page/account name**: DVB TV News
+- **Post URL**: https://www.facebook.com/DVBTVNews/posts/pfbid0Yfrdm82Wam6QEAHctqJQqAdYcw9Wq3mHXodftt4SwdPWhN7CTTq6KxDdmNeiHRbUl
+- **Original text**: (Myanmar) Approximately 100 villages in Kawlin Township flooded, 15 villages in Khin-U Township submerged after heavy rain, thousands local residents in Khin-U and Shwebo townships affected and seeking safer areas.
+- **Language**: my
+- **Township**: Kawlin, Khin-U, Shwebo
+- **District**: Kawlin District, Shwebo District
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-09
+- **Flood description**: Widespread flooding upper Sagaing, villages flooded/submerged after heavy rain
+- **Water depth**: Not quantified
+- **Affected people**: Thousands affected seeking safer areas, 100 villages Kawlin, 15 villages Khin-U
+- **Evacuations**: Thousands seeking safer areas
+- **Deaths/injuries/missing**: Not stated here
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Requests**: Not explicit
+- **Photos/videos**: Text post (per data)
+- **Source type**: Media (22M followers)
+- **Other**: Simple news bulletin
+
+### RECORD 017
+- **Post date and time**: 2026-08-09 06:44:10 +07
+- **Page/account name**: တေဇ. ဗမာ သူပုန် (Ta Za Burma Rebel)
+- **Post URL**: https://www.facebook.com/permalink.php?story_fbid=pfbid0RfA9dd2uAzcZuzhh9pmn5fqiGTYA8obUDgpWpruUgh1bzVnamr3KFiZGhVV6RbKPl&id=61582550096119
+- **Original text**: (Myanmar) Villages near Mu River face flood danger, PDF providing emergency assistance to move people to safety, urges residents to be cautious of flood hazards, health risks, venomous animals. Hashtags Sagaing, Shwebo, flood disaster, relief.
+- **Language**: my
+- **Township**: Shwebo
+- **District**: Shwebo District
+- **Village**: Near Mu River, western Shwebo
+- **Coordinates**: Mu River
+- **Event date/time**: 2026-08-08
+- **Flood description**: Knee to chest-deep muddy brown water, guiding civilians soaked casual clothing, carrying baskets/sacks/child, cattle herded with ropes, woman pink rain cover leading livestock
+- **Water depth**: Knee to chest-deep
+- **Affected people**: Not quantified
+- **Evacuations**: Yes, PDF assisting, ropes
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: NUG MOD Shwebo PDF assisting, red flag white star, red shield emblem
+- **Requests**: Caution
+- **Photos/videos**: Photo-doc carousel, camouflage uniforms red-star hats armbands
+- **Source type**: Community group / PDF supporter (8.7K followers)
+- **Other**: Comments supportive: "အားလုံးအန္တရာယ်ကင်း ဘေးရှင်း"
+
+### RECORD 018
+- **Post date and time**: 2026-08-07 17:07:04 +07
+- **Page/account name**: Public Voice Television
+- **Post URL**: https://www.facebook.com/reel/1366382464934106/
+- **Original text**: (Myanmar) Due to Mu River flooding, thousands of people from several villages forced to evacuate in Khin-U Township.
+- **Language**: my
+- **Township**: Khin-U
+- **District**: Shwebo District
+- **Village**: Several villages
+- **Coordinates**: None
+- **Event date/time**: 2026-08-07
+- **Flood description**: Muddy floodwaters inundating rural areas, submerging thatched-roof huts and wooden houses up to foundations, covering roads/pathways, surrounding greenery
+- **Water depth**: Up to foundations, knee-deep where woman wades with yellow bag
+- **Affected people**: Thousands forced to evacuate
+- **Evacuations**: Families standing on elevated muddy banks, ox carts gathered on dry embankment next to flooded fields, displacement
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Thatched-roof huts, wooden houses submerged to foundations
+- **Roads/bridges**: Roads/pathways covered
+- **Farmland/crops**: Flooded fields
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Requests**: Not explicit
+- **Photos/videos**: Video: news intro PVTV logo, presenter in black TRUENO AE86 T-shirt, on-the-ground footage
+- **Source type**: Media (1.8M followers, verified)
+- **Other**: 
+
+### RECORD 019
+- **Post date and time**: 2026-08-11 08:33:00 +07
+- **Page/account name**: RealLife
+- **Post URL**: https://www.facebook.com/reel/3477958795712531/
+- **Original text**: Documents current flooding conditions, road flooded, large vehicles navigating.
+- **Language**: my
+- **Township**: Not specified, Sagaing Region (likely Shwebo-Monywa highway)
+- **District**: Not specified
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-10/11
+- **Flood description**: Severely flooded roadway, murky brown water covering entire street reaching up to lower windows large vehicles, buses creating wakes wheels churning water up to axle-height, tree-lined rural road, small wooden structures and blue shed partially submerged, white truck with green tarpaulin leading convoy followed by Higer bus
+- **Water depth**: Up to lower windows/axle-height
+- **Affected people**: Not quantified, travelers
+- **Evacuations**: Traffic continues despite hazardous conditions
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Wooden structures partially submerged
+- **Roads/bridges**: Roadway severely flooded, vehicles navigating, hazardous
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Requests**: Warning travelers
+- **Photos/videos**: Video: 2 men wading foreground yellow shirt filming, Scania Marcopolo "Shwe Mandalar Express", Higer coach Burmese destination text WiFi FREE, dramatic orchestral soundtrack
+- **Source type**: Individual / media (22K followers)
+- **Other**: Intercity bus route affected
+
+### RECORD 020
+- **Post date and time**: 2026-08-11 13:25:03 +07
+- **Page/account name**: Burma News International - Burmese News
+- **Post URL**: https://www.facebook.com/BNItvandnews/posts/pfbid02rwdZu4MXjCXQZm17qBzdkHymahgAkqXjDEx8H5gcgbBRV9h3LbaH3V8VYDmo2XbDl
+- **Original text**: (Myanmar) NUG formed Joint Emergency Response Coordination Committee (JERC) to help residents affected by weeks-long flooding in ten townships including Taze, Kanbalu, Kyunhla, Ayardaw, Khin-U, Ye-U, Shwebo, Wetlet, Myinmu, Myinmu and Depayin. Over 200,000 people affected, 15 deaths and 2 missing, Depayin suffered 7 deaths worst-hit.
+- **Language**: my
+- **Township**: Taze, Kanbalu, Kyunhla, Ayadaw (Ayardaw), Khin-U, Ye-U, Shwebo, Wetlet, Myinmu, Depayin
+- **District**: Kanbalu, Shwebo, Monywa, Sagaing
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: Weeks-long flooding, reported 2026-08-11, data up to Aug 9-10
+- **Flood description**: Fast-moving brown muddy water rushes over remains wooden bridge/embankment, debris, tangled vegetation, broken planks, widespread inundated plain horizon, small group people on higher ground observing damage, motorcycles parked, houses distance
+- **Water depth**: Not quantified, embankment overtopped
+- **Affected people**: Over 200,000 affected
+- **Evacuations**: Not detailed
+- **Deaths/injuries/missing**: 15 deaths, 2 missing per NUG; Depayin 7 deaths worst
+- **Houses/buildings**: Not quantified
+- **Roads/bridges**: Wooden bridge/embankment destroyed, debris caught current
+- **Farmland/crops**: Farmland covered
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: NUG JERC formed
+- **Requests**: Not explicit
+- **Photos/videos**: Image: turbulent water over bridge remains
+- **Source type**: Media (530K followers)
+- **Other**: Cross-verifies 10-township list
+
+### RECORD 021
+- **Post date and time**: 2026-08-09 10:50:37 +07
+- **Page/account name**: DVB TV News
+- **Post URL**: https://www.facebook.com/DVBTVNews/posts/pfbid09rmy5oQuPNhDtJenfNFZgBd6ks6qqjy8nMNiDhtuNPiMMavaXkAFMVBFGXYM1Ykhl
+- **Original text**: (Myanmar) Continuous rain and large releases from Thapanseik Dam caused Mu River between Shwebo and Depayin to overflow. Residents carrying only clothes essentials, looms, bean sacks, rice sacks, paddy, seedling beds, tractors submerged. Even after waters recede replanting difficult planting season delayed priority from farming to human safety. Photo credits local sources.
+- **Language**: my
+- **Township**: Shwebo, Depayin
+- **District**: Shwebo District
+- **Village**: Mu River between Shwebo and Depayin, canal embankment breach
+- **Coordinates**: Mu River, Thapanseik Dam
+- **Event date/time**: 2026-08-08
+- **Flood description**: Wide expanse standing water covering farmland palm trees reflected overcast sky, waterline at homestead edge blue container branches baskets bamboo trellises emerging flood, muddy floodwater stretching horizon submerging crops fields trees grazing animal on higher ground, rural road and fields covered
+- **Water depth**: Not quantified but submerging crops, foundations
+- **Affected people**: Not quantified but farming families affected
+- **Evacuations**: Carrying only clothes and essentials
+- **Deaths/injuries/missing**: Not stated here
+- **Houses/buildings**: Homesteads flooded
+- **Roads/bridges**: Rural road covered
+- **Farmland/crops**: Rice nurseries, crops submerged, bean sacks, rice sacks, paddy, seedling beds, tractors submerged, replanting difficult planting season delayed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Requests**: Not explicit
+- **Photos/videos**: 5-image carousel: farmland flooded, waterline homestead, concrete water-level signboard blue/yellow/black Burmese script beside Mu River, etc.
+- **Source type**: Media (22M)
+- **Other**: Cause: rain + Thapanseik Dam releases, canal embankment breach
+
+### RECORD 022
+- **Post date and time**: 2026-08-09 20:16:13 +07
+- **Page/account name**: DVB TV News
+- **Post URL**: https://www.facebook.com/DVBTVNews/posts/pfbid02c7VVVcRU3v716ApVLZNm18gPGhfFZj4ntEZyvD1zHQKjwd6ceqLuJo8ASFHDuoXNl
+- **Original text**: (Myanmar) Mu River overflowed inundating rice nurseries and crops, 19 villages in southwest and northwest underwater and thousands locals evacuating for three days, due to heavy rain night Aug 7 through Aug 9 in western Khin-U Township.
+- **Language**: my
+- **Township**: Khin-U
+- **District**: Shwebo District
+- **Village**: 19 villages southwest and northwest Khin-U, western Khin-U
+- **Coordinates**: None
+- **Event date/time**: 2026-08-07 night to 2026-08-09
+- **Flood description**: Aerial village submerged muddy water roofs poking above, collapsed wooden bridge torn apart turbulent floodwater, vast expanses flooded farmland overcast sky palm trees reflected standing water, families gathered roadside embankment beside submerged homes with woven baskets sacks blankets piled waiting including women child, villagers standing ankle-deep with belongings woman covering face child crouching barefoot distress, wooden boat carrying 8-10 people bundles through floodwaters poled
+- **Water depth**: Not quantified, roofs poking, ankle to chest
+- **Affected people**: Thousands evacuating for 3 days, 19 villages underwater
+- **Evacuations**: Yes, roadside embankment sheltering, boat evacuation
+- **Deaths/injuries/missing**: Not stated here
+- **Houses/buildings**: Homes underwater
+- **Roads/bridges**: Collapsed wooden bridge torn apart, motorcycles on dry ground nearby
+- **Farmland/crops**: Rice nurseries and crops inundated, farmland vast expanses
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Boat evacuation
+- **Requests**: Not explicit
+- **Photos/videos**: 7-slide carousel photojournalistic
+- **Source type**: Media (22M)
+- **Other**: Credit Khin-U Township News
+
+### RECORD 023
+- **Post date and time**: 2026-08-11 11:15:38 +07
+- **Page/account name**: Vitamins - for Spring Revolution
+- **Post URL**: https://www.facebook.com/VitaminsforSR/posts/pfbid02qWCFSDjiTMkLqPaJKypHH1LGaG6F6erQ1tia8EqkCrzvauJotR8pzKAvV9TmL4nYl
+- **Original text**: (Myanmar) Team completed rice delivery to villages hit by flooding in Shwebo Township, with public support, more than 200 villages affected and needs endless, urges people in safe areas with financial means to help Ayeyarwady flood victims.
+- **Language**: my
+- **Township**: Shwebo
+- **District**: Shwebo District
+- **Village**: Not specified villages in Shwebo
+- **Coordinates**: None
+- **Event date/time**: 2026-08-10/11 delivery
+- **Flood description**: Not detailed in this post beyond affected villages
+- **Water depth**: Not stated
+- **Affected people**: >200 villages affected per caption
+- **Evacuations**: Not detailed
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Rural roadside under palm trees large leafy tree, pickup truck bed piled high large yellow woven rice sacks, storage shed barefoot man in camouflage cap stacks white sacks, three men loading heavy white sacks onto rusty open-bed truck red plaid shirt green T-shirt blue shorts
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Rice delivery field team, manual labor loading, community mutual aid
+- **Requests**: Urges people in safe areas with financial means to help
+- **Photos/videos**: 4-image carousel documentary: pickup truck bed rice sacks, indoor storage shed stacking, outdoor loading onto truck
+- **Source type**: Community aid group (13K followers)
+- **Other**: Aid account for Spring Revolution
+
+### RECORD 024
+- **Post date and time**: 2026-08-10 17:49:36 +07
+- **Page/account name**: BBC Burmese
+- **Post URL**: https://www.facebook.com/reel/1837712760545465/
+- **Original text**: (Myanmar) Crisis in Dry Zone (Anyar) area of Sagaing Township, deaths, missing persons, dam operations. Heavy rain.
+- **Language**: my
+- **Township**: Sagaing Township (Sagaing town area)
+- **District**: Sagaing District
+- **Village**: Dry Zone Anyar area Sagaing Township
+- **Coordinates**: Thapanseik Dam area shown
+- **Event date/time**: 2026-08-10
+- **Flood description**: Powerful muddy water surging through dam spillway cloudy sky, streets turned into rivers water reaching building foundations, concrete bridge partially submerged, flooded farmland only narrow ridges visible, golden pagodas surrounded by water, residents wading chest-deep carrying belongings evacuating in small wooden boats loaded with sacks families including children, livestock cattle struggling current
+- **Water depth**: Chest-deep, foundations
+- **Affected people**: Not quantified in this post snippet
+- **Evacuations**: Evacuating in boats, wading with belongings
+- **Deaths/injuries/missing**: Deaths, missing persons mentioned (no numbers in summary)
+- **Houses/buildings**: Streets turned rivers, building foundations flooded, homes flooded, pagodas surrounded
+- **Roads/bridges**: Concrete bridge partially submerged
+- **Farmland/crops**: Farmland inundated narrow ridges visible
+- **Schools/hospitals**: Not stated, but pagodas affected
+- **Rescue/relief**: UGC footage credited to Kyaw Kyaw Oo
+- **Requests**: Not explicit
+- **Photos/videos**: Video: dam spillway, BBC presenter picture-in-picture then full-screen studio, UGC inundation footage
+- **Source type**: Media (27M)
+- **Other**: Studio narration
+
+### RECORD 025
+- **Post date and time**: 2026-08-08 22:30:49 +07
+- **Page/account name**: CJ Platform
+- **Post URL**: https://www.facebook.com/reel/1731074268099213/
+- **Original text**: (Myanmar) Water released from Thaphanseik Dam caused Mu River to reach record-high levels inundating seven townships downstream. Morning Aug 7 in Shwe Hlan village, Taze Township, sudden surge swept away homes and carried away 2-year-old child and man over 50 years old.
+- **Language**: my
+- **Township**: Taze, plus six other downstream (seven total): likely Kanbalu, Taze, Ye-U, Khin-U, Shwebo, Wetlet, Depayin
+- **District**: Kanbalu District, Shwebo District
+- **Village**: Shwe Hlan village, Taze Township
+- **Coordinates**: Thaphanseik Dam, Mu River
+- **Event date/time**: 2026-08-07 morning
+- **Flood description**: Massive volumes brown turbulent water pouring from dam spillways, river overflowing banks submerging fields trees, traditional houses standing several feet water, displaced families sitting with belongings on higher ground
+- **Water depth**: Several feet
+- **Affected people**: Seven townships inundated, families displaced on higher ground
+- **Evacuations**: Villagers evacuating by small boat, rescue personnel red life vests wading
+- **Deaths/injuries/missing**: 2-year-old child and man >50 swept away in Shwe Hlan village per caption
+- **Houses/buildings**: Homes swept away, houses standing in several feet water
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Fields submerging
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Rescue personnel red life vests wading, villagers evacuating by small boat
+- **Requests**: Not explicit
+- **Photos/videos**: Video: dam spillway, river overflow, rescue, evacuation
+- **Source type**: Media (430K)
+- **Other**: Record-high Mu River levels
+
+### RECORD 026
+- **Post date and time**: 2026-08-07 22:55:48 +07
+- **Page/account name**: AI Info Team
+- **Post URL**: https://www.facebook.com/reel/1910460383674312/
+- **Original text**: (Myanmar) Continuous rain in upper Sagaing combined with runoff and dam water caused Mu River to rise rapidly leading to widespread inundation in Wetlet Township as of Aug 7, 2026.
+- **Language**: my
+- **Township**: Wetlet
+- **District**: Shwebo District
+- **Village**: Not specified village in Wetlet
+- **Coordinates**: Mu River Wetlet
+- **Event date/time**: 2026-08-07
+- **Flood description**: Panoramic view village overwhelmed floodwaters, murky brown water covering streets courtyards agricultural land, only rooftops houses treetops raised structures visible above surface, numerous single-story homes corrugated metal roofs blue/rusted grey surrounded water, lush green trees vegetation emerge, expanded Mu River merges flooded plains overcast grey sky
+- **Water depth**: Only rooftops visible
+- **Affected people**: Village-wide
+- **Evacuations**: Not detailed
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Homes with corrugated roofs surrounded water
+- **Roads/bridges**: Streets, courtyards covered
+- **Farmland/crops**: Agricultural land covered
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Visual alert
+- **Requests**: Alert
+- **Photos/videos**: Video: elevated balcony/upper floor panoramic, blue Burmese banner bottom, watermark upper left, gentle piano music
+- **Source type**: Community info group (140K)
+- **Other**: Documentary concerned tone
+
+### RECORD 027
+- **Post date and time**: 2026-08-09 11:49:58 +07
+- **Page/account name**: Doh Khit
+- **Post URL**: https://www.facebook.com/dohkhit2021/posts/pfbid0357TPXfZqwVBBeCH6AZSoDBmEoaXocmsmfR5jqKRiPPEBgwMRoQnQGoSHLjSLPXHPl
+- **Original text**: (Myanmar) 100,000 kyat donation for flood relief in Depayin Township, Sagaing Region, donor described as girlfriend who remains after Ma Ma Ah Luu's big villain left. Thanks donor and blessings.
+- **Language**: my
+- **Township**: Depayin
+- **District**: Shwebo District
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-09
+- **Flood description**: Not detailed in this post
+- **Water depth**: Not stated
+- **Affected people**: Not quantified
+- **Evacuations**: Not stated
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not stated
+- **Roads/bridges**: Not stated
+- **Farmland/crops**: Not stated
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Donation 100,000 kyat for Depayin flood relief
+- **Requests**: Not explicit but fundraiser context
+- **Photos/videos**: Text post
+- **Source type**: Community group (71K)
+- **Other**: Donation culture, inside jokes in comments
+
+### RECORD 028
+- **Post date and time**: 2026-08-09 23:22:17 +07
+- **Page/account name**: Myint Htwe
+- **Post URL**: https://www.facebook.com/myinthtwe99/posts/pfbid02LujFJ342Z6CWs9Ysq3YECDyAG6oKacp6upH5mDBJZSBe4qr9tF3oDdanuHN8e1q5l
+- **Original text**: (Myanmar) Youth of the northern Ye-U flood relief crossing through the flooded area. Photos dated 9/8/2026.
+- **Language**: my
+- **Township**: Ye-U
+- **District**: Shwebo District
+- **Village**: Northern Ye-U
+- **Coordinates**: None
+- **Event date/time**: 2026-08-09
+- **Flood description**: Chest-deep murky floodwater toward tree-lined bank palm trees silhouetted dim sky, extensive floodwater, twilight, five young men wading closest seen from behind white shirt HTET MYAT holding dark bag overhead, three volunteers linked arm-in-arm smiling man dark cap woman bright orange life vest person traditional conical straw hat holding smartphone pink waterproof pouch
+- **Water depth**: Chest-deep
+- **Affected people**: Not quantified
+- **Evacuations**: Youth relief crossing
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Youth of northern Ye-U flood relief, grassroots youth response, communal determination
+- **Requests**: Not explicit
+- **Photos/videos**: 3-slide carousel: 46-second low-angle video dusk water level, wide photo twilight 5 men wading, closer photo 3 volunteers linked arm-in-arm smiling
+- **Source type**: Individual volunteer (4.9K followers, verified)
+- **Other**: Citizen-journalism, serious yet resilient tone
+
+### RECORD 029
+- **Post date and time**: 2026-08-11 02:03:32 +07
+- **Page/account name**: MGRonline Live (Thai media)
+- **Post URL**: https://www.facebook.com/MGRonlineLive/posts/pfbid0RiYZNNi7dfqCWdtw1LgWn9dPiTffCYFHH9NpM4MNL8odC1mf3cgqUyrbEpogRAn3l
+- **Original text**: (Thai) Dam in Sagaing releasing water without prior notice, villagers unable to flee, 20 dead. Tapaungse Dam in Sagaing opened floodgates without informing downstream communities, inundating 200 villages, displacing tens of thousands, confirming at least 20 fatalities.
+- **Language**: th
+- **Township**: Sagaing Region (general, Mu River basin, Tapaungse = Thapanseik)
+- **District**: Not specified
+- **Village**: 200 villages
+- **Coordinates**: Tapaungse Dam (Thapanseik)
+- **Event date/time**: Early August 2026, dam release
+- **Flood description**: Group people wading chest-deep muddy floodwater bright sky men women children carrying large sacks bundles on heads shoulders moving away toward trees evacuation
+- **Water depth**: Chest-deep
+- **Affected people**: Tens of thousands displaced, 200 villages inundated
+- **Evacuations**: Yes, evacuation with sacks on heads
+- **Deaths/injuries/missing**: 20 dead per Thai caption
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Requests**: Breaking news
+- **Photos/videos**: Image: group wading chest-deep, MGR ONLINE logo, mgronline.com
+- **Source type**: Media Thailand (2M followers, verified)
+- **Other**: Frames as disaster management failure
+
+### RECORD 030
+- **Post date and time**: 2026-08-10 09:14:58 +07
+- **Page/account name**: Mandalay Free Press - MFP
+- **Post URL**: https://www.facebook.com/mandalayfreepress/posts/pfbid02mW85YKHXq6rtg7YhUn9qg67qStoPAj32n1XoRSpv4FVkUZbYQVa3QWGFYG4f38B1l
+- **Original text**: (Myanmar) Military released water from Thaphanseik Dam starting Aug 5 causing Mu River to overflow and submerge around 200 villages in Kantbalu, Taze, Shwebo, Khin-U, Ye-U, Wetlet, Depayin and Ayadaw townships for five days, deaths rising to nearly 20 and 15 confirmed by Aug 9 including men women children swept away sudden currents, additional deaths upstream near Kawlin affecting 70,000 people.
+- **Language**: my
+- **Township**: Kanbalu, Taze, Shwebo, Khin-U, Ye-U, Wetlet, Depayin, Ayadaw
+- **District**: Kanbalu, Shwebo
+- **Village**: 200 villages
+- **Coordinates**: Thaphanseik Dam, Mu River
+- **Event date/time**: 2026-08-05 start release, 5 days flooding to Aug 9-10, event date Aug 5-10
+- **Flood description**: Rescuers knee-deep brown water pushing wooden boat carrying woman men longyi yellow hard hat assisting, five people wading chest-deep dusk one behind white shirt ATET MYAT carrying belongings overhead adult carrying child, fifteen villagers men women longyi hats walking waist-chest water carrying yellow sacks bundles heads green vegetation blue sky, aerial rural village almost entirely surrounded muddy floodwater rooftops emerging islands
+- **Water depth**: Knee to chest-deep, rooftops islands
+- **Affected people**: 70,000 people upstream near Kawlin affected, 200 villages submerged
+- **Evacuations**: Wooden boat carrying woman, villagers walking with sacks on heads, child carried
+- **Deaths/injuries/missing**: Deaths rising to nearly 20, 15 confirmed by Aug 9 including men women children swept away sudden currents
+- **Houses/buildings**: Not quantified
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed but implies extensive
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Rescuers, MOHAREM SAGAING FEDERAL UNIT watermark, boat rescue
+- **Requests**: Not explicit
+- **Photos/videos**: 4-image carousel photojournalistic, blue truck driving flooded road splashing water residents watching bank
+- **Source type**: Media (1.2M)
+- **Other**: Attributes deaths to sudden currents after dam release
+
+### RECORD 031
+- **Post date and time**: 2026-08-08 17:15:49 +07
+- **Page/account name**: BBC Burmese
+- **Post URL**: https://www.facebook.com/BBCnewsBurmese/posts/pfbid02e461jKv1MmvESMXCZEBJtSLqtaCyVebpCdR2gM1q7PLoZJL2CyVtyX4ei8JwDjl
+- **Original text**: (Myanmar) Flooding followed Thapanseik Dam spillway release affecting nine townships including Shwebo and Depayin, because area is conflict-affected revolutionary forces cannot conduct full rescue operations. Credits Chan Myae Oo, Wetlet PDF, Khin-U information.
+- **Language**: my
+- **Township**: Shwebo, Depayin plus 7 others (nine total), Wetlet, Khin-U, Kyunhla
+- **District**: Shwebo, Kanbalu
+- **Village**: Not specified
+- **Coordinates**: Thapanseik Dam
+- **Event date/time**: 2026-08-08
+- **Flood description**: Line villagers hats longyi wading knee-deep palm-lined path carrying sacks heads, two men chest-deep murky water near thatched huts one holding bag overhead, woman pink floral shirt balancing white sack chest-high water surrounded banana plants, fast-flowing muddy water rope tied post two distant figures struggling current overlaid red Wetlet Township PDF shield, five cattle pulling wooden ox-cart loaded household goods dog beside PDF emblem, submerged stilt houses blue-roofed structure surrounded floodwater vegetation, blue truck driving flooded road splashing water residents watching bank
+- **Water depth**: Knee to chest-high, fast-flowing
+- **Affected people**: Not quantified but widespread
+- **Evacuations**: Villagers wading with sacks, ox-cart with household goods
+- **Deaths/injuries/missing**: Not stated in this caption but notes rescue challenges
+- **Houses/buildings**: Submerged stilt houses
+- **Roads/bridges**: Flooded road blue truck
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Notes revolutionary forces cannot conduct full rescue because conflict-affected
+- **Requests**: Urgent flood assistance needed (headline)
+- **Photos/videos**: 7-image carousel photojournalistic BBC Burmese
+- **Source type**: Media (27M verified)
+- **Other**: Credits Chan Myae Oo, Wetlet PDF, Khin-U information
+
+### RECORD 032
+- **Post date and time**: 2026-08-09 16:15:17 +07
+- **Page/account name**: Shwe Phee Myay News Agency
+- **Post URL**: https://www.facebook.com/shwepheemyaynews/posts/pfbid02Svse7xwWYtpWYcSA46BPE5ayEkDuAbcq9Evz7swdwRu2cPpDprfpULTWgL7hjl
+- **Original text**: (Myanmar) Flooding in Khin-U, Shwebo, Wetlet townships triggered by breach of Thaphanseik dam in Kyaunghla township, has put more than 40 villages underwater. Tens of thousands urgently need shelter, clean water, food, medicine, thousands acres farmland inundated and hundreds buffalo and cattle swept away killed. Continuous rain worsening situation on fourth day inundation, local journalists report at least seven deaths.
+- **Language**: my
+- **Township**: Khin-U, Shwebo, Wetlet, Kyaunghla (Kyunhla)
+- **District**: Shwebo District, Kanbalu District
+- **Village**: >40 villages
+- **Coordinates**: Thaphanseik Dam in Kyaunghla township
+- **Event date/time**: Fourth day inundation as of Aug 9, breach
+- **Flood description**: Muddy swollen canal light-colored cattle three wooden ox carts covered red green gray tarps stranded on bank overcast sky power lines distance, vast expanses brown floodwater covering agricultural fields horizon partially submerged raised path palm trees visible haze
+- **Water depth**: Not quantified but fields covered, canal swollen
+- **Affected people**: Tens of thousands need shelter/clean water/food/medicine
+- **Evacuations**: Stranded ox carts on bank implies displacement
+- **Deaths/injuries/missing**: At least 7 deaths per local journalists, hundreds buffalo cattle swept away killed
+- **Houses/buildings**: Not quantified
+- **Roads/bridges**: Not detailed but canal
+- **Farmland/crops**: Thousands acres farmland inundated
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Need shelter/water/food/medicine
+- **Requests**: Urgent need shelter clean water food medicine
+- **Photos/videos**: 2 photos: cattle and ox carts stranded, vast brown floodwater fields
+- **Source type**: Media (1.2M verified)
+- **Other**: Photo credit CJ
+
+### RECORD 033
+- **Post date and time**: 2026-08-10 20:46:46 +07
+- **Page/account name**: Ayeyarwaddy Times
+- **Post URL**: https://www.facebook.com/ayeyarwaddytimes/posts/pfbid063qyyWW8p5ip4dXM5FWPA1UUCv6p18x5LW4Nc5iY9uThbHdGBcBh2yWDdwzQwRCbl
+- **Original text**: (Myanmar) Heavy rain in upper Sagaing forced Thaphanseik Dam to release water Aug 6 threatening embankments, People's Defence Force (PDF) units under NUG Ministry Defence together with local township and village PDF teams using heavy machinery to fill and reinforce dams to prevent breaches affecting 14 villages in Myinmu and Sagaing townships.
+- **Language**: my
+- **Township**: Myinmu, Sagaing Township, plus upstream (Kyunhla, Kanbalu)
+- **District**: Sagaing District, Shwebo District
+- **Village**: 14 villages in Myinmu and Sagaing townships
+- **Coordinates**: Thaphanseik Dam
+- **Event date/time**: 2026-08-06 release, work Aug 10
+- **Flood description**: Yellow black Hyundai HX80 tracked excavator positioned narrow earthen levee between expanses brown floodwater arm extended over water moving earth, shirtless man longyi standing bank watching, vast inundated rice fields horizon partly cloudy sky green vegetation foreground
+- **Water depth**: Not quantified but levee between floodwater
+- **Affected people**: 14 villages at risk Myinmu and Sagaing townships
+- **Evacuations**: Not detailed, preventive work
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Earthen levee/dam repair, embankments threatened
+- **Farmland/crops**: Inundated rice fields
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: PDF units using heavy machinery to fill and reinforce dams to prevent breaches, public service duties alongside combat, watermark ဧရာဝတီ
+- **Requests**: Preventive
+- **Photos/videos**: 3 near-identical images excavator on levee
+- **Source type**: Media (2.6M verified)
+- **Other**: Frames as PDF governance service
+
+### RECORD 034
+- **Post date and time**: 2026-08-10 16:30:02 +07
+- **Page/account name**: Popular News Journal
+- **Post URL**: https://www.facebook.com/popularnewsjournal/posts/pfbid0rr4aqwmBpC1qSp1nXYQdmEVQzRd7PLoZJL2CfAj15qSp1nXYQdmEVQzRd7PLoZJL2CyVtyX4A1i2WQnPl
+- **Original text**: (Myanmar) Special alert meteorologist U Win Naing: terrain-blocked monsoon clouds will produce heavy rain totaling 150-245 mm over 7 days causing Ayeyarwady, Chindwin, Namtu rivers along Katha-Indaw-Bhamo-Myitkyina and Lashio-Hsipaw corridors to rise above danger levels, particular concern flash floods. Table listing 18 states regions ascending forecast 7-day accumulated rainfall 25-55 mm Mandalay up to 200-315 mm Rakhine.
+- **Language**: my
+- **Township**: Katha, Indaw (Sagaing), plus broader Upper Sagaing, Kachin, northern Shan
+- **District**: Katha District
+- **Village**: Not specified
+- **Coordinates**: Ventusky weather app screenshots Precipitation Accumulation From 08/10 12 AM layer 2026/08/11 to 2026/08/17 dark purple/maroon shading 150-245 mm+ totals over Upper Sagaing Kachin northern Shan
+- **Event date/time**: Forecast 2026-08-10 to 2026-08-17, warning period
+- **Flood description**: Forecast heavy rain 150-245 mm, rivers to rise above danger
+- **Water depth**: Forecast
+- **Affected people**: Not quantified yet
+- **Evacuations**: Warning for flash floods
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not stated
+- **Roads/bridges**: Not stated
+- **Farmland/crops**: Not stated
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Weather warning
+- **Requests**: Caution
+- **Photos/videos**: 8-slide carousel: infographic table rainfall amount 18 states regions, Ventusky screenshots 08/11-08/17
+- **Source type**: Media (3.1M verified)
+- **Other**: Meteorologist U Win Naing attribution, concern Ayeyarwady, Chindwin, Namtu rivers above danger
+
+### RECORD 035
+- **Post date and time**: 2026-08-08 23:09:02 +07
+- **Page/account name**: Saw Sandar Myint
+- **Post URL**: https://www.facebook.com/reel/3503151236510191/
+- **Original text**: (Myanmar) Lament about fleeing flood, destroyed agricultural crops, asking who will save Kawlin town. Caption with prayer emojis.
+- **Language**: my
+- **Township**: Kawlin
+- **District**: Kawlin District
+- **Village**: Not specified residential street Kawlin, orange building red roof
+- **Coordinates**: Kawlin town
+- **Event date/time**: 2026-08-08
+- **Flood description**: Raw vertically-shot UGC clip major flood inundating residential street, murky brown water covering entire roadway reaching chest-height adults, orange building red roof partially submerged surrounded large green trees, people navigating flood person bright orange shirt, man dark blue shirt baseball cap wading toward camera person pink, unsteady camera rotating sideways tilting
+- **Water depth**: Chest-height
+- **Affected people**: Residents of Kawlin town
+- **Evacuations**: People wading
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Orange building partially submerged, residential street
+- **Roads/bridges**: Roadway covered
+- **Farmland/crops**: Agricultural crops destroyed per caption
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Photos/videos**: Video, distressed male voices shouting Burmese over water, soft English female pop ballad overlay, TikTok watermark @phyogyiphyo29
+- **Source type**: Individual (1.5K)
+- **Other**: Comment: "ဘေးကင်းရင်လည်း လယ်စိုက်ခတွေဆုံးရှူံးပြီး လယ်သမားတွေအကြွေးနွံထဲ" farmer debt if survive loss planting costs
+
+### RECORD 036
+- **Post date and time**: 2026-08-09 13:00:13 +07
+- **Page/account name**: DVB TV News
+- **Post URL**: https://www.facebook.com/DVBTVNews/posts/pfbid0FPR8zqKD5Ud8qnBP8ySMcqgAz2uJdmLPb8nPFFqgcNj4MGGpoprFUZuDDihbZXpDl
+- **Original text**: (Myanmar) Approximately 100 villages submerged since end July continuous heavy rain, exact number affected unknown, residents temporarily sheltering higher ground, medical supplies needed, trade disrupted, food shortages anticipated if persists.
+- **Language**: my
+- **Township**: Kawlin
+- **District**: Kawlin District
+- **Village**: ~100 villages Kawlin Township
+- **Coordinates**: None
+- **Event date/time**: Since end July to Aug 8
+- **Flood description**: Rural villages overwhelmed muddy brown floodwater traditional thatched-roof bamboo huts stilts partially surrounded water wooden fences pigs sheltering underneath lush vegetation overcast skies
+- **Water depth**: Partially surrounding huts on stilts
+- **Affected people**: Unknown exact, 100 villages
+- **Evacuations**: Residents sheltering higher ground
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Thatched-roof bamboo huts partially surrounded
+- **Roads/bridges**: Trade disrupted
+- **Farmland/crops**: Not detailed but implications
+- **Schools/hospitals**: Medical supplies needed
+- **Rescue/relief**: Medical supplies needed, higher ground sheltering
+- **Requests**: Medical supplies, concern food shortages
+- **Photos/videos**: 3-image carousel rural villages flooded
+- **Source type**: Media (22M)
+- **Other**: Since late July continuous heavy rain, not just dam
+
+### RECORD 037
+- **Post date and time**: 2026-08-06 09:43:55 +07
+- **Page/account name**: Myo Zaw Aung
+- **Post URL**: https://www.facebook.com/MyoZawAung/posts/pfbid02h7Dxu7Y3pPBgSKVKxBXc1Zz423sVugDUHCCN7jB6VtsYbp2NQwSymZgpLChauS9ml
+- **Original text**: (Myanmar) Heavy rain overnight, asks residents to report where flooding occurring in Kawlin District and how severe. Worry about flood victims specifically mentioning people displaced by conflict, asks what assistance he can provide.
+- **Language**: my
+- **Township**: Kawlin District (Kawlin Township)
+- **District**: Kawlin District
+- **Village**: Villages housing IDPs, western Kawlin, stream banks
+- **Coordinates**: None
+- **Event date/time**: 2026-08-06 overnight heavy rain
+- **Flood description**: Vast expanse murky brown floodwater covering farmland/village area rural, only tops bushes trees protrude above water, wooden fence foreground partially submerged, stilt house surrounded water hazy mountains horizon gray cloud-filled sky
+- **Water depth**: Only tops bushes/trees protrude, fence partially submerged
+- **Affected people**: IDP villages inundated
+- **Evacuations**: Not detailed
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Stilt house surrounded
+- **Roads/bridges**: Roads impassable per comments
+- **Farmland/crops**: Farmland covered
+- **Schools/hospitals**: Not stated, IDP camps affected
+- **Rescue/relief**: Local political figure gathering info, comments request rescue boats, food supplies, coordination
+- **Requests**: Requests for rescue boats (5 boats), food aid, reports where flooding
+- **Photos/videos**: Image: vast floodwater, stilt house, mountains
+- **Source type**: Individual / local political figure (93K followers, verified)
+- **Other**: Comments: "ကောလင်းဘက်ကနေ စစ်ရှောင်နေတဲ့ ရွာတွေ ရေမြုပ်နေတယ်" IDP villages underwater, "စက်လှေငါးစီးလောက်နဲ့ ပြည်သူတေကို လာကူညီပေးပါအုံး" request 5 motorboats, "ရေဘေး ကယ်ဆယ်ရေးလုပ်ဖို့ က လမ်းတွေ မပေါက်လို့ ဒီတခါတော့ အခက်တွေ့ပြီသား" roads not accessible difficulty delivering aid due security
+
+### RECORD 038
+- **Post date and time**: 2026-08-10 14:45:03 +07
+- **Page/account name**: DVB TV News
+- **Post URL**: https://www.facebook.com/DVBTVNews/posts/pfbid0cNthNeNxDj1MQfQGoUEQGZpzWvKjkYS11azh5Lr7LWCQV7okbVwPRVt2VeXwTfNKl
+- **Original text**: (Myanmar) Flooding in Kawlin caused three civilian deaths and loss of crops. Displaced person from Kawlin quote: widespread flooding across nearly entire township after seven days rain not sudden surge, displaced people cannot cook rice, roads severely damaged still being repaired, farmland destroyed, some areas receded others remain submerged.
+- **Language**: my
+- **Township**: Kawlin
+- **District**: Kawlin District
+- **Village**: Nearly entire township
+- **Coordinates**: None
+- **Event date/time**: Seven days rain prior to Aug 10, not sudden surge
+- **Flood description**: Collapsed brick concrete structure broken along muddy waterlogged path overgrown vegetation trees background low concrete fence green fields overcast sky, waterlogged path
+- **Water depth**: Not quantified but waterlogged, some areas receded others submerged
+- **Affected people**: Nearly entire township, displaced cannot cook rice
+- **Evacuations**: Displaced
+- **Deaths/injuries/missing**: Three civilian deaths per headline
+- **Houses/buildings**: Collapsed brick concrete structure
+- **Roads/bridges**: Roads severely damaged still being repaired
+- **Farmland/crops**: Farmland destroyed, loss of crops
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Roads being repaired
+- **Requests**: Implicit need
+- **Photos/videos**: Image: collapsed brick concrete structure muddy path, DVB logo, Burmese text overlay
+- **Source type**: Media (22M)
+- **Other**: Distinguishes from sudden dam surge: seven days continuous rain
+
+### RECORD 039
+- **Post date and time**: 2026-08-08 19:09:31 +07
+- **Page/account name**: Khit Thit Media
+- **Post URL**: https://www.facebook.com/khitthitnews/posts/pfbid02994FPACqKLTXhL4GdVuRAiQo8JdiHURPgKFHPyyNsbhgTy8hSywZpE2afDAtUqUhl
+- **Original text**: (Myanmar) On Aug 6 Military Council opened water-control gate at Tha Pan Seik Dam in Kyunhla Township without informing residents after heavy rain filled reservoir since Aug 3. Sudden release allegedly caused Mu River to surge flooding townships including Kyunhla, Kanbalu, Taze, Ye-U, Depayin, Myinmu with 14 villages in Kanbalu affected. Eight deaths: two in Kanbalu and six farmers swept away while crossing stream in Depayin.
+- **Language**: my
+- **Township**: Kyunhla, Kanbalu, Taze, Ye-U, Depayin, Myinmu
+- **District**: Kanbalu District, Shwebo District
+- **Village**: 14 villages Kanbalu, stream in Depayin
+- **Coordinates**: Tha Pan Seik Dam in Kyunhla Township, Mu River
+- **Event date/time**: 2026-08-06 dam gate opened, reservoir filling since Aug 3, reported Aug 8
+- **Flood description**: Flooded riverside dusk weathered dam-control building stilts murky water half-submerged wooden boat, people wading knee-waist-deep brown floodwater rural road shirtless boy carrying blue bin head, man longyi hat pushing bicycle thigh-deep water
+- **Water depth**: Knee to waist, thigh-deep
+- **Affected people**: 14 villages Kanbalu affected
+- **Evacuations**: People wading with bins, bicycles
+- **Deaths/injuries/missing**: Eight deaths total: two in Kanbalu, six farmers swept away crossing stream in Depayin
+- **Houses/buildings**: Dam-control building on stilts
+- **Roads/bridges**: Rural road flooded
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Requests**: Not explicit
+- **Photos/videos**: 3-image carousel: riverside dusk dam-control building, people wading, man pushing bicycle
+- **Source type**: Media (8.6M verified)
+- **Other**: Frames as man-made disaster tied to civil conflict, technical fears about Paunglaung Dam near Naypyidaw in comments
+
+### RECORD 040
+- **Post date and time**: 2026-08-08 15:09:50 +07 and 2026-08-09 18:59:56 +07 (two DMH posts combined)
+- **Page/account name**: မိုးလေဝသနှင့်ဇလဗေဒညွှန်ကြားမှုဦးစီးဌာန (Department of Meteorology and Hydrology - DMH)
+- **Post URL**: https://www.facebook.com/dmhmoezalanaypyitaw/posts/pfbid02hZsacGcMraS3zFKXYvha4BmUAUPfrGvQT5tMZuGRgghsCPuJDcPeri6WnZ4qtAfpl and https://www.facebook.com/dmhmoezalanaypyitaw/posts/pfbid02213MAr1Ds96DFgeFynmJpaX31LM7KwPp3c6MXCRF2Qy4TJ43EHuMFmjoQK2q1cV7l
+- **Original text**: (Myanmar) Daily river forecast 8-8-2026 - Chindwin group. Kalewa, Mingin, Homalin marked yellow approaching thresholds. Myitnge orange exceeding danger. Evening 18:30 table Chindwin Irrawaddy Sittaung. Stations Homalin, Mawlaik, Kalewa listed. Min Kin at 1350 cm and Monywa at 1025 cm exceeded danger.
+- **Language**: my
+- **Township**: Kalewa, Mingin, Homalin, Mawlaik, Monywa, Min Kin (Mingkin)
+- **District**: Kale District, Mawlaik District, Monywa District
+- **Village**: River gauge stations
+- **Coordinates**: Chindwin River stations
+- **Event date/time**: 2026-08-08 and 2026-08-09 18:30 readings
+- **Flood description**: Water level approaching/exceeding danger at Chindwin stations
+- **Water depth**: Min Kin 1350 cm, Monywa 1025 cm (exceeded danger), Kalewa approaching
+- **Affected people**: Not quantified but official warning
+- **Evacuations**: Precautionary measures urged for Homalin Paungbyin low-lying riverbank per DMH (from web search context)
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not stated
+- **Roads/bridges**: Not stated
+- **Farmland/crops**: Not stated
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Official forecast tables
+- **Requests**: Take precautionary measures
+- **Photos/videos**: Tables images of river levels
+- **Source type**: Government - DMH
+- **Other**: Official source, yellow approaching thresholds, asterisk = exceeded danger
+
+### RECORD 041
+- **Post date and time**: 2026-08-09 07:58:55 +07
+- **Page/account name**: မုံရွာမြို့နယ်သတင်းမှန်ပြန်ကြားရေး (Monywa Township True News)
+- **Post URL**: https://www.facebook.com/permalink.php?story_fbid=pfbid0nA8PMbZ4ew68m93QMS7r2ac3g2dHHJGxmAxk1funwxkjtNF4drYaPS3ZnL7diWo5l&id=61566233742578
+- **Original text**: (Myanmar) Since Aug 6 river rising, morning Aug 9 reached embankment. SAC says ~2 ft below danger, ground observation level with bank. Recalls 2002 flood water reached clock tower west side inundated.
+- **Language**: my
+- **Township**: Monywa
+- **District**: Monywa District
+- **Village**: Chindwin riverbank Monywa
+- **Coordinates**: Chindwin River embankment Monywa
+- **Event date/time**: 2026-08-06 to 2026-08-09 morning, river rising
+- **Flood description**: Chindwin at embankment top moored boats wet road fast current
+- **Water depth**: Embankment top, ~2 ft below danger per SAC but ground observation level with bank
+- **Affected people**: Not quantified but community collective defense
+- **Evacuations**: Not yet but risk
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Concrete embankment with blue bollards, wet road
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated, but 2002 reference clock tower
+- **Rescue/relief**: Community collective defense, but SAC arrests/detention hindering participation per post
+- **Requests**: Implicit warning
+- **Photos/videos**: Photo: embankment, boats, barge
+- **Source type**: Local township news
+- **Other**: Historical reference 2002 flood reached clock tower
+
+### RECORD 042
+- **Post date and time**: 2026-08-10 13:12:05 +07
+- **Page/account name**: Phyo
+- **Post URL**: https://www.facebook.com/reel/1830515678308108/
+- **Original text**: (Myanmar) Monywa-Mandalay highway at Nyaungpinwun Aug 10 road impassable flooding began evening Aug 9.
+- **Language**: my
+- **Township**: Monywa
+- **District**: Monywa District
+- **Village**: Nyaungpinwun, Monywa-Mandalay highway
+- **Coordinates**: Highway at Nyaungpinwun
+- **Event date/time**: 2026-08-09 evening to 2026-08-10
+- **Flood description**: Muddy brown fast-flowing water covering entire road reaching lower doors white-capped waves
+- **Water depth**: Lower doors, white-capped waves, entire road covered
+- **Affected people**: Travelers blocked
+- **Evacuations**: Road impassable
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Not detailed
+- **Roads/bridges**: Monywa-Mandalay highway blocked at Nyaungpinwun
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Requests**: Warning travelers
+- **Photos/videos**: Video: citizen dashcam, fast-flowing water, utility poles partially submerged
+- **Source type**: Individual citizen
+- **Other**: Highway infrastructure impacted
+
+### RECORD 043
+- **Post date and time**: 2026-08-07 22:43:21 +07
+- **Page/account name**: WIN PAING
+- **Post URL**: https://www.facebook.com/reel/1553145386305586/
+- **Original text**: (Myanmar) Kanbalu Township suffering current, earthen bank breach.
+- **Language**: my
+- **Township**: Kanbalu
+- **District**: Kanbalu District
+- **Village**: Not specified earthen bank breach
+- **Coordinates**: Not explicit
+- **Event date/time**: 2026-08-07
+- **Flood description**: Collapsed earthen bank powerful surge brown debris-filled water pours through gap creating rapids into flooded plain flooded roadway bridge water over concrete barrier tree trunks to canopies submerged stilt houses dwellings surrounded fast-moving water fields residential areas extensive inundation overcast sky opaque turbulent water
+- **Water depth**: Tree trunks to canopies submerged, water over concrete barrier
+- **Affected people**: Not quantified
+- **Evacuations**: Bystanders observing
+- **Deaths/injuries/missing**: None stated
+- **Houses/buildings**: Stilt houses surrounded
+- **Roads/bridges**: Earthen bank breach, roadway/bridge submerged, low concrete barrier, utility poles in flow
+- **Farmland/crops**: Fields inundated
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Bystanders
+- **Requests**: Not explicit
+- **Photos/videos**: Video: citizen-news WIN PAING TODAY NEWS graphic CapCut watermark 460 likes 10 comments
+- **Source type**: Individual citizen-news
+- **Other**: Earthen bank breach cause
+
+### RECORD 044
+- **Post date and time**: 2026-08-10 15:50:45 +07
+- **Page/account name**: Public Voice Television
+- **Post URL**: https://www.facebook.com/reel/888390443990844/
+- **Original text**: (Myanmar) 10 townships in Sagaing flooded affecting 51,028 households (223,761 people) with 15 dead and 2 missing as of Aug 9 with Kawlin, Khin-U, Depayin worst hit.
+- **Language**: my
+- **Township**: 10 townships Sagaing including Kawlin, Khin-U, Depayin
+- **District**: Various
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: As of 2026-08-09
+- **Flood description**: Wide shots massive floodplain murky brown water covering fields only treetops rooftops visible houses blue yellow roofs surrounded water palm trees distance two men wading chest-deep near homes large ancient tree standing floodwater motorcycles partially submerged base
+- **Water depth**: Chest-deep, motorcycles partially submerged
+- **Affected people**: 51,028 households (223,761 people) per PVTV as of Aug 9
+- **Evacuations**: Men wading
+- **Deaths/injuries/missing**: 15 dead 2 missing per PVTV
+- **Houses/buildings**: Houses blue yellow roofs surrounded water
+- **Roads/bridges**: Not detailed but floodplain
+- **Farmland/crops**: Fields covering
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: News report
+- **Requests**: Not explicit
+- **Photos/videos**: Video: news intro red black countdown 5 to 1 PVTV logo Burmese text Myanmar News UP-TO-DATE NEWS COVERAGE map highlighting Myanmar yellow, male anchor light pink button-down shirt glasses
+- **Source type**: Media (1.8M verified)
+- **Other**: Cross-verifies household count
+
+### RECORD 045
+- **Post date and time**: 2026-08-10 19:30:04 +07
+- **Page/account name**: DVB TV News
+- **Post URL**: https://www.facebook.com/DVBTVNews/posts/pfbid0rTnPKNA4asXapAt29qgLYowaTYnM4L8uSD7GDDoynXPgNS7ex5TCZYmN1X2NaaTYl
+- **Original text**: (Myanmar) Summary total damage 4 regions: 18 dead/missing Sagaing and Rakhine, over 400,000 flood-affected population, over 50,000 affected households, at least 44,370 acres damaged crop land. NUG warning continued heavy rain rising rivers, source describing flooded refugee camps near Kawlin-Kantbalu becoming like sea emergency evacuations higher ground inability to save belongings at least six deaths known so far three identified three unidentified.
+- **Language**: my
+- **Township**: Kawlin, Kanbalu (Kantbalu), plus Rakhine for deaths
+- **District**: Kawlin, Kanbalu
+- **Village**: Refugee camps near Kawlin-Kantbalu
+- **Coordinates**: None
+- **Event date/time**: As of Aug 10
+- **Flood description**: Infographic dark slate background four quadrants icons Burmese text: red medical cross heartbeat 18 persons dead/missing Sagaing and Rakhine, family icon 400,000+ flood-affected, house icon 50,000+ affected households, wheat stalks 44,370 acres minimum damaged crop land
+- **Water depth**: Not quantified
+- **Affected people**: Over 400,000 flood-affected, over 50,000 households (4 regions), 44,370 acres crop damaged
+- **Evacuations**: Emergency evacuations higher ground, refugee camps becoming like sea, unable to save belongings
+- **Deaths/injuries/missing**: 18 dead/missing Sagaing+Rakhine per infographic, at least six deaths known refugee camps three identified three unidentified
+- **Houses/buildings**: Households affected 50,000+
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: 44,370 acres damaged minimum
+- **Schools/hospitals**: Refugee camps flooded
+- **Rescue/relief**: Emergency evacuations
+- **Requests**: Not explicit but damage summary
+- **Photos/videos**: Static digital infographic
+- **Source type**: Media (22M)
+- **Other**: NUG warning continued heavy rain
+
+### RECORD 046
+- **Post date and time**: 2026-08-07 12:57:34 +07
+- **Page/account name**: Phelomena Ah Wine Lay
+- **Post URL**: https://www.facebook.com/permalink.php?story_fbid=pfbid02AvayyamstbKx3F894zzfLJh8vTdPeYpGV1Q2vwW8fFdW1dUHZLmjQyxsR69Qq8SKl&id=61587553449057
+- **Original text**: (Myanmar) Situation much worse than expected, never seen water rise this high, can do nothing but pray, hopes water will not rise further. Real-time user-generated documentation severe monsoon flooding residence Ye-U.
+- **Language**: my
+- **Township**: Ye-U
+- **District**: Shwebo District
+- **Village**: Residence in Ye-U Township
+- **Coordinates**: None
+- **Event date/time**: 2026-08-06
+- **Flood description**: Flooded residential yard brown muddy water covering walkways base simple homes corrugated metal roofs shirtless man wades chest-deep holding concrete wall barbed wire satellite dish half-submerged laundry hanging nearby. Indoors murky water deep enough submerge legs green wooden stools tables plastic crates household goods metal shelving holds boxes pots above waterline red plastic food cover floats floating water containers drift past framed group photo wooden structure
+- **Water depth**: Chest-deep outdoors, legs of stools indoors submerged
+- **Affected people**: Household, family members not evacuated
+- **Evacuations**: Neighbors evacuating while some family remain
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Residence flooded indoor outdoor, walkways covered base homes
+- **Roads/bridges**: Walkways covered
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Can do nothing but pray
+- **Requests**: Prayer
+- **Photos/videos**: 4-image carousel: outdoor wide flooded yard, indoor water submerging stools tables crates, etc.
+- **Source type**: Individual (190 followers)
+- **Other**: Comments: "တခါမှဒီလောက်ထိရေတက်တာမကြုံဖူးသေးဘူး" never experienced such high water, "ဆုတောင်းပေးနိုင်ရုံကလွဲပြီး ဘာမှမတတ်နိုင်ဘူး" only prayer possible, location identified Ye-U Township, rapid overnight rise
+
+### RECORD 047
+- **Post date and time**: 2026-08-06 18:22:25 +07
+- **Page/account name**: Charcoal Venus Esu
+- **Post URL**: https://www.facebook.com/charcoal.venus.esu/posts/pfbid0b5XxdPmrcHXrwmrh1mwoPvwTzz9Xi5aeXvfLauuQFGd1aAny8nvW7kFL4yGX4A1i2WQnPl
+- **Original text**: (Myanmar) "ဇ ပြင်းတဲ့ ကောလင်းသားတွေ ရေကြီးပြန်ပြီလေ" - Kawlin is flooded again.
+- **Language**: my
+- **Township**: Kawlin
+- **District**: Kawlin District
+- **Village**: Kawlin town, main street
+- **Coordinates**: Kawlin town
+- **Event date/time**: 2026-08-06
+- **Flood description**: Vast expanse muddy brown water covering farmland village street partially submerged trees bamboo fencing utility poles blue HALAL FOOD sign half underwater bamboo thatch structures residents woman bright blue plastic rain poncho woman light patterned pajamas helmet young boy gray shirt wade knee-thigh-deep water large white blue passenger bus drives slowly deep inundation wheels nearly submerged second video fast-rushing water surging main street submerging thatched-roof shops bamboo-walled houses white foam waves motorcycles parked surge man hat rides motorcycle through water woman blue raincoat green hat wades young man cap waves camera chest-deep boy red Manchester United jersey stands current three men watch doorway water crashes against house
+- **Water depth**: Knee to thigh, chest-deep, wheels nearly submerged bus, deep inundation
+- **Affected people**: Residents of Kawlin town
+- **Evacuations**: People wading
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Thatched-roof shops bamboo-walled houses submerged, shops half underwater
+- **Roads/bridges**: Main street flooded, bus driving through, motorcycles parked in surge
+- **Farmland/crops**: Farmland covered
+- **Schools/hospitals**: Not stated, HALAL FOOD sign shop
+- **Rescue/relief**: Not detailed
+- **Requests**: Not explicit
+- **Photos/videos**: 2 handheld UGC videos, roar rushing water excited shouting Burmese
+- **Source type**: Individual (3.1K)
+- **Other**: Recurring flood Kawlin
+
+### RECORD 048
+- **Post date and time**: 2026-08-10 10:21:56 +07
+- **Page/account name**: MM News Update
+- **Post URL**: https://www.facebook.com/reel/1592610938945172/
+- **Original text**: (Myanmar) Kawlin flood call for relief assistance, red Burmese text overlays location Kawlin.
+- **Language**: my
+- **Township**: Kawlin
+- **District**: Kawlin District
+- **Village**: Residential area stilt-raised wooden houses
+- **Coordinates**: Kawlin
+- **Event date/time**: 2026-08-10
+- **Flood description**: Flooded rural residential area murky brown water rushing through grounds stilt-raised wooden houses surrounded lush green vegetation bamboo fencing persistent red Burmese text overlays, water flowing under raised houses around trees carrying debris, woman blue-white plaid shirt patterned orange skirt walks water holding dark umbrella water reaching knees interacts another person filming, second woman pink t-shirt patterned skirt holding blue umbrella white geometric design walks deeper, figure blue umbrella distance wading
+- **Water depth**: Knee-deep, water flowing under raised houses
+- **Affected people**: Residents
+- **Evacuations**: Walking through water
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Stilt-raised wooden houses water flowing under
+- **Roads/bridges**: Flooded street
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Call for relief assistance red text
+- **Requests**: Relief assistance
+- **Photos/videos**: Video red Burmese text overlays
+- **Source type**: Media (620K)
+- **Other**: Residential area documentation
+
+### RECORD 049
+- **Post date and time**: 2026-08-05 14:47:12 +07
+- **Page/account name**: Tempo Ngamyo
+- **Post URL**: https://www.facebook.com/reel/1492437436241889/
+- **Original text**: (Myanmar) On-screen text "5.8.2026 Wed" and Burmese "ဒီနေ့လည်း ရေကြီးပြီ" with three crying emojis conveying distress about recurring flood.
+- **Language**: my
+- **Township**: Kawlin
+- **District**: Kawlin District
+- **Village**: Rural road Kawlin, traditional wooden stilt house thatched roof corrugated metal awning lower supports submerged
+- **Coordinates**: None
+- **Event date/time**: 2026-08-05 Wed
+- **Flood description**: Wide muddy flood covering rural road grey overcast sky steady rain, traditional wooden stilt house thatched roof corrugated metal awning lower supports submerged brown water, tall green vegetation sugarcane edges flood, two people man blue plaid shirt conical hat woman purple patterned shirt dark longyi conical hat standing knee-deep water holding large fishing net stretched between them, woman waves filmer lifts small woven bamboo basket show catch several small dark fish wriggling inside, man remains water holding net end, daily life adapting disaster clear inundation homes farmland
+- **Water depth**: Knee-deep, lower supports submerged
+- **Affected people**: Two people fishing, residents
+- **Evacuations**: Not evacuation but adaptation fishing
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Stilt house lower supports submerged
+- **Roads/bridges**: Rural road inundated
+- **Farmland/crops**: Farmland inundated, sugarcane, vegetation
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed, adaptation fishing
+- **Requests**: Distress emojis
+- **Photos/videos**: Video, gentle melancholic instrumental soundtrack, overcast rain
+- **Source type**: Individual (1.2K)
+- **Other**: Comment identifies location "စစ်ကိုင်း ကောလင်း လာကာ ပါဗျ" Sagaing Kawlin, recurring flood
+
+### RECORD 050
+- **Post date and time**: 2026-08-08 00:18:20 +07 (duplicate of RECORD 009 map but separate entry for cross-check)
+- **Page/account name**: Ministry of Defence - National Unity Government of Myanmar
+- **Post URL**: https://www.facebook.com/modNUG/posts/pfbid02XXtkWiuaFnf3g6DVuKsy94zZazH8snFiihJZ69uzCd8nRARYwC19tV8s1zSHJaukl
+- **Original text**: (Myanmar) PDF comrades providing assistance to flood-affected people, public service is one of PDF's four duties. Deep muddy floodwater swollen river viewed from bridge submerged homes flooded rural roads.
+- **Language**: my
+- **Township**: Multiple Sagaing townships
+- **District**: Sagaing Region
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-09
+- **Flood description**: Deep muddy floodwater swollen river bridge submerged homes flooded rural roads
+- **Water depth**: Deep
+- **Affected people**: Not quantified
+- **Evacuations**: PDF wading carrying children assisting elderly transporting supplies by boat/motorbike distributing water containers sacks
+- **Deaths/injuries/missing**: Not stated
+- **Houses/buildings**: Submerged homes
+- **Roads/bridges**: Flooded rural roads, swollen river viewed from bridge
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: PDF comrades providing assistance, public service duty, distributing water containers sacks, boat/motorbike transport
+- **Requests**: Not explicit
+- **Photos/videos**: Images: PDF relief activities
+- **Source type**: Government NUG / rescue group
+- **Other**: Official NUG MOD statement
+
+### RECORD 051
+- **Post date and time**: 2026-08-08 02:50:57 +07
+- **Page/account name**: Min Oo (Shwebo area)
+- **Post URL**: https://www.facebook.com/reel/1483819376845104/
+- **Original text**: (Myanmar) Brown muddy water covering stilt houses blue corrugated awning chickens on roof man waist-deep wading farm/garden.
+- **Language**: my
+- **Township**: Shwebo
+- **District**: Shwebo District
+- **Village**: Farm/garden area Shwebo
+- **Coordinates**: None
+- **Event date/time**: 2026-08-10 14:53:38 (post time)
+- **Flood description**: Brown muddy water covering stilt houses blue corrugated awning chickens on roof man waist-deep wading
+- **Water depth**: Waist-deep
+- **Affected people**: Farm household
+- **Evacuations**: Man wading
+- **Deaths/injuries/missing**: Not stated, chickens on roof indicates livestock at risk
+- **Houses/buildings**: Stilt houses covered, blue corrugated awning
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Farm/garden flooded
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Not detailed
+- **Requests**: Not explicit
+- **Photos/videos**: Video reel
+- **Source type**: Individual personal eyewitness
+- **Other**: Livestock chickens on roof
+
+### RECORD 052
+- **Post date and time**: 2026-08-09 20:39:59 +07
+- **Page/account name**: Moe Lay Entertainment
+- **Post URL**: https://www.facebook.com/permalink.php?story_fbid=pfbid02T3ePHmNdx9TVGMrKWLeC62176iZejQhTNQ8zqTiJNscmMxpu2RXZGtrZdDcnCewl&id=61553606549461
+- **Original text**: (Myanmar) Sagaing is flooding again no longer just flood but becoming calamity-like situation urgently requests emergency assistance urging people not to turn away from each other hashtags Sagaing flood for the people. Aerial village almost entirely submerged muddy brown water houses isolated among treetops dark banner "စစ်ကိုင်းရေဘေး💔" ground wide view 15-20 adults children wading chest-deep carrying baskets sacks bags heads banner "ကူညီပေးကြပါ🙏" three men waist-deep leading four light-colored cattle toward higher ground "မြန်မာပြည်ရယ်😭💔"
+- **Language**: my
+- **Township**: Taze, Shwebo, Wetlet, Khin-U, Kantbalu, Depayin, Ayadaw (per comments confirming heavy inundation)
+- **District**: Shwebo District, Kanbalu District
+- **Village**: Not specified
+- **Coordinates**: None
+- **Event date/time**: 2026-08-09
+- **Flood description**: Aerial village almost entirely submerged muddy brown water houses isolated treetops, ground 15-20 adults children wading chest-deep carrying baskets sacks bags heads, three men waist-deep leading four light-colored cattle toward higher ground
+- **Water depth**: Chest-deep, waist-deep
+- **Affected people**: 15-20 in one ground view, widespread across townships
+- **Evacuations**: Wading with baskets sacks bags heads, cattle evacuation
+- **Deaths/injuries/missing**: Not stated in caption but calamity-like situation
+- **Houses/buildings**: Houses isolated among treetops, almost entirely submerged village
+- **Roads/bridges**: Not detailed
+- **Farmland/crops**: Not detailed
+- **Schools/hospitals**: Not stated
+- **Rescue/relief**: Cattle rescue
+- **Requests**: Urgently requests emergency assistance "ကူညီပေးကြပါ🙏"
+- **Photos/videos**: 3-image carousel: aerial submerged, ground wading, cattle leading
+- **Source type**: Media entertainment page (70K)
+- **Other**: Comments confirm townships Taze Shwebo Ye-U Khin-U Kantbalu Depayin Wetlet Ayadaw, political debate NUG PDF military, prayers
+
+---
+
+### Additional Township Coverage Notes (from sub-agent searches)
+
+- **Monywa Township**: Chindwin River at embankment top Aug 9, Nyaungpinwun Monywa-Mandalay highway impassable evening Aug 9 to Aug 10, fast-flowing water covering entire road reaching lower doors, white-capped waves, utility poles partially submerged. Source: Phyo reel 1830515678308108, Monywa True News.
+
+- **Budalin, Chaung-U, Ayadaw, Yinmabin**: Included in 9-township affected list per Khin Hnin Kyi Thar and BNI (Ayadaw listed among 10 townships, Budalin implied in Shwebo District). Ayadaw specifically named in Mandalay Free Press 200 villages list and BNI JERC list.
+
+- **Kani, Pale, Salingyi**: Search returned 0 direct hits but included in broader Shwebo/Monywa/Yinmabin cluster per regional flood wave downstream-moving to Sagaing city.
+
+- **Kalewa, Mawlaik, Mingin, Homalin, Paungbyin**: DMH forecasts show Chindwin approaching/exceeding danger, Min Kin 1350 cm, Monywa 1025 cm exceeded danger, Kalewa approaching. Precautionary measures urged Homalin Paungbyin low-lying riverbanks. Official DMH posts.
+
+- **Katha, Banmauk, Indaw, Tigyaing, Pinlebu, Wuntho**: Included in Popular News Journal forecast for heavy rain 150-245 mm Katha-Indaw corridor, rivers to rise above danger, flash flood concern. Also Kawlin-Katha upper Sagaing heavy rain continuous late July to early August.
+
+- **Sagaing Township (Sagaing town)**: BBC Burmese Dry Zone Anyar area flooding, streets turned rivers water reaching building foundations, concrete bridge partially submerged, golden pagodas surrounded water, residents wading chest-deep evacuating boats, livestock struggling. Thapanseik Dam discharge.
+
+### Cross-Verification Observations (preserved, not interpreted)
+
+- Cause consistently reported across multiple independent sources: continuous heavy rain late July to Aug 9 + Thaphanseik (Tha Pan Seik / Thaphanseik / Tapaungse) Dam release starting Aug 5-6 + Kabo Dam gates + Mu River embankment breaches at Thayethauk, Daunggyi, Bogyone.
+- Same event (Aug 7 Shwe Hlan village Taze Township child 2-year-old and man >50 swept away) reported by CJ Platform and Mandalay Free Press with matching details.
+- Death toll claims vary by source and date: 8 deaths (Khit Thit: 2 Kanbalu +6 Depayin), 8 killed several missing Kyunhla (Chindwin News Agency Aug 7), 15 dead 2 missing (PVTV as of Aug 9), 15 deaths 2 missing 200,000 affected 10 townships (BNI NUG), 16 deaths 61 injuries 2 missing 414,843 affected 15 townships 4 regions (Irrawaddy NUG), 18 dead/missing Sagaing+Rakhine (DVB infographic), 20 dead (Thai media MGRonline and unseencnx), nearly 20 deaths 15 confirmed (Mandalay Free Press). Preserve all as reported.
+- Affected counts: 100 villages Kawlin, 15 villages Khin-U (DVB Aug 9), 19 villages SW/NW Khin-U (DVB), 14 villages Kanbalu (Khit Thit), 40+ villages Khin-U/Shwebo/Wetlet (Shwe Phee Myay), 100 villages Kawlin since end July (DVB), 200 villages across 8 townships (MGRonline, Mandalay Free Press, Vitamins), 200+ villages >200,000 people (BNI), 51,028 households 223,761 people 10 townships (PVTV), 400,000+ (Irrawaddy 4 regions, DVB infographic), 2,000 households per township x9 townships (Khin Hnin Kyi Thar).
+- Infrastructure consistently: Mu River overflow between Shwebo-Depayin canal embankment breach, collapsed wooden bridges, concrete barriers overtopped, earthen levees breached, Thakaytan Chaung Bridge flooded, Monywa-Mandalay highway at Nyaungpinwun blocked, ox carts stranded, ambulance YGN 91-7387 stranded waterlogged dirt track Kawlin, Hyundai HX80 excavator reinforcing levees Myinmu/Sagaing.
+- Farmland: thousands acres inundated, 44,370 acres minimum (DVB), 18,000 hectares (Irrawaddy), rice nurseries, seedling beds, bean sacks, paddy, tractors submerged, planting season delayed, farmer debt concerns.
+- Livestock: hundreds buffalo cattle swept away killed (Shwe Phee Myay), cattle herding through water, cattle struggling current, cows chest-deep stranded Magyitaw/Htankone, chickens on roof, water buffalo small dry patch, ox carts with household goods.
+
+---
+
+### File Generation Info
+- Generated: 2026-08-11 via extensive Facebook content_search
+- Total posts reviewed: >90, preserved: 52 detailed + additional coverage notes
+- Search languages: Myanmar (my), English (en), Thai (th) for cross-border reporting
+- Source types included: national media (BBC Burmese, DVB, Mizzima, Irrawaddy, Khit Thit, Mandalay Free Press, Public Voice TV, Shwe Phee Myay, Ayeyarwaddy Times, CJ Platform), local news (Monywa True News, Kawlin News), government (DMH, NUG MOD), community aid (Vitamins, AI Info Team), rescue groups (NUG PDF Shwebo, Wetlet PDF, Pa Ka Fa Voice), individuals (Ye Min, Myint Htwe, Soe Min, Charcoal Venus Esu, Saw Sandar Myint, etc.)
+- No summary narrative beyond raw data preservation per instruction.

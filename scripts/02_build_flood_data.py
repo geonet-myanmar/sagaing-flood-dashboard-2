@@ -1,0 +1,800 @@
+"""
+Structure the Sagaing flood intelligence from the raw Facebook dataset
+(Sagaing_Flooding_Raw_Dataset.md, 52 preserved posts, collected 2026-08-11).
+
+Every figure below is attributed to the post that reported it. Nothing is
+independently verified and nothing is reconciled into a single "true" number --
+where sources disagree (notably the death toll) the full range is preserved and
+surfaced in the dashboard.
+
+Township names follow MIMU v9.4 spelling so they join cleanly to the boundary
+layer. Note MIMU spells Depayin as "Tabayin".
+"""
+
+import json
+import os
+from collections import Counter, defaultdict
+
+OUT = os.path.join(os.path.dirname(__file__), "..", "data", "processed")
+
+# --------------------------------------------------------------------------
+# Alias map: names as they appear in Facebook posts -> MIMU v9.4 township name
+# --------------------------------------------------------------------------
+ALIAS = {
+    "Depayin": "Tabayin", "Tabayin": "Tabayin",
+    "Tantse": "Taze", "Taze": "Taze",
+    "Kantbalu": "Kanbalu", "Kanbalu": "Kanbalu",
+    "Kyaunghla": "Kyunhla", "Kyunhla": "Kyunhla",
+    "Ayardaw": "Ayadaw", "Ayadaw": "Ayadaw",
+    "Min Kin": "Mingin", "Mingin": "Mingin",
+    "Khin-U": "Khin-U", "Ye-U": "Ye-U", "Shwebo": "Shwebo", "Wetlet": "Wetlet",
+    "Kawlin": "Kawlin", "Monywa": "Monywa", "Myinmu": "Myinmu",
+    "Sagaing": "Sagaing", "Indaw": "Indaw", "Katha": "Katha",
+    "Kalewa": "Kalewa", "Homalin": "Homalin", "Mawlaik": "Mawlaik",
+    "Paungbyin": "Paungbyin", "Banmauk": "Banmauk", "Tigyaing": "Tigyaing",
+    "Pinlebu": "Pinlebu", "Wuntho": "Wuntho",
+}
+
+# --------------------------------------------------------------------------
+# The 52 preserved posts
+#  ts  = townships the post reports on (MIMU spelling)
+#  st  = source type
+#  fol = follower count as stated in the dataset (None where not stated)
+#  th  = thematic tags
+# --------------------------------------------------------------------------
+P = [
+    dict(id=1, dt="2026-08-10T05:28:26", page="Ye Min",
+         url="https://www.facebook.com/ye.min.54738/posts/pfbid0xPgjmZpN2CXFc7qSN7HSCpmM3pNbKJu5gwpkBggiZq9KdBwbiCJknv8AVgCKYTfml",
+         lang="my", st="individual", fol=5000, ts=["Shwebo", "Wetlet"],
+         depth="Knee to waist", th=["impact", "appeal"], media="5 photos",
+         txt="Says no donors are reaching the flooded Dry Zone and asks who is actually helping. Photos show rescue in Shwebo and Wetlet: villagers evacuating with baskets and bundles on their heads, cattle herded with ropes, a child carried through knee-to-waist water.",
+         note="Comment from Wetlet asks directly for aid."),
+    dict(id=2, dt="2026-08-08T22:31:35", page="Shwebo Township PDF (NUG MoD)",
+         url="https://www.facebook.com/permalink.php?story_fbid=pfbid0UJbf38o9h7Ag8VqTJD9iY2Bkk9T8Rzs5vjBq4GADJpwiuPa3RwzJG5gtrixkZFUWl&id=100077330481508",
+         lang="my", st="pdf", fol=14000, ts=["Shwebo"],
+         depth="Waist to chest", th=["relief", "warning"], media="Photo series",
+         txt="NUG Ministry of Defence Shwebo Township PDF relocating residents to safety from villages inundated near the Mu River; warns of flood hazards, health risks and venomous animals.",
+         note="Comments dispute the framing; preserved as claim."),
+    dict(id=3, dt="2026-08-10T22:48:40", page="Khin Hnin Kyi Thar",
+         url="https://www.facebook.com/khin.kyithar/posts/pfbid02wTqx1fUQk6td4hWaSyu3iHMm2e2cKoJLpPUNxVjjXUX87TeYN4Cb4i3fQiheea1xl",
+         lang="my", st="individual", fol=780000,
+         ts=["Tabayin", "Shwebo", "Khin-U", "Taze", "Ye-U", "Wetlet", "Ayadaw", "Kanbalu", "Kawlin"],
+         depth="Chest-deep", th=["impact", "appeal"], media="2 photos",
+         txt="Names nine currently flood-affected townships and estimates roughly 2,000 households affected per township, needing help. Addresses Burmese abroad directly, urging assistance.",
+         note="Kawlin commenter: rain has not stopped and water is backed up, not receding."),
+    dict(id=4, dt="2026-08-09T18:20:03", page="DVB TV News",
+         url="https://www.facebook.com/DVBTVNews/posts/pfbid0zEVa9mwwy3rVbssbFECNoNLHDDryuK8XG1LmNJ3tu1tomn6zvkuYCUWdwF2VYbx1l",
+         lang="my", st="media_national", fol=22000000,
+         ts=["Shwebo", "Tabayin", "Taze", "Khin-U", "Ye-U", "Kanbalu", "Wetlet", "Indaw", "Kawlin"],
+         depth="Waist-deep", th=["impact", "casualty"], media="10-slide carousel",
+         txt="Continuous rain and dam releases flooded nine Sagaing townships. Cites NUG figures of roughly 250,000 affected nationwide and at least 10 dead.",
+         note="Cause cited as continuous rain plus dam releases."),
+    dict(id=5, dt="2026-08-09T14:46:46", page="People's Spring",
+         url="https://www.facebook.com/reel/1071749255294388/",
+         lang="my", st="media_national", fol=2300000, ts=[],
+         depth="Knee-height (urban)", th=["impact"], media="Video",
+         txt="More than 200,000 people affected by floods across Sagaing, Mandalay and Ayeyarwady. Ground footage of urban flooding, fast-moving water around stilt houses.",
+         note="Region-wide report; footage credited to Myanmar Rescue Madaya."),
+    dict(id=6, dt="2026-08-10T13:19:46", page="BBC Burmese",
+         url="https://www.facebook.com/BBCnewsBurmese/posts/pfbid0PMpA6dnHK75jcfWVCGZZVqzPLFRCxFbKbCEZK8TaHen2vuiXwHnbzSaq5TEZZsajl",
+         lang="my", st="media_intl", fol=27000000, ts=["Shwebo", "Khin-U", "Wetlet"],
+         depth="Houses partially submerged", th=["impact", "infrastructure", "access"], media="4-image carousel",
+         txt="The Mu River is gradually receding in Shwebo and Khin-U but continues to rise in Wetlet to the south, where roads and bridges are damaged. Because the flooded villages are in conflict-affected areas, relief operations face greater challenges.",
+         note="First report of divergence between receding and still-rising townships."),
+    dict(id=7, dt="2026-08-10T16:08:31", page="The Irrawaddy (English)",
+         url="https://www.facebook.com/theirrawaddy/posts/pfbid0Uh6XL7upn25u5axUkEeNfJ3aHYyNoRwoFT4eKavtzj4sCMYxNorv7ZZRPwpu9vjel",
+         lang="en", st="media_national", fol=6500000, ts=["Myinmu", "Monywa"],
+         depth="Rooftops visible", th=["impact", "casualty", "warning"], media="4-image carousel",
+         txt="An estimated 414,843 people affected across 15 townships in Sagaing, Mandalay, Magwe and Ayeyarwady per NUG, with at least 16 deaths, 61 injuries and two missing, damage to houses, over 18,000 hectares of farmland and bridges. NUG formed a Joint Emergency Response Committee in Sagaing. DMH warned six rivers had breached danger level, urging evacuation in Myinmu and Monywa among others.",
+         note="Highest affected-population figure in the dataset."),
+    dict(id=8, dt="2026-08-11T12:21:31", page="Mizzima (English)",
+         url="https://www.facebook.com/reel/2213167536143812/",
+         lang="en", st="media_national", fol=2600000, ts=["Shwebo"],
+         depth="Knee to thigh", th=["impact", "appeal"], media="Video",
+         txt="Over 1,700 IDPs from 500 households in Shwebo Township urgently need emergency aid amid widespread flooding caused by heavy rainfall.",
+         note="Most specific displacement count for a single township."),
+    dict(id=9, dt="2026-08-08T00:18:20", page="AI Info Team",
+         url="https://www.facebook.com/permalink.php?story_fbid=pfbid02ciYiWCQvNjUzRw1v6QnF4DReooMGNv7xHEJkGMm3Ybsrez8ent2F4NZUe8Pzptysl&id=61574564039005",
+         lang="my", st="community_info", fol=140000,
+         ts=["Kanbalu", "Taze", "Ye-U", "Khin-U", "Tabayin", "Shwebo", "Wetlet", "Sagaing", "Indaw", "Kawlin"],
+         depth="Not quantified", th=["analysis", "warning", "casualty"], media="Annotated risk map",
+         txt="Argues this is not ordinary monsoon flooding but a downstream-moving flood wave along the Mu River basin, with four causes: continuous upstream rain in Kachin, Indaw, Kawlin and northern Kanbalu; high inflow to Thapanseik Dam leading to releases; Kabo Dam gates opened; and Mu River embankment breaches at Thayethauk, Daunggyi and Bogyone. Red zones listed as Kanbalu (embankment breach), Taze (12+ villages, bridge damage), Ye-U (town flooded) and Depayin (17+ villages, 10,000+ people, 6 deaths).",
+         note="The most complete causal chain in the dataset; issued a 24-48 hour warning."),
+    dict(id=10, dt="2026-08-07T16:07:34", page="Soe Min",
+         url="https://www.facebook.com/smttzznn/posts/pfbid0FPdjTXuTRC3nzw39yTzDrRiy9D8gKUG7cYT5DBm7iJqeLZDRym8PzQPEAnjeFjG2l",
+         lang="my", st="individual", fol=2300, ts=["Kanbalu"],
+         depth="Chest-deep (cattle)", th=["impact", "agriculture"], media="2 videos",
+         txt="Magyitaw and Htankone villages flooded in Kanbalu Township. Htankone model village bridge completely submerged under fast-moving water; cattle stranded chest-deep and dying.",
+         note="Named-village citizen documentation."),
+    dict(id=11, dt="2026-08-10T21:42:03", page="Shin E",
+         url="https://www.facebook.com/reel/2749854932065599/",
+         lang="my", st="individual", fol=830, ts=["Shwebo", "Wetlet"],
+         depth="Treetops visible", th=["impact", "appeal"], media="Video",
+         txt="The Anyar (Dry Zone) area of Shwebo and Wetlet is flooded; men pole a wooden raft and a small motorboat crosses the flooded plain while residents watch from a slightly elevated bank.",
+         note="Echoes the same absent-donors narrative as post 1."),
+    dict(id=12, dt="2026-08-07T19:06:48", page="Pa Ka Fa Voice",
+         url="https://www.facebook.com/reel/1968356747161297/",
+         lang="my", st="community_info", fol=74000, ts=["Kanbalu"],
+         depth="Not quantified", th=["warning"], media="Video",
+         txt="Warning issued 7 August: water released from Thapanseik Dam in Kanbalu Township has raised the Mu River, causing flooding in five townships. Shwebo District news agency warns parents and residents.",
+         note="Earliest explicit public warning in the dataset."),
+    dict(id=13, dt="2026-08-09T19:48:00", page="Chindwin News Agency",
+         url="https://www.facebook.com/reel/1673625773734472/",
+         lang="en", st="media_local", fol=180000, ts=["Kyunhla"],
+         depth="Extensive", th=["casualty", "impact"], media="Video",
+         txt="Flooding on Friday 7 August in Kyunhla Township after water was allegedly released from the dam without prior warning to nearby villages. Eight people killed and several remain missing, worsened by monsoon rains.",
+         note="Political accusation: release without warning."),
+    dict(id=14, dt="2026-08-09T10:55:46", page="Nway Oo Maung (BaKunn)",
+         url="https://www.facebook.com/reel/1327814689132224/",
+         lang="my", st="individual", fol=1000, ts=["Shwebo", "Wetlet"],
+         depth="Water at walls and roofs", th=["relief", "appeal"], media="Live video",
+         txt="Live from a relief boat on the Mu riverbank: houses submerged to walls and roofs, residents standing on rooftops, a water buffalo on a shrinking dry patch. Boat loaded with bottled water, rice sacks and medical boxes.",
+         note="Grassroots volunteer relief, not an organised agency."),
+    dict(id=15, dt="2026-08-11T12:22:03", page="Chiang Mai You Never Seen (Thai)",
+         url="https://www.facebook.com/unseencnx/posts/pfbid02u8s7DC5ozbC7G9M7MjjKyEAXC8P6XVQuEjyH88AA5Py1gRNTkodv24zoUfetcpAl",
+         lang="th", st="media_intl", fol=700000, ts=[],
+         depth="Chest-deep", th=["casualty", "impact"], media="Composite image",
+         txt="Thai report: flooding resulted from a mistaken dam release on the Mu River on 5 August after heavy rain, killing at least 20 people, submerging more than 200 villages across eight townships and displacing tens of thousands in an area still recovering from a major earthquake.",
+         note="Links the flood to earthquake recovery context."),
+    dict(id=16, dt="2026-08-09T18:24:30", page="DVB TV News",
+         url="https://www.facebook.com/DVBTVNews/posts/pfbid0Yfrdm82Wam6QEAHctqJQqAdYcw9Wq3mHXodftt4SwdPWhN7CTTq6KxDdmNeiHRbUl",
+         lang="my", st="media_national", fol=22000000, ts=["Kawlin", "Khin-U", "Shwebo"],
+         depth="Not quantified", th=["impact"], media="Text",
+         txt="Approximately 100 villages in Kawlin Township flooded and 15 villages in Khin-U Township submerged after heavy rain; thousands of residents in Khin-U and Shwebo seeking safer ground.",
+         note="First village-count breakdown by township."),
+    dict(id=17, dt="2026-08-09T06:44:10", page="Ta Za Burma Rebel",
+         url="https://www.facebook.com/permalink.php?story_fbid=pfbid0RfA9dd2uAzcZuzhh9pmn5fqiGTYA8obUDgpWpruUgh1bzVnamr3KFiZGhVV6RbKPl&id=61582550096119",
+         lang="my", st="community_info", fol=8700, ts=["Shwebo"],
+         depth="Knee to chest", th=["relief", "warning"], media="Photo carousel",
+         txt="Villages near the Mu River face flood danger; PDF providing emergency assistance to move people to safety, with cattle herded by rope and a woman leading livestock.",
+         note=""),
+    dict(id=18, dt="2026-08-07T17:07:04", page="Public Voice Television",
+         url="https://www.facebook.com/reel/1366382464934106/",
+         lang="my", st="media_national", fol=1800000, ts=["Khin-U"],
+         depth="Up to house foundations", th=["impact"], media="Video",
+         txt="Due to Mu River flooding, thousands of people from several villages have been forced to evacuate in Khin-U Township. Thatched huts and wooden houses submerged to their foundations; ox carts gathered on dry embankments.",
+         note="Earliest mass-evacuation report for Khin-U."),
+    dict(id=19, dt="2026-08-11T08:33:00", page="RealLife",
+         url="https://www.facebook.com/reel/3477958795712531/",
+         lang="my", st="individual", fol=22000, ts=[],
+         depth="Up to lower windows / axle height", th=["infrastructure"], media="Video",
+         txt="Severely flooded highway with murky water covering the entire road, reaching the lower windows of large vehicles. Buses including Shwe Mandalar Express push through, wheels churning water to axle height.",
+         note="Location not stated; likely the Shwebo-Monywa corridor."),
+    dict(id=20, dt="2026-08-11T13:25:03", page="Burma News International",
+         url="https://www.facebook.com/BNItvandnews/posts/pfbid02rwdZu4MXjCXQZm17qBzdkHymahgAkqXjDEx8H5gcgbBRV9h3LbaH3V8VYDmo2XbDl",
+         lang="my", st="media_national", fol=530000,
+         ts=["Taze", "Kanbalu", "Kyunhla", "Ayadaw", "Khin-U", "Ye-U", "Shwebo", "Wetlet", "Myinmu", "Tabayin"],
+         depth="Embankment overtopped", th=["impact", "casualty", "relief"], media="Image",
+         txt="NUG formed a Joint Emergency Response Coordination Committee to help residents affected by weeks-long flooding in ten townships. Over 200,000 people affected, 15 deaths and 2 missing, with Depayin the worst hit at 7 deaths.",
+         note="Cross-verifies the 10-township list; most recent post in the collection."),
+    dict(id=21, dt="2026-08-09T10:50:37", page="DVB TV News",
+         url="https://www.facebook.com/DVBTVNews/posts/pfbid09rmy5oQuPNhDtJenfNFZgBd6ks6qqjy8nMNiDhtuNPiMMavaXkAFMVBFGXYM1Ykhl",
+         lang="my", st="media_national", fol=22000000, ts=["Shwebo", "Tabayin"],
+         depth="Crops submerged", th=["agriculture", "impact"], media="5-image carousel",
+         txt="Continuous rain and large releases from Thapanseik Dam caused the Mu River between Shwebo and Depayin to overflow. Residents carried away only clothes and essentials; looms, bean and rice sacks, paddy, seedling beds and tractors submerged. Even after waters recede replanting will be difficult and the planting season delayed.",
+         note="Canal embankment breach reported between Shwebo and Depayin."),
+    dict(id=22, dt="2026-08-09T20:16:13", page="DVB TV News",
+         url="https://www.facebook.com/DVBTVNews/posts/pfbid02c7VVVcRU3v716ApVLZNm18gPGhfFZj4ntEZyvD1zHQKjwd6ceqLuJo8ASFHDuoXNl",
+         lang="my", st="media_national", fol=22000000, ts=["Khin-U"],
+         depth="Ankle to chest; roofs poking above", th=["impact"], media="7-slide carousel",
+         txt="The Mu River overflowed, inundating rice nurseries and crops. Nineteen villages in southwest and northwest Khin-U underwater and thousands of locals evacuating for three days, after heavy rain from the night of 7 August through 9 August.",
+         note="Revises the Khin-U village count upward from 15 to 19."),
+    dict(id=23, dt="2026-08-11T11:15:38", page="Vitamins - for Spring Revolution",
+         url="https://www.facebook.com/VitaminsforSR/posts/pfbid02qWCFSDjiTMkLqPaJKypHH1LGaG6F6erQ1tia8EqkCrzvauJotR8pzKAvV9TmL4nYl",
+         lang="my", st="community_aid", fol=13000, ts=["Shwebo"],
+         depth="Not stated", th=["relief"], media="4-image carousel",
+         txt="Team completed a rice delivery to villages hit by flooding in Shwebo Township. States more than 200 villages are affected and the needs are endless, urging those in safe areas with means to help.",
+         note="Documents a completed aid delivery rather than an appeal alone."),
+    dict(id=24, dt="2026-08-10T17:49:36", page="BBC Burmese",
+         url="https://www.facebook.com/reel/1837712760545465/",
+         lang="my", st="media_intl", fol=27000000, ts=["Sagaing"],
+         depth="Chest-deep", th=["impact", "casualty"], media="Video",
+         txt="Crisis in the Dry Zone area of Sagaing Township. Water surges through the dam spillway; streets have turned into rivers reaching building foundations, a concrete bridge is partly submerged, golden pagodas stand surrounded by water and residents wade chest-deep or evacuate by small wooden boat.",
+         note="Deaths and missing mentioned without numbers."),
+    dict(id=25, dt="2026-08-08T22:30:49", page="CJ Platform",
+         url="https://www.facebook.com/reel/1731074268099213/",
+         lang="my", st="media_national", fol=430000, ts=["Taze"],
+         depth="Several feet", th=["casualty", "impact"], media="Video",
+         txt="Water released from Thapanseik Dam drove the Mu River to record-high levels, inundating seven downstream townships. On the morning of 7 August in Shwe Hlan village, Taze Township, a sudden surge swept away homes and carried away a two-year-old child and a man over 50.",
+         note="Same event corroborated independently by Mandalay Free Press."),
+    dict(id=26, dt="2026-08-07T22:55:48", page="AI Info Team",
+         url="https://www.facebook.com/reel/1910460383674312/",
+         lang="my", st="community_info", fol=140000, ts=["Wetlet"],
+         depth="Only rooftops visible", th=["impact"], media="Video",
+         txt="Continuous rain in upper Sagaing combined with runoff and dam water caused the Mu River to rise rapidly, leading to widespread inundation in Wetlet Township. Panoramic view shows only rooftops and treetops above the water.",
+         note=""),
+    dict(id=27, dt="2026-08-09T11:49:58", page="Doh Khit",
+         url="https://www.facebook.com/dohkhit2021/posts/pfbid0357TPXfZqwVBBeCH6AZSoDBmEoaXocmsmfR5jqKRiPPEBgwMRoQnQGoSHLjSLPXHPl",
+         lang="my", st="community_info", fol=71000, ts=["Tabayin"],
+         depth="Not stated", th=["relief"], media="Text",
+         txt="A 100,000 kyat donation for flood relief in Depayin Township is acknowledged with thanks and blessings.",
+         note="Illustrates small-scale diaspora and domestic donation flows."),
+    dict(id=28, dt="2026-08-09T23:22:17", page="Myint Htwe",
+         url="https://www.facebook.com/myinthtwe99/posts/pfbid02LujFJ342Z6CWs9Ysq3YECDyAG6oKacp6upH5mDBJZSBe4qr9tF3oDdanuHN8e1q5l",
+         lang="my", st="individual", fol=4900, ts=["Ye-U"],
+         depth="Chest-deep", th=["relief"], media="3-slide carousel",
+         txt="Youth of the northern Ye-U flood relief effort crossing chest-deep water at twilight, volunteers linked arm-in-arm, one in an orange life vest.",
+         note="Grassroots youth response."),
+    dict(id=29, dt="2026-08-11T02:03:32", page="MGRonline Live (Thai)",
+         url="https://www.facebook.com/MGRonlineLive/posts/pfbid0RiYZNNi7dfqCWdtw1LgWn9dPiTffCYFHH9NpM4MNL8odC1mf3cgqUyrbEpogRAn3l",
+         lang="th", st="media_intl", fol=2000000, ts=[],
+         depth="Chest-deep", th=["casualty", "impact"], media="Image",
+         txt="Thai report: Thapanseik Dam opened its floodgates without informing downstream communities, inundating 200 villages, displacing tens of thousands and confirming at least 20 fatalities.",
+         note="Frames the event as a disaster-management failure."),
+    dict(id=30, dt="2026-08-10T09:14:58", page="Mandalay Free Press",
+         url="https://www.facebook.com/mandalayfreepress/posts/pfbid02mW85YKHXq6rtg7YhUn9qg67qStoPAj32n1XoRSpv4FVkUZbYQVa3QWGFYG4f38B1l",
+         lang="my", st="media_national", fol=1200000,
+         ts=["Kanbalu", "Taze", "Shwebo", "Khin-U", "Ye-U", "Wetlet", "Tabayin", "Ayadaw"],
+         depth="Knee to chest", th=["casualty", "impact"], media="4-image carousel",
+         txt="The military released water from Thapanseik Dam starting 5 August, causing the Mu River to overflow and submerge around 200 villages across eight townships for five days. Deaths rising to nearly 20 with 15 confirmed by 9 August, including men, women and children swept away by sudden currents; additional deaths upstream near Kawlin, affecting 70,000 people.",
+         note="Attributes deaths specifically to sudden currents after the release."),
+    dict(id=31, dt="2026-08-08T17:15:49", page="BBC Burmese",
+         url="https://www.facebook.com/BBCnewsBurmese/posts/pfbid02e461jKv1MmvESMXCZEBJtSLqtaCyVebpCdR2gM1q7PLoZJL2CyVtyX4ei8JwDjl",
+         lang="my", st="media_intl", fol=27000000, ts=["Shwebo", "Tabayin", "Wetlet", "Khin-U", "Kyunhla"],
+         depth="Knee to chest, fast-flowing", th=["impact", "relief", "access"], media="7-image carousel",
+         txt="Flooding followed the Thapanseik Dam spillway release, affecting nine townships including Shwebo and Depayin. Because the area is conflict-affected, revolutionary forces cannot conduct full rescue operations. Villagers wade with sacks on their heads; five cattle pull an ox-cart of household goods.",
+         note="Credits Chan Myae Oo, Wetlet PDF and Khin-U information."),
+    dict(id=32, dt="2026-08-09T16:15:17", page="Shwe Phee Myay News Agency",
+         url="https://www.facebook.com/shwepheemyaynews/posts/pfbid02Svse7xwWYtpWYcSA46BPE5ayEkDuAbcq9Evz7swdwRu2cPpDprfpULTWgL7hjl",
+         lang="my", st="media_local", fol=1200000, ts=["Khin-U", "Shwebo", "Wetlet", "Kyunhla"],
+         depth="Fields covered", th=["impact", "casualty", "appeal", "agriculture"], media="2 photos",
+         txt="Flooding in Khin-U, Shwebo and Wetlet townships triggered by a breach at Thapanseik dam in Kyunhla township has put more than 40 villages underwater. Tens of thousands urgently need shelter, clean water, food and medicine; thousands of acres of farmland are inundated and hundreds of buffalo and cattle have been swept away and killed. Local journalists report at least seven deaths on the fourth day of inundation.",
+         note="Most detailed needs list in the dataset."),
+    dict(id=33, dt="2026-08-10T20:46:46", page="Ayeyarwaddy Times",
+         url="https://www.facebook.com/ayeyarwaddytimes/posts/pfbid063qyyWW8p5ip4dXM5FWPA1UUCv6p18x5LW4Nc5iY9uThbHdGBcBh2yWDdwzQwRCbl",
+         lang="my", st="media_national", fol=2600000, ts=["Myinmu", "Sagaing"],
+         depth="Levee-level", th=["relief", "infrastructure"], media="3 images",
+         txt="Heavy rain in upper Sagaing forced Thapanseik Dam to release water on 6 August, threatening embankments. PDF units under the NUG Ministry of Defence, with local township and village teams, are using heavy machinery to fill and reinforce dams and prevent breaches affecting 14 villages in Myinmu and Sagaing townships.",
+         note="A Hyundai HX80 excavator works an earthen levee between two expanses of floodwater."),
+    dict(id=34, dt="2026-08-10T16:30:02", page="Popular News Journal",
+         url="https://www.facebook.com/popularnewsjournal/posts/pfbid0rr4aqwmBpC1qSp1nXYQdmEVQzRd7PLoZJL2CfAj15qSp1nXYQdmEVQzRd7PLoZJL2CyVtyX4A1i2WQnPl",
+         lang="my", st="media_national", fol=3100000, ts=["Katha", "Indaw"],
+         depth="Forecast", th=["warning", "forecast"], media="8-slide carousel",
+         txt="Special alert from meteorologist U Win Naing: terrain-blocked monsoon clouds will produce 150-245 mm of rain over seven days, causing the Ayeyarwady, Chindwin and Namtu rivers along the Katha-Indaw-Bhamo-Myitkyina and Lashio-Hsipaw corridors to rise above danger levels, with particular concern about flash floods.",
+         note="Forecast window 11-17 August, i.e. after the collection cut-off."),
+    dict(id=35, dt="2026-08-08T23:09:02", page="Saw Sandar Myint",
+         url="https://www.facebook.com/reel/3503151236510191/",
+         lang="my", st="individual", fol=1500, ts=["Kawlin"],
+         depth="Chest-height", th=["impact", "appeal", "agriculture"], media="Video",
+         txt="Lament about fleeing the flood and destroyed crops, asking who will save Kawlin town. Murky water covers an entire residential street to chest height; an orange building is partly submerged.",
+         note="Commenter: even survivors face debt after losing planting costs."),
+    dict(id=36, dt="2026-08-09T13:00:13", page="DVB TV News",
+         url="https://www.facebook.com/DVBTVNews/posts/pfbid0FPR8zqKD5Ud8qnBP8ySMcqgAz2uJdmLPb8nPFFqgcNj4MGGpoprFUZuDDihbZXpDl",
+         lang="my", st="media_national", fol=22000000, ts=["Kawlin"],
+         depth="Huts partly surrounded", th=["impact", "appeal"], media="3-image carousel",
+         txt="Approximately 100 villages submerged since the end of July under continuous heavy rain, with the exact number affected unknown. Residents temporarily sheltering on higher ground; medical supplies needed, trade disrupted and food shortages anticipated if the situation persists.",
+         note="Establishes that Kawlin flooding predates the dam release."),
+    dict(id=37, dt="2026-08-06T09:43:55", page="Myo Zaw Aung",
+         url="https://www.facebook.com/MyoZawAung/posts/pfbid02h7Dxu7Y3pPBgSKVKxBXc1Zz423sVugDUHCCN7jB6VtsYbp2NQwSymZgpLChauS9ml",
+         lang="my", st="individual", fol=93000, ts=["Kawlin"],
+         depth="Only treetops protrude", th=["appeal", "impact", "access"], media="Image",
+         txt="After heavy overnight rain, asks residents to report where flooding is occurring in Kawlin District and how severe, with particular worry for people already displaced by conflict.",
+         note="Comments report IDP villages underwater, request five motorboats, and say roads are not passable for aid."),
+    dict(id=38, dt="2026-08-10T14:45:03", page="DVB TV News",
+         url="https://www.facebook.com/DVBTVNews/posts/pfbid0cNthNeNxDj1MQfQGoUEQGZpzWvKjkYS11azh5Lr7LWCQV7okbVwPRVt2VeXwTfNKl",
+         lang="my", st="media_national", fol=22000000, ts=["Kawlin"],
+         depth="Waterlogged; mixed recession", th=["casualty", "impact", "infrastructure"], media="Image",
+         txt="Flooding in Kawlin caused three civilian deaths and loss of crops. A displaced resident describes widespread flooding across nearly the entire township after seven days of rain rather than a sudden surge; displaced people cannot cook rice, roads are severely damaged and still being repaired, farmland is destroyed, and some areas have receded while others remain submerged.",
+         note="Explicitly distinguishes Kawlin's rain-driven flooding from the dam surge."),
+    dict(id=39, dt="2026-08-08T19:09:31", page="Khit Thit Media",
+         url="https://www.facebook.com/khitthitnews/posts/pfbid02994FPACqKLTXhL4GdVuRAiQo8JdiHURPgKFHPyyNsbhgTy8hSywZpE2afDAtUqUhl",
+         lang="my", st="media_national", fol=8600000,
+         ts=["Kyunhla", "Kanbalu", "Taze", "Ye-U", "Tabayin", "Myinmu"],
+         depth="Knee to waist", th=["casualty", "impact"], media="3-image carousel",
+         txt="On 6 August the Military Council opened the water-control gate at Tha Pan Seik Dam in Kyunhla Township without informing residents, after heavy rain had filled the reservoir since 3 August. The sudden release allegedly caused the Mu River to surge, flooding Kyunhla, Kanbalu, Taze, Ye-U, Depayin and Myinmu, with 14 villages in Kanbalu affected. Eight deaths: two in Kanbalu and six farmers swept away while crossing a stream in Depayin.",
+         note="Most precise account of the gate opening and its timing."),
+    dict(id=40, dt="2026-08-09T18:30:00", page="Department of Meteorology and Hydrology (DMH)",
+         url="https://www.facebook.com/dmhmoezalanaypyitaw/posts/pfbid02213MAr1Ds96DFgeFynmJpaX31LM7KwPp3c6MXCRF2Qy4TJ43EHuMFmjoQK2q1cV7l",
+         lang="my", st="government", fol=None,
+         ts=["Kalewa", "Mingin", "Homalin", "Mawlaik", "Monywa"],
+         depth="Gauge readings", th=["warning", "official"], media="Forecast tables",
+         txt="Daily river forecast for the Chindwin group. Mingin at 1350 cm and Monywa at 1025 cm have exceeded danger level; Kalewa, Mingin and Homalin marked as approaching thresholds. Precautionary measures urged for low-lying riverbanks at Homalin and Paungbyin.",
+         note="The only official government hydrological source in the collection. Combines two DMH posts from 8 and 9 August."),
+    dict(id=41, dt="2026-08-09T07:58:55", page="Monywa Township True News",
+         url="https://www.facebook.com/permalink.php?story_fbid=pfbid0nA8PMbZ4ew68m93QMS7r2ac3g2dHHJGxmAxk1funwxkjtNF4drYaPS3ZnL7diWo5l&id=61566233742578",
+         lang="my", st="media_local", fol=None, ts=["Monywa"],
+         depth="Level with embankment top", th=["warning", "impact"], media="Photo",
+         txt="The Chindwin has been rising since 6 August and reached the embankment on the morning of 9 August. SAC states the level is about 2 ft below danger while ground observation puts it level with the bank. Recalls the 2002 flood when water reached the clock tower and the west side was inundated.",
+         note="Notes that SAC arrests and detention are hindering community flood defence."),
+    dict(id=42, dt="2026-08-10T13:12:05", page="Phyo",
+         url="https://www.facebook.com/reel/1830515678308108/",
+         lang="my", st="individual", fol=None, ts=["Monywa"],
+         depth="Up to vehicle lower doors", th=["infrastructure"], media="Video",
+         txt="The Monywa-Mandalay highway at Nyaungpinwun was impassable on 10 August, flooding having begun the evening of 9 August. Fast-flowing muddy water covers the entire road with white-capped waves and partly submerged utility poles.",
+         note="Citizen dashcam footage."),
+    dict(id=43, dt="2026-08-07T22:43:21", page="WIN PAING",
+         url="https://www.facebook.com/reel/1553145386305586/",
+         lang="my", st="individual", fol=None, ts=["Kanbalu"],
+         depth="Tree canopies submerged", th=["infrastructure", "impact"], media="Video",
+         txt="Kanbalu Township earthen bank breach: a powerful surge of brown debris-filled water pours through the gap, creating rapids into the flooded plain. Roadway and bridge submerged, water over the concrete barrier, stilt houses surrounded by fast-moving water.",
+         note="Direct footage of one of the embankment breaches."),
+    dict(id=44, dt="2026-08-10T15:50:45", page="Public Voice Television",
+         url="https://www.facebook.com/reel/888390443990844/",
+         lang="my", st="media_national", fol=1800000, ts=["Kawlin", "Khin-U", "Tabayin"],
+         depth="Chest-deep", th=["impact", "casualty"], media="Video",
+         txt="Ten townships in Sagaing flooded, affecting 51,028 households (223,761 people), with 15 dead and 2 missing as of 9 August. Kawlin, Khin-U and Depayin are named as worst hit.",
+         note="The most precise household and population figure for Sagaing alone."),
+    dict(id=45, dt="2026-08-10T19:30:04", page="DVB TV News",
+         url="https://www.facebook.com/DVBTVNews/posts/pfbid0rTnPKNA4asXapAt29qgLYowaTYnM4L8uSD7GDDoynXPgNS7ex5TCZYmN1X2NaaTYl",
+         lang="my", st="media_national", fol=22000000, ts=["Kawlin", "Kanbalu"],
+         depth="Not quantified", th=["impact", "casualty", "agriculture"], media="Infographic",
+         txt="Four-region damage summary: 18 dead or missing in Sagaing and Rakhine, over 400,000 flood-affected people, over 50,000 affected households and at least 44,370 acres of damaged cropland. NUG warns of continued heavy rain and rising rivers. A source describes flooded displacement camps near Kawlin-Kanbalu becoming 'like a sea', with emergency evacuations to higher ground and at least six known deaths, three identified and three unidentified.",
+         note="IDP camps flooding is a distinct impact from village inundation."),
+    dict(id=46, dt="2026-08-07T12:57:34", page="Phelomena Ah Wine Lay",
+         url="https://www.facebook.com/permalink.php?story_fbid=pfbid02AvayyamstbKx3F894zzfLJh8vTdPeYpGV1Q2vwW8fFdW1dUHZLmjQyxsR69Qq8SKl&id=61587553449057",
+         lang="my", st="individual", fol=190, ts=["Ye-U"],
+         depth="Chest-deep outdoors", th=["impact"], media="4-image carousel",
+         txt="Real-time documentation from a residence in Ye-U: the situation is much worse than expected, water has never risen this high, and there is nothing to do but pray. Indoors the water submerges stool legs; household goods float past a framed family photo.",
+         note="Comments confirm a rapid overnight rise and that residents had never experienced water this high."),
+    dict(id=47, dt="2026-08-06T18:22:25", page="Charcoal Venus Esu",
+         url="https://www.facebook.com/charcoal.venus.esu/posts/pfbid0b5XxdPmrcHXrwmrh1mwoPvwTzz9Xi5aeXvfLauuQFGd1aAny8nvW7kFL4yGX4A1i2WQnPl",
+         lang="my", st="individual", fol=3100, ts=["Kawlin"],
+         depth="Knee to chest", th=["impact"], media="2 videos",
+         txt="'Kawlin is flooded again.' Muddy water covers farmland and the village street; a large passenger bus drives through deep inundation with wheels nearly submerged, and fast-rushing water surges down the main street past thatched shops and bamboo-walled houses.",
+         note="Emphasises that flooding in Kawlin is recurrent."),
+    dict(id=48, dt="2026-08-10T10:21:56", page="MM News Update",
+         url="https://www.facebook.com/reel/1592610938945172/",
+         lang="my", st="media_national", fol=620000, ts=["Kawlin"],
+         depth="Knee-deep", th=["appeal"], media="Video",
+         txt="Kawlin flood call for relief assistance. Water rushes through the grounds of stilt-raised wooden houses carrying debris while residents walk through it under umbrellas.",
+         note=""),
+    dict(id=49, dt="2026-08-05T14:47:12", page="Tempo Ngamyo",
+         url="https://www.facebook.com/reel/1492437436241889/",
+         lang="my", st="individual", fol=1200, ts=["Kawlin"],
+         depth="Knee-deep", th=["impact"], media="Video",
+         txt="On-screen text reads '5.8.2026 Wed' and 'today it flooded again'. A wide muddy flood covers a rural road in steady rain; a couple stand knee-deep holding a fishing net stretched between them and lift a basket of small fish caught where fields used to be.",
+         note="Earliest post in the collection; location confirmed in comments as Kawlin."),
+    dict(id=50, dt="2026-08-08T00:18:20", page="Ministry of Defence, NUG",
+         url="https://www.facebook.com/modNUG/posts/pfbid02XXtkWiuaFnf3g6DVuKsy94zZazH8snFiihJZ69uzCd8nRARYwC19tV8s1zSHJaukl",
+         lang="my", st="government", fol=None, ts=[],
+         depth="Deep", th=["relief", "official"], media="Images",
+         txt="PDF comrades providing assistance to flood-affected people across Sagaing, described as one of the PDF's four duties: wading while carrying children, assisting the elderly, transporting supplies by boat and motorbike, and distributing water containers and sacks.",
+         note="Official NUG Ministry of Defence statement."),
+    dict(id=51, dt="2026-08-08T02:50:57", page="Min Oo",
+         url="https://www.facebook.com/reel/1483819376845104/",
+         lang="my", st="individual", fol=None, ts=["Shwebo"],
+         depth="Waist-deep", th=["impact", "agriculture"], media="Video",
+         txt="Brown muddy water covers stilt houses with a blue corrugated awning; chickens have moved onto the roof and a man wades waist-deep through the farm and garden.",
+         note="The raw record carries a conflicting internal timestamp; the post date is used."),
+    dict(id=52, dt="2026-08-09T20:39:59", page="Moe Lay Entertainment",
+         url="https://www.facebook.com/permalink.php?story_fbid=pfbid02T3ePHmNdx9TVGMrKWLeC62176iZejQhTNQ8zqTiJNscmMxpu2RXZGtrZdDcnCewl&id=61553606549461",
+         lang="my", st="media_national", fol=70000,
+         ts=["Taze", "Shwebo", "Wetlet", "Khin-U", "Kanbalu", "Tabayin", "Ayadaw"],
+         depth="Waist to chest", th=["appeal", "impact"], media="3-image carousel",
+         txt="'Sagaing is flooding again' - described as no longer just a flood but a calamity, with an urgent request for emergency assistance. An aerial view shows a village almost entirely submerged with houses isolated among treetops; 15-20 adults and children wade chest-deep carrying baskets on their heads.",
+         note="Comments confirm inundation across Taze, Shwebo, Ye-U, Khin-U, Kanbalu, Depayin, Wetlet and Ayadaw."),
+]
+
+# --------------------------------------------------------------------------
+# Township assessment. Severity is assigned from what the posts actually
+# report, and `basis` records the evidence and the post ids behind it.
+# --------------------------------------------------------------------------
+TOWNSHIPS = {
+    "Tabayin": dict(
+        severity="critical", alias="Depayin", river="Mu",
+        deaths="6-7", deaths_note="6 deaths (AI Info Team, 8 Aug); 7 deaths and named worst-hit (BNI citing NUG, 11 Aug); 6 farmers swept away crossing a stream (Khit Thit, 8 Aug)",
+        villages="17+", people="10,000+",
+        basis="Highest township death toll in the dataset. 17+ villages and 10,000+ people affected; named among the worst-hit by both Public Voice TV and BNI.",
+        posts=[3, 4, 9, 20, 21, 27, 30, 31, 39, 44, 52]),
+    "Kawlin": dict(
+        severity="critical", alias=None, river="Rain-driven (upper catchment)",
+        deaths="3", deaths_note="3 civilian deaths (DVB, 10 Aug); further deaths reported in flooded IDP camps near Kawlin-Kanbalu (DVB, 10 Aug)",
+        villages="~100", people="70,000 (upstream area)",
+        basis="Nearly the entire township flooded after seven days of rain rather than a sudden surge. ~100 villages submerged since late July, town centre chest-deep, roads severely damaged, IDP camps inundated.",
+        posts=[3, 4, 9, 16, 35, 36, 37, 38, 44, 45, 47, 48, 49]),
+    "Kyunhla": dict(
+        severity="critical", alias=None, river="Mu (Thapanseik Dam site)",
+        deaths="8", deaths_note="8 killed and several missing (Chindwin News Agency, 9 Aug)",
+        villages=None, people=None,
+        basis="Location of Thapanseik Dam, the release point at the head of the flood wave. Eight killed and several missing after an allegedly unannounced release.",
+        posts=[13, 20, 31, 32, 39]),
+    "Kanbalu": dict(
+        severity="critical", alias="Kantbalu", river="Mu",
+        deaths="2", deaths_note="2 deaths (Khit Thit, 8 Aug)",
+        villages="14", people=None,
+        basis="Mu River embankment breach, described as the worst breach point. 14 villages affected; Magyitaw and Htankone villages flooded and the Htankone bridge submerged; IDP camps near Kawlin-Kanbalu inundated.",
+        posts=[3, 4, 9, 10, 12, 20, 30, 39, 43, 45, 52]),
+    "Taze": dict(
+        severity="critical", alias="Tantse", river="Mu",
+        deaths="2", deaths_note="A two-year-old child and a man over 50 swept away at Shwe Hlan village on 7 Aug (CJ Platform; corroborated by Mandalay Free Press)",
+        villages="12+", people=None,
+        basis="Homes swept away by a sudden surge at Shwe Hlan village with two named-age fatalities, corroborated across two independent outlets. 12+ villages flooded and bridge damage reported.",
+        posts=[3, 4, 9, 20, 25, 30, 39, 52]),
+    "Khin-U": dict(
+        severity="severe", alias=None, river="Mu",
+        deaths=None, deaths_note="No township-specific toll reported; included in the 7-death figure for the Khin-U/Shwebo/Wetlet cluster (Shwe Phee Myay, 9 Aug)",
+        villages="19", people="Thousands evacuating",
+        basis="Village count revised from 15 to 19 within two days. Thousands evacuating for three days; named among the worst-hit by Public Voice TV. Mu River reported receding here by 10 Aug.",
+        posts=[3, 4, 6, 9, 16, 18, 20, 22, 30, 31, 32, 44, 52]),
+    "Shwebo": dict(
+        severity="severe", alias=None, river="Mu",
+        deaths=None, deaths_note="No township-specific toll reported",
+        villages="200+ (reported for Shwebo area)", people="1,700 IDPs from 500 households",
+        basis="The most-reported township in the collection. 1,700 IDPs from 500 households urgently need aid; PDF units running evacuations near the Mu River. Mu reported receding here by 10 Aug.",
+        posts=[1, 2, 3, 4, 6, 8, 9, 11, 14, 16, 17, 21, 23, 30, 31, 32, 51, 52]),
+    "Wetlet": dict(
+        severity="severe", alias=None, river="Mu",
+        deaths=None, deaths_note="No township-specific toll reported",
+        villages=None, people=None,
+        basis="The only township reported as still rising on 10 August while neighbours receded, with roads and bridges damaged. Village-scale inundation leaving only rooftops and treetops visible.",
+        posts=[1, 3, 4, 6, 9, 11, 14, 20, 26, 30, 31, 32, 52]),
+    "Ye-U": dict(
+        severity="severe", alias=None, river="Mu",
+        deaths=None, deaths_note="No township-specific toll reported",
+        villages=None, people=None,
+        basis="Town itself flooded, classified a red zone by AI Info Team. Household-level documentation shows water indoors and residents reporting the highest level they have seen.",
+        posts=[3, 4, 9, 20, 28, 30, 39, 46]),
+    "Ayadaw": dict(
+        severity="moderate", alias="Ayardaw", river="Mu (lower)",
+        deaths=None, deaths_note="None reported",
+        villages=None, people=None,
+        basis="Consistently named in the affected-township lists of four independent sources but with no village or casualty detail reported.",
+        posts=[3, 20, 30, 52]),
+    "Myinmu": dict(
+        severity="moderate", alias=None, river="Mu confluence / Ayeyarwady",
+        deaths=None, deaths_note="None reported",
+        villages="14 at risk (with Sagaing)",
+        people=None,
+        basis="Downstream end of the Mu flood wave. PDF units reinforcing levees with excavators to protect 14 villages; DMH urged evacuation as rivers breached danger level.",
+        posts=[7, 20, 33, 39]),
+    "Sagaing": dict(
+        severity="moderate", alias=None, river="Ayeyarwady / Mu confluence",
+        deaths=None, deaths_note="Deaths and missing mentioned by BBC Burmese without numbers",
+        villages="14 at risk (with Myinmu)", people=None,
+        basis="Streets turned to rivers with water at building foundations, a concrete bridge partly submerged and pagodas surrounded by water; residents evacuating by boat.",
+        posts=[9, 24, 33]),
+    "Monywa": dict(
+        severity="moderate", alias=None, river="Chindwin", river_danger=True,
+        deaths=None, deaths_note="None reported",
+        villages=None, people=None,
+        basis="Distinct from the Mu flood wave: the Chindwin reached the embankment top on 9 Aug and the DMH gauge read 1025 cm, above danger level. Monywa-Mandalay highway impassable at Nyaungpinwun.",
+        posts=[7, 40, 41, 42]),
+    "Indaw": dict(
+        severity="moderate", alias=None, river="Upper catchment",
+        deaths=None, deaths_note="None reported",
+        villages=None, people=None,
+        basis="Named among flooded townships by DVB and identified as an upstream rainfall source feeding the Mu flood wave. Also inside the 150-245 mm forecast corridor.",
+        posts=[4, 9, 34]),
+    "Mingin": dict(
+        severity="watch", alias="Min Kin", river="Chindwin", river_danger=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="DMH gauge at 1350 cm, above danger level. No inundation reported in the collection.",
+        posts=[40]),
+    "Kalewa": dict(
+        severity="watch", alias=None, river="Chindwin", river_danger=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="DMH lists the station as approaching its danger threshold.",
+        posts=[40]),
+    "Homalin": dict(
+        severity="watch", alias=None, river="Chindwin", river_danger=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="DMH lists the station as approaching threshold and urges precautionary measures on low-lying riverbanks.",
+        posts=[40]),
+    "Mawlaik": dict(
+        severity="watch", alias=None, river="Chindwin", river_danger=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="Listed among the Chindwin gauge stations under watch in the DMH daily forecast.",
+        posts=[40]),
+    "Paungbyin": dict(
+        severity="watch", alias=None, river="Chindwin", river_danger=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="DMH urged precautionary measures for low-lying riverbank areas.",
+        posts=[40]),
+    "Katha": dict(
+        severity="watch", alias=None, river="Ayeyarwady", forecast=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="Inside the forecast corridor for 150-245 mm over seven days with rivers expected above danger level; flash flood concern.",
+        posts=[34]),
+    "Banmauk": dict(
+        severity="watch", alias=None, river="Upper catchment", forecast=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="Grouped in the upper-Sagaing heavy-rain forecast area; no direct reports in the collection.",
+        posts=[]),
+    "Tigyaing": dict(
+        severity="watch", alias=None, river="Ayeyarwady", forecast=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="Grouped in the upper-Sagaing heavy-rain forecast area; no direct reports in the collection.",
+        posts=[]),
+    "Pinlebu": dict(
+        severity="watch", alias=None, river="Upper catchment", forecast=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="Grouped in the Kawlin District / upper-Sagaing heavy-rain forecast area; no direct reports.",
+        posts=[]),
+    "Wuntho": dict(
+        severity="watch", alias=None, river="Upper catchment", forecast=True,
+        deaths=None, deaths_note="None reported", villages=None, people=None,
+        basis="Grouped in the Kawlin District / upper-Sagaing heavy-rain forecast area; no direct reports.",
+        posts=[]),
+}
+
+# --------------------------------------------------------------------------
+# Chronology
+# --------------------------------------------------------------------------
+TIMELINE = [
+    dict(date="2026-07-25", label="Late July", phase="rain",
+         title="Continuous heavy rain begins across upper Sagaing",
+         text="Kawlin Township begins flooding from sustained rainfall, well before any dam release. Around 100 villages are submerged over the following fortnight.",
+         posts=[36, 38]),
+    dict(date="2026-08-03", phase="dam",
+         title="Thapanseik reservoir fills",
+         text="Heavy rain fills the Thapanseik reservoir in Kyunhla Township from 3 August, according to Khit Thit Media.",
+         posts=[39]),
+    dict(date="2026-08-05", phase="dam",
+         title="Thapanseik Dam begins releasing water",
+         text="Mandalay Free Press dates the start of the release to 5 August; Thai media describe it as a mistaken release. The earliest post in the collection, from Kawlin, is filmed the same day.",
+         posts=[15, 30, 49]),
+    dict(date="2026-08-06", phase="dam",
+         title="Water-control gate opened without warning to residents",
+         text="Khit Thit Media reports the Military Council opened the Thapanseik gate on 6 August without informing downstream residents. Kawlin town's main street is already flooded and a household in Ye-U documents water rising indoors. The release threatens embankments as far downstream as Myinmu.",
+         posts=[33, 37, 39, 46, 47]),
+    dict(date="2026-08-07", phase="surge",
+         title="Mu River surges; first deaths",
+         text="A sudden surge at Shwe Hlan village in Taze sweeps away homes, a two-year-old child and a man over 50. Eight are killed in Kyunhla. An earthen bank breaches in Kanbalu, submerging the Htankone bridge. Thousands evacuate in Khin-U; a Wetlet village is inundated to its rooftops. A warning broadcast names five flooded townships in Shwebo District.",
+         posts=[10, 12, 13, 18, 25, 26, 43]),
+    dict(date="2026-08-08", phase="peak",
+         title="Flood wave spreads; nine townships affected",
+         text="BBC Burmese reports nine townships affected and notes that conflict prevents full rescue operations. Khit Thit reports eight deaths. AI Info Team publishes the flood-wave analysis naming embankment breaches at Thayethauk, Daunggyi and Bogyone. Shwebo PDF units run evacuations near the Mu River. DMH records Chindwin stations approaching danger.",
+         posts=[2, 9, 17, 31, 39, 40, 50]),
+    dict(date="2026-08-09", phase="peak",
+         title="Peak reporting: villages counted, Chindwin joins",
+         text="Khin-U's count rises to 19 villages underwater with thousands evacuating for a third day. Shwe Phee Myay reports 40+ villages and at least seven deaths, with hundreds of cattle killed. Public Voice TV sets the Sagaing baseline at 51,028 households and 223,761 people, 15 dead and 2 missing. Separately the Chindwin reaches Monywa's embankment top and DMH records Mingin at 1350 cm and Monywa at 1025 cm above danger.",
+         posts=[5, 16, 21, 22, 32, 40, 41, 44]),
+    dict(date="2026-08-10", phase="assess",
+         title="Divergence: some townships recede, Wetlet still rising",
+         text="BBC Burmese reports the Mu receding in Shwebo and Khin-U but still rising in Wetlet, where roads and bridges are damaged. The Irrawaddy cites 414,843 affected across four regions with 16 deaths. Mandalay Free Press puts deaths at nearly 20. DVB reports three deaths in Kawlin. PDF units reinforce levees in Myinmu and Sagaing. A meteorologist warns of a further 150-245 mm over the coming week.",
+         posts=[3, 6, 7, 11, 24, 30, 33, 34, 38, 42, 44, 45, 48]),
+    dict(date="2026-08-11", phase="response",
+         title="NUG forms Joint Emergency Response Committee",
+         text="BNI reports the NUG has formed a Joint Emergency Response Coordination Committee covering ten townships, with over 200,000 affected, 15 deaths and 2 missing, and Depayin worst hit at 7 deaths. Mizzima reports 1,700 IDPs from 500 households in Shwebo need emergency aid. A community group completes a rice delivery to Shwebo villages. Highways remain flooded.",
+         posts=[8, 15, 19, 20, 23, 29]),
+]
+
+# --------------------------------------------------------------------------
+# Reported aggregate figures. Deliberately NOT reconciled.
+# --------------------------------------------------------------------------
+DEATH_FIGURES = [
+    dict(v=8,  label="8",        src="Chindwin News Agency", asof="2026-08-09", scope="Kyunhla Township only", post=13),
+    dict(v=8,  label="8",        src="Khit Thit Media",      asof="2026-08-08", scope="Sagaing (2 Kanbalu + 6 Depayin)", post=39),
+    dict(v=7,  label="7",        src="Shwe Phee Myay",       asof="2026-08-09", scope="Khin-U / Shwebo / Wetlet, per local journalists", post=32),
+    dict(v=10, label="10",       src="DVB citing NUG",       asof="2026-08-09", scope="Nationwide", post=4),
+    dict(v=15, label="15 (+2 missing)", src="Public Voice TV", asof="2026-08-09", scope="Sagaing, 10 townships", post=44),
+    dict(v=15, label="15 (+2 missing)", src="BNI citing NUG",  asof="2026-08-11", scope="Sagaing, 10 townships", post=20),
+    dict(v=16, label="16 (+61 injured, 2 missing)", src="The Irrawaddy citing NUG", asof="2026-08-10", scope="4 regions, 15 townships", post=7),
+    dict(v=18, label="18 dead or missing", src="DVB infographic", asof="2026-08-10", scope="Sagaing + Rakhine", post=45),
+    dict(v=20, label="~20 (15 confirmed)", src="Mandalay Free Press", asof="2026-08-10", scope="Sagaing", post=30),
+    dict(v=20, label="20",       src="MGRonline (Thai)",     asof="2026-08-11", scope="Sagaing", post=29),
+    dict(v=20, label="20",       src="Chiang Mai You Never Seen (Thai)", asof="2026-08-11", scope="Sagaing", post=15),
+]
+
+AFFECTED_FIGURES = [
+    dict(v=10000,  label="10,000+",  src="AI Info Team",        asof="2026-08-08", scope="Depayin Township only", post=9),
+    dict(v=70000,  label="70,000",   src="Mandalay Free Press", asof="2026-08-10", scope="Upstream area near Kawlin", post=30),
+    dict(v=200000, label="200,000+", src="BNI citing NUG",      asof="2026-08-11", scope="Sagaing, 10 townships", post=20),
+    dict(v=200000, label="200,000+", src="People's Spring",     asof="2026-08-09", scope="Sagaing + Mandalay + Ayeyarwady", post=5),
+    dict(v=223761, label="223,761",  src="Public Voice TV",     asof="2026-08-09", scope="Sagaing, 10 townships (51,028 households)", post=44),
+    dict(v=250000, label="~250,000", src="DVB citing NUG",      asof="2026-08-09", scope="Nationwide", post=4),
+    dict(v=400000, label="400,000+", src="DVB infographic",     asof="2026-08-10", scope="4 regions (50,000+ households)", post=45),
+    dict(v=414843, label="414,843",  src="The Irrawaddy citing NUG", asof="2026-08-10", scope="4 regions, 15 townships", post=7),
+]
+
+VILLAGE_FIGURES = [
+    dict(v=100, label="~100 villages", where="Kawlin", src="DVB TV News", post=16),
+    dict(v=19,  label="19 villages",   where="Khin-U", src="DVB TV News", post=22),
+    dict(v=17,  label="17+ villages",  where="Depayin (Tabayin)", src="AI Info Team", post=9),
+    dict(v=14,  label="14 villages",   where="Kanbalu", src="Khit Thit Media", post=39),
+    dict(v=14,  label="14 villages at risk", where="Myinmu + Sagaing", src="Ayeyarwaddy Times", post=33),
+    dict(v=12,  label="12+ villages",  where="Taze", src="AI Info Team", post=9),
+    dict(v=40,  label="40+ villages",  where="Khin-U / Shwebo / Wetlet", src="Shwe Phee Myay", post=32),
+    dict(v=200, label="~200 villages", where="8 townships", src="Mandalay Free Press", post=30),
+]
+
+CAUSAL_CHAIN = [
+    dict(step=1, kind="hydromet", title="Continuous heavy rain from late July",
+         text="Sustained rainfall over upper Sagaing and Kachin - the Indaw, Kawlin and northern Kanbalu catchments - saturates the Mu basin. Kawlin floods from rain alone, before any release.",
+         sources=["AI Info Team", "DVB TV News"]),
+    dict(step=2, kind="dam", title="Thapanseik reservoir fills from 3 August",
+         text="High inflow fills the reservoir at Thapanseik Dam in Kyunhla Township.",
+         sources=["Khit Thit Media"]),
+    dict(step=3, kind="dam", title="Gates opened 5-6 August, reportedly without downstream warning",
+         text="The water-control gate is opened on 6 August after releases began on 5 August. Multiple independent sources, including two Thai outlets, report that downstream communities were not informed.",
+         sources=["Khit Thit Media", "Mandalay Free Press", "MGRonline", "Chindwin News Agency"]),
+    dict(step=4, kind="dam", title="Kabo Dam gates also opened",
+         text="A second set of gates adds to the volume moving down the Mu.",
+         sources=["AI Info Team"]),
+    dict(step=5, kind="breach", title="Mu River embankments breach",
+         text="Breaches reported at Thayethauk, Daunggyi and Bogyone, plus a canal embankment breach between Shwebo and Depayin and an earthen bank breach in Kanbalu captured on video.",
+         sources=["AI Info Team", "DVB TV News", "WIN PAING"]),
+    dict(step=6, kind="wave", title="Flood wave moves downstream",
+         text="The wave travels Kyunhla to Kanbalu to Taze to Ye-U to Khin-U to Depayin to Shwebo to Wetlet, and finally to Myinmu and Sagaing at the Ayeyarwady confluence.",
+         sources=["AI Info Team", "CJ Platform", "Burma News International"]),
+    dict(step=7, kind="separate", title="Chindwin rises independently",
+         text="A separate flood threat develops on the Chindwin, with Mingin and Monywa gauges above danger level and precautionary measures urged at Homalin and Paungbyin.",
+         sources=["DMH", "Monywa Township True News"]),
+]
+
+NEEDS = [
+    dict(need="Shelter", detail="Tens of thousands need shelter; displaced families sheltering under tarps beside roads and on embankments.", src="Shwe Phee Myay, BBC Burmese", posts=[32, 6]),
+    dict(need="Clean water", detail="Water scarcity reported alongside post-flood disease risk.", src="Shwe Phee Myay, AI Info Team", posts=[32, 9]),
+    dict(need="Food", detail="Displaced people cannot cook rice; food shortages anticipated if flooding persists; rice deliveries under way in Shwebo.", src="DVB, Vitamins", posts=[38, 36, 23]),
+    dict(need="Medicine", detail="Medical supplies needed in Kawlin; post-flood disease risk flagged.", src="DVB, Shwe Phee Myay", posts=[36, 32]),
+    dict(need="Rescue boats", detail="Request for five motorboats to reach cut-off villages in Kawlin District.", src="Comments on Myo Zaw Aung post", posts=[37]),
+    dict(need="Access", detail="Roads impassable and severely damaged; the Monywa-Mandalay highway blocked at Nyaungpinwun; aid delivery obstructed.", src="DVB, Phyo, Myo Zaw Aung", posts=[38, 42, 37]),
+]
+
+CONSTRAINTS = [
+    dict(title="Armed conflict", text="Flooded villages lie in conflict-affected areas; BBC Burmese reports revolutionary forces cannot conduct full rescue operations, and relief faces greater challenges as a result.", posts=[6, 31]),
+    dict(title="Damaged access routes", text="Roads severely damaged and still under repair; a commenter in Kawlin says roads are not passable for relief, compounded by security conditions.", posts=[38, 37]),
+    dict(title="Restrictions on civilian response", text="Monywa Township True News reports that SAC arrests and detention are hindering community participation in flood defence.", posts=[41]),
+    dict(title="Communication difficulties", text="AI Info Team notes communication difficulties in affected areas alongside water scarcity and post-flood disease risk.", posts=[9]),
+    dict(title="Pre-existing displacement", text="Villages already hosting people displaced by conflict were inundated, and IDP camps near Kawlin-Kanbalu were described as becoming 'like a sea'.", posts=[37, 45]),
+    dict(title="Earthquake recovery", text="Thai media note the area was still recovering from a prior major earthquake when the flooding began.", posts=[15]),
+]
+
+AGRI = [
+    dict(label="44,370 acres", detail="Minimum damaged cropland across four regions", src="DVB infographic", asof="2026-08-10", post=45),
+    dict(label="18,000 hectares", detail="Farmland damaged across four regions (~44,500 acres)", src="The Irrawaddy citing NUG", asof="2026-08-10", post=7),
+    dict(label="Thousands of acres", detail="Farmland inundated in the Khin-U / Shwebo / Wetlet cluster", src="Shwe Phee Myay", asof="2026-08-09", post=32),
+    dict(label="Hundreds of cattle", detail="Buffalo and cattle swept away and killed", src="Shwe Phee Myay", asof="2026-08-09", post=32),
+    dict(label="Planting season", detail="Rice nurseries, seedling beds, paddy and tractors submerged; replanting difficult and the season delayed even after waters recede", src="DVB TV News", asof="2026-08-09", post=21),
+]
+
+# --------------------------------------------------------------------------
+# Point incidents. Coordinates come from MIMU village points (v9.7) or town
+# points (v9.4) and are only accepted where the MIMU record falls inside the
+# township the post actually names -- village names repeat heavily across
+# Myanmar, so an unconstrained name match would misplace them.
+# --------------------------------------------------------------------------
+INCIDENTS = [
+    dict(id="thapanseik", kind="dam", lon=95.3541, lat=23.3068,
+         name="Thapanseik Dam", place="Kyunhla Township",
+         head="Release point of the flood wave",
+         text="Reservoir filled from 3 August; releases began 5 August and the water-control gate was opened on 6 August, reportedly without informing downstream communities. Four independent outlets, including two Thai ones, report the lack of warning.",
+         date="2026-08-05", posts=[12, 25, 29, 30, 39],
+         src="MIMU hydropower dam points"),
+    dict(id="shwehlan", kind="fatality", lon=95.4569, lat=22.9377,
+         name="Shwe Hlan village", place="Taze Township",
+         head="Two people swept away",
+         text="On the morning of 7 August a sudden surge swept away homes and carried off a two-year-old child and a man over 50. Reported independently by CJ Platform and Mandalay Free Press with matching detail.",
+         date="2026-08-07", posts=[25, 30],
+         src="MIMU village points v9.7"),
+    dict(id="htankone", kind="infrastructure", lon=95.5024, lat=23.0722,
+         name="Htan Kone village", place="Kanbalu Township",
+         head="Village flooded, model village bridge submerged",
+         text="Vast floodwaters covering farmland with only treetops visible; the Htan Kone model village bridge completely covered by fast-moving water. Cattle stranded chest-deep and dying.",
+         date="2026-08-07", posts=[10],
+         src="MIMU village points v9.7"),
+    dict(id="daunggyi", kind="breach", lon=95.3252, lat=22.9965,
+         name="Daung Gyi", place="Taze Township",
+         head="Mu River embankment breach point",
+         text="Named by AI Info Team as one of three Mu River embankment breaches, alongside Thayethauk and Bogyone.",
+         date="2026-08-08", posts=[9],
+         src="MIMU village points v9.7"),
+    dict(id="nyaungpinwun", kind="infrastructure", lon=95.684, lat=21.9865,
+         name="Nyaung Pin Wun", place="Sagaing Township",
+         head="Monywa-Mandalay highway impassable",
+         text="Fast-flowing water with white-capped waves covered the whole road from the evening of 9 August, reaching the lower doors of vehicles.",
+         date="2026-08-09", posts=[42], approx=True,
+         src="MIMU village points v9.7 - two villages in Sagaing Region share this name; this one sits on the Monywa-Mandalay corridor"),
+    dict(id="gauge_monywa", kind="gauge", lon=95.1396, lat=22.1217,
+         name="Monywa gauge", place="Monywa Township",
+         head="Chindwin at 1025 cm, above danger level",
+         text="The Chindwin rose from 6 August and reached the embankment top on the morning of 9 August. SAC stated the level was about 2 ft below danger while ground observation put it level with the bank.",
+         date="2026-08-09", posts=[40, 41],
+         src="MIMU town points v9.4"),
+    dict(id="gauge_mingin", kind="gauge", lon=94.4942, lat=22.8778,
+         name="Mingin gauge", place="Mingin Township",
+         head="Chindwin at 1350 cm, above danger level",
+         text="The highest Chindwin reading in the DMH daily forecast table for 9 August.",
+         date="2026-08-09", posts=[40],
+         src="MIMU town points v9.4"),
+    dict(id="gauge_kalewa", kind="gauge_watch", lon=94.3004, lat=23.1998,
+         name="Kalewa gauge", place="Kalewa Township",
+         head="Chindwin approaching danger threshold",
+         text="Marked yellow in the DMH daily river forecast for the Chindwin group.",
+         date="2026-08-08", posts=[40], src="MIMU town points v9.4"),
+    dict(id="gauge_homalin", kind="gauge_watch", lon=94.9109, lat=24.8644,
+         name="Homalin gauge", place="Homalin Township",
+         head="Approaching threshold; precautionary measures urged",
+         text="DMH urged precautionary measures for low-lying riverbank areas at Homalin and Paungbyin.",
+         date="2026-08-08", posts=[40], src="MIMU town points v9.4"),
+    dict(id="gauge_paungbyin", kind="gauge_watch", lon=94.8169, lat=24.2677,
+         name="Paungbyin", place="Paungbyin Township",
+         head="Precautionary measures urged for low-lying riverbanks",
+         text="Named with Homalin in the DMH precautionary advisory.",
+         date="2026-08-08", posts=[40], src="MIMU town points v9.4"),
+]
+
+# Places named in posts that could NOT be located in MIMU within the township
+# the post names. Listed rather than plotted, so nothing is placed falsely.
+UNLOCATED = [
+    dict(name="Magyitaw", place="Kanbalu Township", why="No MIMU village of this name in Kanbalu; the only close match sits in Myinmu Township", posts=[10]),
+    dict(name="Thayethauk", place="Mu River embankment", why="No MIMU match in any Mu basin township", posts=[9]),
+    dict(name="Bogyone", place="Mu River embankment", why="No MIMU match in any Mu basin township", posts=[9]),
+]
+
+SOURCE_TYPE_LABEL = {
+    "media_national": "National media",
+    "media_intl": "International media",
+    "media_local": "Local media",
+    "government": "Government / NUG",
+    "pdf": "PDF / armed group",
+    "community_aid": "Community aid group",
+    "community_info": "Community info group",
+    "individual": "Individual / citizen",
+}
+
+
+def main():
+    os.makedirs(OUT, exist_ok=True)
+
+    # sanity: every township referenced by a post must exist in TOWNSHIPS
+    mentioned = Counter()
+    for p in P:
+        for t in p["ts"]:
+            mentioned[t] += 1
+    unknown = set(mentioned) - set(TOWNSHIPS)
+    if unknown:
+        raise SystemExit(f"Township(s) not in assessment table: {unknown}")
+
+    # attach derived mention counts + reverse index post->township
+    for name, rec in TOWNSHIPS.items():
+        rec["name"] = name
+        rec["mentions"] = mentioned.get(name, 0)
+        # posts listed in the assessment must be a superset of direct mentions
+        direct = {p["id"] for p in P if name in p["ts"]}
+        rec["posts"] = sorted(set(rec["posts"]) | direct)
+
+    by_day = Counter(p["dt"][:10] for p in P)
+    by_type = Counter(p["st"] for p in P)
+    by_lang = Counter(p["lang"] for p in P)
+    themes = Counter(t for p in P for t in p["th"])
+
+    doc = dict(
+        meta=dict(
+            title="Sagaing Region Flood Dashboard",
+            event="Mu River basin flooding, Sagaing Region, Myanmar",
+            collection_period=["2026-07-15", "2026-08-11"],
+            collection_date="2026-08-11",
+            posts_preserved=len(P),
+            posts_reviewed="over 90",
+            platform="Facebook",
+            languages=["my", "en", "th"],
+            gis_source="Myanmar Information Management Unit (MIMU) - boundaries v9.4, village points v9.7",
+            disclaimer=(
+                "All figures are as reported by the original posters and are not independently "
+                "verified. Sources disagree, particularly on the death toll; the full reported "
+                "range is preserved rather than reconciled. Absence of reports for a township "
+                "means no post in this collection covered it, not that it was unaffected."),
+        ),
+        posts=P,
+        townships=list(TOWNSHIPS.values()),
+        timeline=TIMELINE,
+        figures=dict(deaths=DEATH_FIGURES, affected=AFFECTED_FIGURES, villages=VILLAGE_FIGURES),
+        causal_chain=CAUSAL_CHAIN,
+        incidents=INCIDENTS,
+        unlocated=UNLOCATED,
+        needs=NEEDS,
+        constraints=CONSTRAINTS,
+        agriculture=AGRI,
+        stats=dict(
+            by_day=dict(sorted(by_day.items())),
+            by_type={SOURCE_TYPE_LABEL[k]: v for k, v in by_type.most_common()},
+            by_lang=dict(by_lang.most_common()),
+            themes=dict(themes.most_common()),
+            township_mentions=dict(mentioned.most_common()),
+        ),
+        source_type_label=SOURCE_TYPE_LABEL,
+    )
+
+    path = os.path.join(OUT, "flood.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
+    print(f"wrote {path}  ({os.path.getsize(path)/1024:.1f} KB)")
+    print(f"  posts={len(P)}  townships assessed={len(TOWNSHIPS)}")
+    print(f"  severity: {Counter(t['severity'] for t in TOWNSHIPS.values()).most_common()}")
+    print(f"  posts by day: {dict(sorted(by_day.items()))}")
+    print(f"  top townships: {mentioned.most_common(8)}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,58 @@
+[
+ {
+  "query": "Magyitaw",
+  "village": "Ma Gyi Taw",
+  "ts": "Myinmu",
+  "dt": "Sagaing",
+  "lon": 95.6587,
+  "lat": 22.0836
+ },
+ {
+  "query": "Htankone",
+  "village": "Htan Kone",
+  "ts": "Kanbalu",
+  "dt": "Kanbalu",
+  "lon": 95.5024,
+  "lat": 23.0722
+ },
+ {
+  "query": "Htankone",
+  "village": "Htan Kone",
+  "ts": "Tigyaing",
+  "dt": "Katha",
+  "lon": 96.0992,
+  "lat": 23.8471
+ },
+ {
+  "query": "Shwe Hlan",
+  "village": "Shwe Hlan",
+  "ts": "Taze",
+  "dt": "Shwebo",
+  "lon": 95.4569,
+  "lat": 22.9377
+ },
+ {
+  "query": "Daunggyi",
+  "village": "Daung Gyi",
+  "ts": "Taze",
+  "dt": "Shwebo",
+  "lon": 95.3252,
+  "lat": 22.9965
+ },
+ {
+  "query": "Nyaungpinwun",
+  "village": "Nyaung Pin Wun",
+  "ts": "Kani",
+  "dt": "Yinmarbin",
+  "lon": 94.8703,
+  "lat": 22.4336
+ },
+ {
+  "query": "Nyaungpinwun",
+  "village": "Nyaung Pin Wun",
+  "ts": "Sagaing",
+  "dt": "Sagaing",
+  "lon": 95.684,
+  "lat": 21.9865
+ }
+]

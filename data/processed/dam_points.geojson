@@ -1,0 +1,1 @@
+{"type":"FeatureCollection","features":[{"type":"Feature","properties":{"cl_nmEng":"Myittha dam","statOperat":"active"},"geometry":{"type":"Point","coordinates":[94.036,21.9935]}},{"type":"Feature","properties":{"cl_nmEng":"Thapanzeik dam","statOperat":"active"},"geometry":{"type":"Point","coordinates":[95.3541,23.3068]}}]}

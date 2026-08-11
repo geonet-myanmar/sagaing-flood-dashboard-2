@@ -1,0 +1,17 @@
+# Raw MIMU downloads (~79 MB, national-extent layers).
+# Fully regenerable: python scripts/01_download_mimu.py
+data/raw/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

@@ -1,0 +1,5 @@
+# Only scripts/03_process_gis.py needs third-party packages.
+# Scripts 01, 02 and 04 run on the Python standard library alone.
+geopandas>=1.0
+shapely>=2.0
+pandas>=2.0
