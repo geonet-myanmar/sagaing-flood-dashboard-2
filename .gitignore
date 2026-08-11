@@ -2,6 +2,10 @@
 # Fully regenerable: python scripts/01_download_mimu.py
 data/raw/
 
+# Artifact fragment: a derived near-duplicate of index.html for a different
+# publishing target. Regenerable: python scripts/04_build_html.py
+dist/
+
 # Python
 __pycache__/
 *.py[cod]

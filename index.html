@@ -1,6 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0e1116" media="(prefers-color-scheme: dark)" />
 <title>Sagaing Flood Dashboard — August 2026</title>
 <meta name="description" content="Interactive situation dashboard for the August 2026 Mu River basin flooding in Sagaing Region, Myanmar. MIMU boundaries with 52 Facebook source reports." />
-
+<meta name="author" content="geonet-myanmar" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23171b21'/%3E%3Cpath d='M8 62c11 0 11-10 22-10s11 10 22 10 11-10 22-10 11 10 18 10' fill='none' stroke='%235598e7' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M8 40c11 0 11-10 22-10s11 10 22 10 11-10 22-10 11 10 18 10' fill='none' stroke='%23c43a2c' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://geonet-myanmar.github.io/sagaing-flood-dashboard-2/" />
+<meta property="og:title" content="Sagaing Flood Dashboard — August 2026" />
+<meta property="og:description" content="Interactive situation dashboard for the August 2026 Mu River basin flooding in Sagaing Region, Myanmar. MIMU boundaries with 52 Facebook source reports." />
+<meta name="twitter:card" content="summary" />
+<style>
+/* minimal reset -- the Artifact platform supplies its own; standalone needs one */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img, svg, canvas { max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+</style>
+</head>
+<body>
 <style>
 /* ============================================================ TOKENS ==== */
 :root {
@@ -1927,3 +1951,6 @@ function wirePostRefs(root) {
   secs.forEach(s => s && io.observe(s));
 })();
 </script>
+
+</body>
+</html>

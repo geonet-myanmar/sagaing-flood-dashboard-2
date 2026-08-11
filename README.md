@@ -59,6 +59,14 @@ scripts/04_build_html.py       inline everything into the template        -> ind
 data/source/               the raw Facebook dataset the analysis is built from
 ```
 
+`src/template.html` is a **body fragment** and the single source of truth. Step 4 emits it twice,
+for the two delivery targets:
+
+| Output | Target | Contents |
+|---|---|---|
+| `index.html` (repo root, committed) | GitHub Pages | Complete standalone document — adds the doctype, charset, `viewport` (without it phones lay the page out at desktop width), an inline SVG favicon, social preview tags and a minimal reset |
+| `dist/artifact-body.html` (gitignored) | Claude Artifact | The same page as a fragment, because that platform wraps the file in its own document skeleton at publish time |
+
 **Never hand-edit `index.html`.** It is generated. Change `src/template.html` (for the app) or
 `scripts/02_build_flood_data.py` (for the analysis) and re-run the build.
 
